@@ -1,0 +1,33 @@
+function Renovar_Productos() { //funcion del criss -----------------------------------
+    //asi lo haciamos en clase
+    //el codigo de las comillas simples es el code HTML que usted quiere agregar
+    //toca ponerlo en una sola linea o sino, no funciona :v
+    document.getElementById("Renovar_productos").innerHTML += '<div class="input-group"><select class="form-select" aria-label="Default select example"><option selected="">Productos</option><option value="1">Q.idacat</option><option value="2">Filpo</option><option value="3">Broiler</option></select><input type="number" class="form-control" id="basic-url" placeholder="Kl" aria-describedby="basic-addon3 basic-addon4"><input type="number" class="form-control" id="basic-url" placeholder="Precio" aria-describedby="basic-addon3 basic-addon4"></div>'
+
+}
+
+function Renovar_Productos2() { //funcion del criss -----------------------------------
+    //lo mismo de arriba pero hecho de otra forma, con una variable
+   let elemento = document.getElementById("Renovar_productos");
+   elemento.innerHTML += '<div class="input-group"><select class="form-select" aria-label="Default select example"><option selected="">Productos</option><option value="1">Q.idacat</option><option value="2">Filpo</option><option value="3">Broiler</option></select><input type="number" class="form-control" id="basic-url" placeholder="Kl" aria-describedby="basic-addon3 basic-addon4"><input type="number" class="form-control" id="basic-url" placeholder="Precio" aria-describedby="basic-addon3 basic-addon4"></div>';
+}
+
+function Renovar_Productos3() { //funcion del criss -----------------------------------
+    //este otro hace lo mismo pero no modifica los anteriores elementos
+    //por ejemplo, ami me reseteaba los elementos seleccionados, con este ya todo va bien 
+    //ahora que veo, se puede simplificar xd ya lo hago pere
+    let Agregar_producto = document.createElement("div"); // crea un nuevo elemento <div>
+    Agregar_producto.classList.add("input-group"); // agrega la clase "input-group" al nuevo elemento
+    Agregar_producto.innerHTML = '<select class="form-select" aria-label="Default select example"><option selected="">Productos</option><option value="1">Q.idacat</option><option value="2">Filpo</option><option value="3">Broiler</option></select><input type="number" class="form-control" id="basic-url" placeholder="Kl" aria-describedby="basic-addon3 basic-addon4"><input type="number" class="form-control" id="basic-url" placeholder="Precio" aria-describedby="basic-addon3 basic-addon4">'; // agrega el código HTML dentro del nuevo elemento
+  
+    document.getElementById("Renovar_productos").appendChild(Agregar_producto); // agrega el nuevo elemento como hijo del elemento con el ID "Renovar_productos"
+  }
+
+  function Renovar_Productos_def() { //funcion del criss -----------------------------------
+    //Lo mismo de arriba, pero mas simplificado
+    let Agregar_producto = document.createElement("div"); // crea un nuevo elemento <div>
+    Agregar_producto.innerHTML = '<div class="input-group"><select class="form-select" aria-label="Default select example"><option selected="">Productos</option><option value="1">Q.idacat</option><option value="2">Filpo</option><option value="3">Broiler</option></select><input type="number" class="form-control" id="basic-url" placeholder="Kl" aria-describedby="basic-addon3 basic-addon4"><input type="number" class="form-control" id="basic-url" placeholder="Precio" aria-describedby="basic-addon3 basic-addon4"></div>';
+
+    document.getElementById("Renovar_productos").appendChild(Agregar_producto); // agrega el nuevo elemento como hijo del elemento con el ID "Renovar_productos"
+  }
+  
