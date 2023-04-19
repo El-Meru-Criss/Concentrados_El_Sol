@@ -7,6 +7,7 @@
     <!-- <link rel="stylesheet" href="./personalizados/css/barra_navegacion.css">    -->
     <link rel="stylesheet" href="./fontawesome-free-6.4.0-web/css/all.min.css">
     <link rel="stylesheet" href="./bootstrap-5.3.0-alpha3-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./sweetalert2-11.7.3/package/dist/sweetalert2.all.min.js">
     <link rel="stylesheet" href="./personalizados/css/personalizado.css">
     <title>Inventario</title>
 </head>
@@ -67,6 +68,12 @@
     </header> -->
 
       <!-- Modals ocultos -->
+
+      <!-- general -->
+
+      <div class="modal fade" id="Modal_general" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        
+      </div>
 
       <!-- busqueda -->
       <div class="modal fade" id="buscar_producto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -239,13 +246,11 @@
           <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#administrar_proovedores"><i class="fa-solid fa-address-card"></i></button>
           <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#buscar_producto"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>     
-      </div>
-
-      
+      </div>      
 
       <!-- tablas -->
 
-      <div class="table-responsive">
+      <div class="table-responsive" id="Tabla_Inventario">
         <table class="table">
             <thead class="table-dark">
               <tr>
@@ -260,7 +265,18 @@
             <tbody>
               <tr>
                 <td>
-                    <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+                  <button onclick="eliminar_inventario()" type="button" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+                  <button type="button" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-pen"></i></button>
+              </td>
+                <td>Q.idacat</td>
+                <td>80</td>
+                <td>8600</td>
+                <td>07/abril/2023</td>
+                <td>07/diciembre/2023</td>
+              </tr>
+              <tr>
+                <td>
+                    <button onclick="eliminar_inventario()" type="button" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
                     <button type="button" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-pen"></i></button>
                 </td>
                 <td>Q.idacat</td>
@@ -271,20 +287,9 @@
               </tr>
               <tr>
                 <td>
-                    <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                    <button type="button" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-pen"></i></button>
-                </td>
-                <td>Q.idacat</td>
-                <td>80</td>
-                <td>8600</td>
-                <td>07/abril/2023</td>
-                <td>07/diciembre/2023</td>
-              </tr>
-              <tr>
-                <td>
-                    <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                    <button type="button" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-pen"></i></button>
-                </td>
+                  <button onclick="eliminar_inventario()" type="button" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+                  <button type="button" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-pen"></i></button>
+              </td>
                 <td>Q.idacat</td>
                 <td>80</td>
                 <td>8600</td>
@@ -301,8 +306,10 @@
 
 
     <!-- Scripts, funcionalidades y JS -->
-    <script src="bootstrap-5.3.0-alpha3-dist/js/bootstrap.min.js"></script>
     <script src="./personalizados/js/funciones.js"></script>
+    <script src="./sweetalert2-11.7.3/package/dist/sweetalert2.all.min.js"></script>
+    <script src="bootstrap-5.3.0-alpha3-dist/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 
 </html>

@@ -30,4 +30,30 @@ function Renovar_Productos3() { //funcion del criss ----------------------------
 
     document.getElementById("Renovar_productos").appendChild(Agregar_producto); // agrega el nuevo elemento como hijo del elemento con el ID "Renovar_productos"
   }
-  
+
+  function revelar_tabla() {
+    $.get("./Elementos-Ocultos/tabla.html", function(data) {
+      $("#Prueba_tablaOculta").html(data);
+    });
+  }
+
+  function eliminar_inventario() {
+    Swal.fire({
+      title: 'Eliminar del inventario?',
+      text: "No podras revocar esta accion",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Eliminado!',
+          'Se ha eliminado del inventario con exito',
+          'success'
+        )
+      }
+    })
+  }
