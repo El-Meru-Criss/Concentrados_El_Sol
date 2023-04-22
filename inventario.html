@@ -113,9 +113,9 @@
                     <th scope="col">Opciones</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="lista_provedoores">
                     <tr>
-                        <th>Carlos</th>
+                        <th>persona de ejemplo</th>
                         <th>
                             <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
                             <button type="button" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-pen"></i></button>
@@ -243,7 +243,7 @@
         <div class="btn-group btn-group-lg" role="group" aria-label="Basic mixed styles example">
           <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#crear_productos"><i class="fa-solid fa-circle-plus"></i></button>
           <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#Renovar"><i class="fa-sharp fa-solid fa-recycle"></i></button>
-          <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#administrar_proovedores"><i class="fa-solid fa-address-card"></i></button>
+          <button onclick="mostrar_provedores()" type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#administrar_proovedores"><i class="fa-solid fa-address-card"></i></button>
           <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#buscar_producto"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>     
       </div>      

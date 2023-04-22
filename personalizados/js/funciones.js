@@ -57,3 +57,53 @@ function Renovar_Productos3() { //funcion del criss ----------------------------
       }
     })
   }
+
+  function mostrar_provedores() {
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/mostrar_proveedores_modal.php",
+      success:function(d) {
+          
+          $("#lista_provedoores").html(d);
+      }
+    })
+    
+  }
+
+  function eliminar_proveedor(idproveedor) {
+
+    Swal.fire({
+      title: 'Descartar este Proveedor?',
+      text: "no podras revocar esta opcion",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: 'success',
+      confirmButtonText: 'descartar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        var datos = { //capturo los datos
+          "idproveedor":idproveedor
+        };
+    
+        $.ajax({
+          type: "POST",
+          url: "controlador/eliminar_proveedor.php",
+          data:datos,
+          success:function(d) {
+            Swal.fire(
+              'Eliminado!',
+              'Has eliminado con exito este proveedor.',
+              'success'
+            );
+            mostrar_provedores();
+          }
+        })  
+      }
+    })
+
+    
+    
+  }
