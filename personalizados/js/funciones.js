@@ -31,6 +31,98 @@ function Renovar_Productos3() { //funcion del criss ----------------------------
     document.getElementById("Renovar_productos").appendChild(Agregar_producto); // agrega el nuevo elemento como hijo del elemento con el ID "Renovar_productos"
   }
 
+  var contador=0;//variable de apoyo para determinar la identidad de cada producto
+  function Agregar_producto_renovar() {
+
+    contador += 1;
+
+    var datos = {
+      "provedores_renovar":$("#provedores_renovar").val(),
+      "idcasilla":contador
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/Agregar_producto_renovar.php",
+      data:datos,
+      success:function(d) {
+          $("#Renovar_productos").append(d);
+      }
+    })
+    
+  }
+
+  function Realizar_Pedido() {
+    var Productos = [];
+  
+    $('.productos_renovar').each(function() {
+      Productos.push($(this).val());
+    });
+
+    var cantidad = [];
+  
+    $('.cantidad_renovar').each(function() {
+      cantidad.push($(this).val());
+    });
+
+    var Precios = [];
+  
+    $('.precio_renovar').each(function() {
+      Precios.push($(this).val());
+    });
+  
+    var mensaje = 'Productos: ';
+
+    var total = 0;
+  
+    for (let i = 0; i < Productos.length; i++) {
+      mensaje += Productos[i] + '= ' + cantidad[i] + ' * ' + Precios[i] + ', ';
+      total += cantidad[i] * Precios[i];
+    }
+  
+    alert(mensaje);
+
+    var mensaje2 = 'Total a consignar: ' + total;
+
+    document.getElementById("renovar_valor_total").innerHTML = mensaje2;
+
+
+  }
+
+  function renovar_valor_total() {
+    var cantidad = [];
+  
+    $('.cantidad_renovar').each(function() {
+      cantidad.push($(this).val());
+    });
+
+    var Precios = [];
+  
+    $('.precio_renovar').each(function() {
+      Precios.push($(this).val());
+    });
+
+    var total = 0;
+  
+    for (let i = 0; i < cantidad.length; i++) {
+      total += cantidad[i] * Precios[i];
+    }
+
+    var mensaje2 = 'Total a consignar: ' + total;
+
+    document.getElementById("renovar_valor_total").innerHTML = mensaje2;
+  }
+
+  
+
+  function precio_renovar(precio,id_casilla) {
+   var nombre_id = "precio" + id_casilla;
+   document.getElementById(nombre_id).value = precio;
+  }
+  
+
+  
+
   function revelar_tabla() {
     $.get("./Elementos-Ocultos/tabla.html", function(data) {
       $("#Prueba_tablaOculta").html(data);
@@ -69,6 +161,89 @@ function Renovar_Productos3() { //funcion del criss ----------------------------
       }
     })
     
+  }
+
+  function mostrar_provedores_producto() {
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/mostrar_provedores_producto.php",
+      success:function(d) {
+          
+          $("#proveedores_crear_producto").html(d);
+      }
+    })
+    
+  }
+
+  function provedores_renovar() {
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/provedores_renovar.php",
+      success:function(d) {
+          
+          $("#provedores_renovar").html(d);
+      }
+    })
+    
+  }
+
+  function seleccionar_producto() {
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/seleccionar_producto.php",
+      success:function(d) {
+          
+          $("#seleccionar_producto").html(d);
+      }
+    })
+    
+  }
+
+  function crear_producto() {
+
+    var datos = {
+      "producto_nombre":$("#producto_nombre").val()
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/crear_producto.php",
+      data:datos,
+      success:function(d) {
+        Swal.fire(
+          'Creado!',
+          'Has creado con exito este producto.',
+          'success'
+        );
+        
+      }
+    })
+  }
+
+  function Producto_y_proveedor() {
+
+    var datos = {
+      "seleccionar_producto":$("#seleccionar_producto").val(),
+      "proveedores_crear_producto":$("#proveedores_crear_producto").val(),
+      "producto_precio":$("#producto_precio").val(),
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/Producto_y_proveedor.php",
+      data:datos,
+      success:function(d) {
+        Swal.fire(
+          'Creado!',
+          'Has creado con exito este producto.',
+          'success'
+        );
+        
+      }
+    })
   }
 
   function eliminar_proveedor(idproveedor) {

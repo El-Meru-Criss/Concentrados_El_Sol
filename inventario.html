@@ -144,11 +144,9 @@
 
               <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Proveedor:</span>
-                <select class="form-select" aria-label="Default select example">
-                  <option selected="">seleccionar</option>
-                  <option value="1">Carlos</option>
-                  <option value="2">Distri Aves</option>
-                  <option value="3">Italcol</option>
+                <select class="form-select" aria-label="Default select example" id="provedores_renovar">
+                  <option selected=""> </option>
+                  <option class="text-bg-dark" onclick="provedores_renovar()">actualizar</option>
                 </select>
               </div>
 
@@ -165,10 +163,10 @@
                   <input type="number" class="form-control" id="basic-url" placeholder="Precio" aria-describedby="basic-addon3 basic-addon4">
                 </div>
                 <div id="Renovar_productos"></div>
-                <button type="button" class="btn btn-outline-success mt-1" onclick="Renovar_Productos_def()"><i class="fa-solid fa-circle-plus"></i> </button>
+                <button type="button" class="btn btn-outline-success mt-1" onclick="Agregar_producto_renovar()"><i class="fa-solid fa-circle-plus"></i> </button>
               </div>
 
-              <h2>Total a consignar: 3000000</h2>
+              <h3 class="text-center" id="renovar_valor_total">Total a consignar: 0</h3>
 
             </div>
             <div class="modal-footer bg-success text-light align-content-center align-items-center justify-content-center text-center">
@@ -177,7 +175,7 @@
 
                 <button type="button" class="btn btn-outline-light"><i class="fa-solid fa-share-nodes"></i></button>
                 <button type="button" class="btn btn-outline-light"><i class="fa-regular fa-circle-down"></i></button>
-                <button type="button" class="btn btn-success"><i class="fa-solid fa-clipboard-list"></i> Terminar lista</button>
+                <button onclick="Realizar_Pedido()" type="button" class="btn btn-success"><i class="fa-solid fa-clipboard-list"></i> Terminar lista</button>
 
               </div>
               
@@ -195,23 +193,49 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <p>Aqui podras crear productos nuevos para pedir a proveedores!</p>
+              <p class="text-center">Aqui podras crear productos nuevos!</p>
 
               <div class="mb-3">
                 
                 <div class="input-group">
-                  <input type="text" class="form-control" id="basic-url" placeholder="Nombre del producto nuevo" aria-describedby="basic-addon3 basic-addon4">
+                  <input type="text" class="form-control" id="producto_nombre" placeholder="Nombre del producto nuevo" aria-describedby="basic-addon3 basic-addon4">
                 </div>
 
               </div>
 
+              <div class="mb-3" style="display: none;">
+                
+                <div class="input-group">
+                  <input type="number" class="form-control" id="producto_duracion" placeholder="Duracion promedio (en meses)" aria-describedby="basic-addon3 basic-addon4">
+                </div>
+
+              </div>
+
+              <div class="m-1 d-grid gap-2">
+
+                <button onclick="crear_producto()" type="button" class="btn btn-primary"><i class="fa-solid fa-circle-plus"></i> Crear</button>
+                
+              </div>
+
+              <hr>
+
+              <p class="text-center">Aqui podras digitar el precio de un producto y su proveedor!</p>
+
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Producto:</span>
+                <select class="form-select" id="seleccionar_producto" aria-label="Default select example">
+                  <option selected="">  </option>
+                  <option class="text-bg-dark" onclick="seleccionar_producto()">actualizar</option>
+                  <option value="1">ejemplo</option>
+                </select>
+              </div>
+
               <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Proveeido por:</span>
-                <select class="form-select" aria-label="Default select example">
-                  <option selected="">seleccionar</option>
-                  <option value="1">Carlos</option>
-                  <option value="2">Distri Aves</option>
-                  <option value="3">Italcol</option>
+                <select class="form-select" id="proveedores_crear_producto" aria-label="Default select example">
+                  <option selected="">  </option>
+                  <option class="text-bg-dark" onclick="mostrar_provedores_producto()">actualizar</option>
+                  <option value="1">ejemplo</option>
                 </select>
               </div>
 
@@ -219,19 +243,21 @@
                 
                 <div class="input-group">
                   <span class="input-group-text" id="basic-addon1">$</span>
-                  <input type="number" class="form-control" id="basic-url" placeholder="Precio de compra" aria-describedby="basic-addon3 basic-addon4">
+                  <input type="number" class="form-control" id="producto_precio" placeholder="Precio de compra" aria-describedby="basic-addon3 basic-addon4">
                 </div>
 
+              </div>
+
+              <div class="m-1 d-grid gap-2">
+
+                <button onclick="Producto_y_proveedor()" type="button" class="btn btn-primary"><i class="fa-solid fa-retweet"></i> Asociar</button>
+                
               </div>
 
             </div>
             <div class="modal-footer bg-primary text-light align-content-center align-items-center justify-content-center text-center">
               
-              <div class="m-1 d-grid gap-2">
-
-                <button type="button" class="btn btn-primary"><i class="fa-solid fa-circle-plus"></i> Crear</button>
-                
-              </div>
+              
               
             </div>
           </div>
