@@ -1,35 +1,3 @@
-function Renovar_Productos() { //funcion del criss -----------------------------------
-    //asi lo haciamos en clase
-    //el codigo de las comillas simples es el code HTML que usted quiere agregar
-    //toca ponerlo en una sola linea o sino, no funciona :v
-    document.getElementById("Renovar_productos").innerHTML += '<div class="input-group"><select class="form-select" aria-label="Default select example"><option selected="">Productos</option><option value="1">Q.idacat</option><option value="2">Filpo</option><option value="3">Broiler</option></select><input type="number" class="form-control" id="basic-url" placeholder="Kl" aria-describedby="basic-addon3 basic-addon4"><input type="number" class="form-control" id="basic-url" placeholder="Precio" aria-describedby="basic-addon3 basic-addon4"></div>'
-
-}
-
-function Renovar_Productos2() { //funcion del criss -----------------------------------
-    //lo mismo de arriba pero hecho de otra forma, con una variable
-   let elemento = document.getElementById("Renovar_productos");
-   elemento.innerHTML += '<div class="input-group"><select class="form-select" aria-label="Default select example"><option selected="">Productos</option><option value="1">Q.idacat</option><option value="2">Filpo</option><option value="3">Broiler</option></select><input type="number" class="form-control" id="basic-url" placeholder="Kl" aria-describedby="basic-addon3 basic-addon4"><input type="number" class="form-control" id="basic-url" placeholder="Precio" aria-describedby="basic-addon3 basic-addon4"></div>';
-}
-
-function Renovar_Productos3() { //funcion del criss -----------------------------------
-    //este otro hace lo mismo pero no modifica los anteriores elementos
-    //por ejemplo, ami me reseteaba los elementos seleccionados, con este ya todo va bien 
-    //ahora que veo, se puede simplificar xd ya lo hago pere
-    let Agregar_producto = document.createElement("div"); // crea un nuevo elemento <div>
-    Agregar_producto.classList.add("input-group"); // agrega la clase "input-group" al nuevo elemento
-    Agregar_producto.innerHTML = '<select class="form-select" aria-label="Default select example"><option selected="">Productos</option><option value="1">Q.idacat</option><option value="2">Filpo</option><option value="3">Broiler</option></select><input type="number" class="form-control" id="basic-url" placeholder="Kl" aria-describedby="basic-addon3 basic-addon4"><input type="number" class="form-control" id="basic-url" placeholder="Precio" aria-describedby="basic-addon3 basic-addon4">'; // agrega el código HTML dentro del nuevo elemento
-  
-    document.getElementById("Renovar_productos").appendChild(Agregar_producto); // agrega el nuevo elemento como hijo del elemento con el ID "Renovar_productos"
-  }
-
-  function Renovar_Productos_def() { //funcion del criss -----------------------------------
-    //Lo mismo de arriba, pero mas simplificado
-    let Agregar_producto = document.createElement("div"); // crea un nuevo elemento <div>
-    Agregar_producto.innerHTML = '<div class="input-group"><select class="form-select" aria-label="Default select example"><option selected="">Productos</option><option value="1">Q.idacat</option><option value="2">Filpo</option><option value="3">Broiler</option></select><input type="number" class="form-control" id="basic-url" placeholder="Kl" aria-describedby="basic-addon3 basic-addon4"><input type="number" class="form-control" id="basic-url" placeholder="Precio" aria-describedby="basic-addon3 basic-addon4"></div>';
-
-    document.getElementById("Renovar_productos").appendChild(Agregar_producto); // agrega el nuevo elemento como hijo del elemento con el ID "Renovar_productos"
-  }
 
   var contador=0;//variable de apoyo para determinar la identidad de cada producto
   function Agregar_producto_renovar() {
@@ -65,28 +33,40 @@ function Renovar_Productos3() { //funcion del criss ----------------------------
       cantidad.push($(this).val());
     });
 
-    var Precios = [];
-  
-    $('.precio_renovar').each(function() {
-      Precios.push($(this).val());
-    });
-  
-    var mensaje = 'Productos: ';
+    Swal.fire({
+      title: 'Realizar Pedido?',
+      text: "Podras revocar esta accion despues si deseas!",
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Realizar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
 
-    var total = 0;
-  
-    for (let i = 0; i < Productos.length; i++) {
-      mensaje += Productos[i] + '= ' + cantidad[i] + ' * ' + Precios[i] + ', ';
-      total += cantidad[i] * Precios[i];
-    }
-  
-    alert(mensaje);
-
-    var mensaje2 = 'Total a consignar: ' + total;
-
-    document.getElementById("renovar_valor_total").innerHTML = mensaje2;
-
-
+        var datos = {
+          "Productos":Productos,
+          "cantidad":cantidad,
+          "renovar_valor_total":$("#renovar_valor_total").val(),
+          "provedores_renovar":$("#provedores_renovar").val(),
+        }
+    
+        $.ajax({
+          type: "POST",
+          url: "controlador/Realizar_Pedido.php",
+          data:datos,
+          success:function(d) {
+            Swal.fire(
+              'Realizado!',
+              'Se ha realizado el pedido con exito!',
+              'success'
+            )
+          }
+        })
+      }
+    })
+    
   }
 
   function renovar_valor_total() {
@@ -110,7 +90,7 @@ function Renovar_Productos3() { //funcion del criss ----------------------------
 
     var mensaje2 = 'Total a consignar: ' + total;
 
-    document.getElementById("renovar_valor_total").innerHTML = mensaje2;
+    document.getElementById("renovar_valor_total").value = total;
   }
 
   
@@ -120,14 +100,6 @@ function Renovar_Productos3() { //funcion del criss ----------------------------
    document.getElementById(nombre_id).value = precio;
   }
   
-
-  
-
-  function revelar_tabla() {
-    $.get("./Elementos-Ocultos/tabla.html", function(data) {
-      $("#Prueba_tablaOculta").html(data);
-    });
-  }
 
   function eliminar_inventario() {
     Swal.fire({
@@ -161,6 +133,30 @@ function Renovar_Productos3() { //funcion del criss ----------------------------
       }
     })
     
+  }
+
+  function crear_proveedor() {
+
+    var datos = {
+      "Nombre_proveedor":$("#Nombre_proveedor").val(),
+      "Proveedor_telefono":$("#Proveedor_telefono").val(),
+      "Proveedor_banco":$("#Proveedor_banco").val()
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/crear_proveedor.php",
+      data:datos,
+      success:function(d) {
+        mostrar_provedores();
+        Swal.fire(
+          'Creado!',
+          'Has creado con exito este provvedor!.',
+          'success'
+        );
+        
+      }
+    })
   }
 
   function mostrar_provedores_producto() {

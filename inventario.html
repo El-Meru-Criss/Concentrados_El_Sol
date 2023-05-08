@@ -7,7 +7,6 @@
     <!-- <link rel="stylesheet" href="./personalizados/css/barra_navegacion.css">    -->
     <link rel="stylesheet" href="./fontawesome-free-6.4.0-web/css/all.min.css">
     <link rel="stylesheet" href="./bootstrap-5.3.0-alpha3-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./sweetalert2-11.7.3/package/dist/sweetalert2.all.min.js">
     <link rel="stylesheet" href="./personalizados/css/personalizado.css">
     <title>Inventario</title>
 </head>
@@ -125,11 +124,60 @@
               </table>
             </div>
             <div class="modal-footer bg-info text-light align-content-center align-items-center justify-content-center text-center">
-                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-circle-plus"></i> Agregar</button>
+                <button type="button" class="btn btn-info" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal"><i class="fa-solid fa-circle-plus"></i> Agregar</button>
             </div>
           </div>
         </div>
       </div>
+
+      <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header bg-info align-content-center align-items-center justify-content-center text-center">
+              <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Crear Proveedor</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+              <p>Aqui podras crear proveedores!</p>
+              
+              <div class="mb-3">
+                
+                <div class="input-group">
+                  <span class="input-group-text" id="basic-addon1">Nombre: </span>
+                  <input type="text" class="form-control" id="Nombre_proveedor" placeholder="Nombre del proveedor" aria-describedby="basic-addon3 basic-addon4">
+                </div>
+
+              </div>
+
+              <div class="mb-3">
+                
+                <div class="input-group">
+                  <span class="input-group-text" id="basic-addon1">Telefono: </span>
+                  <input type="text" class="form-control" id="Proveedor_telefono" placeholder="opcional!" aria-describedby="basic-addon3 basic-addon4">
+                </div>
+
+              </div>
+
+              <div class="mb-3">
+                
+                <div class="input-group">
+                  <span class="input-group-text" id="basic-addon1">Cuenta Bancaria: </span>
+                  <input type="text" class="form-control" id="Proveedor_banco" placeholder="Tambien es opcional! :D" aria-describedby="basic-addon3 basic-addon4">
+                </div>
+
+              </div>
+
+              
+
+            </div>
+            <div class="modal-footer bg-info text-light align-content-center align-items-center justify-content-center text-center">
+              <button class="btn btn-info" onclick="crear_proveedor()" data-bs-target="#administrar_proovedores" data-bs-toggle="modal"> <i class="fa-solid fa-circle-plus"></i> Crear</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <!-- Renovar Inventario -->
       <div class="modal fade" id="Renovar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -166,7 +214,23 @@
                 <button type="button" class="btn btn-outline-success mt-1" onclick="Agregar_producto_renovar()"><i class="fa-solid fa-circle-plus"></i> </button>
               </div>
 
-              <h3 class="text-center" id="renovar_valor_total">Total a consignar: 0</h3>
+              
+
+              <!-- <div class="mb-3 row align-content-center align-items-center justify-content-center text-center">
+                <h3 class="w-auto" id="renovar_valor_total">Total a consignar: </h3>
+                <div class="col-sm-5">
+                  <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="50000000">
+                </div>
+              </div> -->
+
+              <div class="mb-3 align-content-center align-items-center justify-content-center text-center">
+                
+                <div class="input-group">
+                  <span class="input-group-text" id="basic-addon1">Total a consignar: </span>
+                  <input type="number" disabled class="form-control" value="0" id="renovar_valor_total" placeholder="Precio de compra" aria-describedby="basic-addon3 basic-addon4">
+                </div>
+
+              </div>
 
             </div>
             <div class="modal-footer bg-success text-light align-content-center align-items-center justify-content-center text-center">
@@ -174,7 +238,7 @@
               <div class="m-1">
 
                 <button type="button" class="btn btn-outline-light"><i class="fa-solid fa-share-nodes"></i></button>
-                <button type="button" class="btn btn-outline-light"><i class="fa-regular fa-circle-down"></i></button>
+                <button onclick="Realizar_Pedido2()" type="button" class="btn btn-outline-light"><i class="fa-regular fa-circle-down"></i></button>
                 <button onclick="Realizar_Pedido()" type="button" class="btn btn-success"><i class="fa-solid fa-clipboard-list"></i> Terminar lista</button>
 
               </div>
@@ -277,6 +341,9 @@
       <!-- tablas -->
 
       <div class="table-responsive" id="Tabla_Inventario">
+
+
+
         <table class="table">
             <thead class="table-dark">
               <tr>
@@ -298,7 +365,9 @@
                 <td>80</td>
                 <td>8600</td>
                 <td>07/abril/2023</td>
-                <td>07/diciembre/2023</td>
+                <td>
+                  <input type="date" class="form-control-plaintext form-control-sm" id="F_vencimiento">
+                </td>
               </tr>
               <tr>
                 <td>
@@ -324,6 +393,47 @@
               </tr>
             </tbody>
           </table>
+
+
+
+          <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Accordion Item #1
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Accordion Item #2
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Accordion Item #3
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                </div>
+              </div>
+            </div>
+          </div>
       </div>
 
       
