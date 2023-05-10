@@ -20,14 +20,14 @@
 ?>
 
 <div class="input-group">
-    <select class="form-select productos_renovar" aria-label="Default select example">
+    <select onchange="precio_renovar(<?php echo $idcasilla ?>)" id="producto<?php echo $idcasilla ?>" class="form-select productos_renovar" aria-label="Default select example">
         <option selected=""> </option>
 
         <?php //inicio del ciclo para ir colocando HTML 
 
         while ($prod = mysqli_fetch_array($productos)) { ?>
 
-            <option onclick="precio_renovar(<?php echo $prod['precio'] ?>,<?php echo $idcasilla ?>)" value="<?php echo $prod['producto_idproducto'] ?>"><?php echo $prod['nombre_producto'] ?></option>            
+            <option data-precio="<?php echo $prod['precio'] ?>" value="<?php echo $prod['producto_idproducto'] ?>"><?php echo $prod['nombre_producto'] ?></option>            
 
         <?php } //fin del ciclo
 

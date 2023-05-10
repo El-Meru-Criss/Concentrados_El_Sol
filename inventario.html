@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <!-- <link rel="stylesheet" href="./personalizados/css/barra_navegacion.css">    -->
+    <link rel="stylesheet" href="./personalizados/css/estilos.css">   
     <link rel="stylesheet" href="./fontawesome-free-6.4.0-web/css/all.min.css">
     <link rel="stylesheet" href="./bootstrap-5.3.0-alpha3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./personalizados/css/personalizado.css">
@@ -13,7 +13,7 @@
 <body>
 
     <!-- navbar bootstrap --------------------------------------- -->
-    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+    <!-- <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Navbar</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,12 +44,12 @@
             </ul>
           </div>
         </div>
-      </nav>
+      </nav> -->
 
 
       <!-- navbar steven -->
 
-      <!-- <header>
+      <header>
         <a href="#" class="logo">
             <span>CONCENTRADOS</span>elSol
         </a>
@@ -64,7 +64,7 @@
             <a href=""></a>
             <a href=""></a>
         </nav>
-    </header> -->
+    </header>
 
       <!-- Modals ocultos -->
 
@@ -194,34 +194,22 @@
                 <span class="input-group-text" id="basic-addon1">Proveedor:</span>
                 <select class="form-select" aria-label="Default select example" id="provedores_renovar">
                   <option selected=""> </option>
-                  <option class="text-bg-dark" onclick="provedores_renovar()">actualizar</option>
                 </select>
+                <button type="button" onclick="provedores_renovar()" class="btn btn-outline-primary"><i class="fa-solid fa-rotate-right"></i></button>
               </div>
 
               <div class="mb-3">
                 
                 <div class="input-group">
-                  <select class="form-select" aria-label="Default select example">
+                  <select disabled class="form-select" aria-label="Default select example">
                     <option selected="">Productos</option>
-                    <option value="1">Q.idacat</option>
-                    <option value="2">Filpo</option>
-                    <option value="3">Broiler</option>
                   </select>
-                  <input type="number" class="form-control" id="basic-url" placeholder="Kl" aria-describedby="basic-addon3 basic-addon4">
-                  <input type="number" class="form-control" id="basic-url" placeholder="Precio" aria-describedby="basic-addon3 basic-addon4">
+                  <input disabled type="number" class="form-control" id="basic-url" placeholder="Kl" aria-describedby="basic-addon3 basic-addon4">
+                  <input disabled type="number" class="form-control" id="basic-url" placeholder="Precio" aria-describedby="basic-addon3 basic-addon4">
                 </div>
                 <div id="Renovar_productos"></div>
                 <button type="button" class="btn btn-outline-success mt-1" onclick="Agregar_producto_renovar()"><i class="fa-solid fa-circle-plus"></i> </button>
               </div>
-
-              
-
-              <!-- <div class="mb-3 row align-content-center align-items-center justify-content-center text-center">
-                <h3 class="w-auto" id="renovar_valor_total">Total a consignar: </h3>
-                <div class="col-sm-5">
-                  <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="50000000">
-                </div>
-              </div> -->
 
               <div class="mb-3 align-content-center align-items-center justify-content-center text-center">
                 
@@ -289,18 +277,16 @@
                 <span class="input-group-text" id="basic-addon1">Producto:</span>
                 <select class="form-select" id="seleccionar_producto" aria-label="Default select example">
                   <option selected="">  </option>
-                  <option class="text-bg-dark" onclick="seleccionar_producto()">actualizar</option>
-                  <option value="1">ejemplo</option>
                 </select>
+                <button type="button" onclick="seleccionar_producto()" class="btn btn-outline-primary"><i class="fa-solid fa-rotate-right"></i></button>
               </div>
 
               <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Proveeido por:</span>
                 <select class="form-select" id="proveedores_crear_producto" aria-label="Default select example">
                   <option selected="">  </option>
-                  <option class="text-bg-dark" onclick="mostrar_provedores_producto()">actualizar</option>
-                  <option value="1">ejemplo</option>
                 </select>
+                <button type="button" onclick="mostrar_provedores_producto()" class="btn btn-outline-primary"><i class="fa-solid fa-rotate-right"></i></button>
               </div>
 
               <div class="mb-3">
@@ -328,13 +314,17 @@
         </div>
       </div>
 
-      <!-- Botones -->
+      <!-- section del steven  -->
+
+      <section class="tablas">
+
+        <!-- Botones -->
       <div class="m-1 align-content-center align-items-center justify-content-center text-center">
         <div class="btn-group btn-group-lg" role="group" aria-label="Basic mixed styles example">
-          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#crear_productos"><i class="fa-solid fa-circle-plus"></i></button>
-          <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#Renovar"><i class="fa-sharp fa-solid fa-recycle"></i></button>
-          <button onclick="mostrar_provedores()" type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#administrar_proovedores"><i class="fa-solid fa-address-card"></i></button>
-          <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#buscar_producto"><i class="fa-solid fa-magnifying-glass"></i></button>
+          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#crear_productos"><i class="fa-solid fa-circle-plus"></i> Productos</button>
+          <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#Renovar"><i class="fa-sharp fa-solid fa-recycle"></i> Pedidos</button>
+          <button onclick="mostrar_provedores()" type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#administrar_proovedores"><i class="fa-solid fa-address-card"></i> Proveedores</button>
+          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#buscar_producto"><i class="fa-solid fa-magnifying-glass"></i> Busquedas</button>
         </div>     
       </div>      
 
@@ -344,8 +334,8 @@
 
 
 
-        <table class="table">
-            <thead class="table-dark">
+        <table class="table tabla-deudores">
+            <thead class="">
               <tr>
                 <th scope="col">Opciones</th>
                 <th scope="col">Producto</th>
@@ -396,63 +386,68 @@
 
 
 
-          <div class="accordion p-2" id="accordionExample">
-            <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  Italcol - 14/03/2003
-                </button>
-              </h2>
-              <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <button type="button" class="btn btn-outline-success">Recibir</button>
-                  <button type="button" class="btn btn-outline-danger">Cancelar</button>
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">Producto</th>
-                        <th scope="col">Cantidad</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Perro</td>
-                        <td>7</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  Contegral - 14/03/2003
-                </button>
-              </h2>
-              <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <button type="button" class="btn btn-outline-success">Recibir</button>
-                  <button type="button" class="btn btn-outline-danger">Cancelar</button>
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">Producto</th>
-                        <th scope="col">Cantidad</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Perro</td>
-                        <td>7</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+          
+      </div>
+
+      <div class="accordion p-2" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button bg-dark text-warning" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Italcol - 14/03/2003
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <button type="button" class="btn btn-outline-success">Recibir</button>
+              <button type="button" class="btn btn-outline-danger">Cancelar</button>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Cantidad</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Perro</td>
+                    <td>7</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Contegral - 14/03/2003
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <button type="button" class="btn btn-outline-success">Recibir</button>
+              <button type="button" class="btn btn-outline-danger">Cancelar</button>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Cantidad</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Perro</td>
+                    <td>7</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
+      </section>
+
+      
 
       
       

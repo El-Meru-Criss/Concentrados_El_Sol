@@ -95,8 +95,11 @@
 
   
 
-  function precio_renovar(precio,id_casilla) {
+  function precio_renovar(id_casilla) {
    var nombre_id = "precio" + id_casilla;
+   var producto_id = "producto" + id_casilla;
+   var precio = 0
+   precio = $("#" + producto_id + " option:selected").attr("data-precio");
    document.getElementById(nombre_id).value = precio;
   }
   
