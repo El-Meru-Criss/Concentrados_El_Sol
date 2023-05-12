@@ -225,8 +225,8 @@
               
               <div class="m-1">
 
-                <button type="button" class="btn btn-outline-light"><i class="fa-solid fa-share-nodes"></i></button>
-                <button onclick="Realizar_Pedido2()" type="button" class="btn btn-outline-light"><i class="fa-regular fa-circle-down"></i></button>
+                <button onclick="pedidos_proveedores()" type="button" class="btn btn-outline-light"><i class="fa-solid fa-truck-fast"></i> Ver Pedidos</button>
+                <button type="button" class="btn btn-outline-light"><i class="fa-regular fa-circle-down"></i></button>
                 <button onclick="Realizar_Pedido()" type="button" class="btn btn-success"><i class="fa-solid fa-clipboard-list"></i> Terminar lista</button>
 
               </div>
@@ -328,9 +328,13 @@
         </div>     
       </div>      
 
-      <!-- tablas -->
+      <!-- contenido cambiante del inventario  -->
 
-      <div class="table-responsive" id="Tabla_Inventario">
+      <div id="Contenido_inventario">
+
+        <!-- tablas -->
+
+      <div class="table-responsive">
 
 
 
@@ -390,6 +394,7 @@
       </div>
 
       <div class="accordion p-2" id="accordionExample">
+        
         <div class="accordion-item">
           <h2 class="accordion-header">
             <button class="accordion-button bg-dark text-warning" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -417,34 +422,10 @@
             </div>
           </div>
         </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              Contegral - 14/03/2003
-            </button>
-          </h2>
-          <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              <button type="button" class="btn btn-outline-success">Recibir</button>
-              <button type="button" class="btn btn-outline-danger">Cancelar</button>
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Producto</th>
-                    <th scope="col">Cantidad</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Perro</td>
-                    <td>7</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+        
       </div>
+
+      
       </section>
 
       

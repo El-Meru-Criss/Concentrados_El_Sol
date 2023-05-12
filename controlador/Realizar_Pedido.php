@@ -13,7 +13,7 @@
     //Inserta los datos en Pedidos
 
     $mysql->efectuarConsulta("INSERT INTO sol.pedidos_proveedor 
-    VALUES (NULL,NOW(),'".$renovar_valor_total."',0)");
+    VALUES (NULL,NOW(),'".$renovar_valor_total."',NULL)");
 
     //se saca el ID del ultimo pedido creado
 

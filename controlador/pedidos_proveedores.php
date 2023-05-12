@@ -1,0 +1,68 @@
+<?php //llama a la base de datos con el modelo
+    require_once '../modelo/mysql.php';
+    $mysql = new MySQL();
+
+    $mysql->conectar();
+
+    //realiza la consulta MySQL deseada, y la guarda en una variable
+
+    $pedidos = $mysql->efectuarConsulta("SELECT sol.pedidos_proveedor.idpedidos_proveedor, 
+    sol.proveedor.nombre, 
+    sol.pedidos_proveedor.fecha_pedido, 
+    sol.pedidos_proveedor.estado_pedido  
+    FROM sol.proveedor_has_producto 
+    INNER JOIN sol.proveedor 
+    ON sol.proveedor.idproveedor = sol.proveedor_has_producto.proveedor_idproveedor
+    INNER JOIN sol.proveedor_has_producto_has_pedidos_proveedor 
+    ON sol.proveedor_has_producto_has_pedidos_proveedor.proveedor_has_producto_proveedor_idproveedor = sol.proveedor_has_producto.proveedor_idproveedor AND sol.proveedor_has_producto_has_pedidos_proveedor.proveedor_has_producto_producto_idproducto = sol.proveedor_has_producto.producto_idproducto
+    INNER JOIN sol.pedidos_proveedor 
+    ON sol.pedidos_proveedor.idpedidos_proveedor = sol.proveedor_has_producto_has_pedidos_proveedor.pedidos_proveedor_idpedidos_proveedor
+    WHERE sol.pedidos_proveedor.estado_pedido IS NULL
+    GROUP BY sol.pedidos_proveedor.idpedidos_proveedor 
+    ORDER BY sol.pedidos_proveedor.idpedidos_proveedor DESC");
+?>
+
+<div class="accordion p-2" id="accordionExample">
+
+    <?php //inicio del ciclo para ir colocando HTML 
+
+    while ($ped = mysqli_fetch_array($pedidos)) { ?>
+        
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button onclick="productos_pedidos(<?php echo $ped['idpedidos_proveedor'] ?>)" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo $ped['idpedidos_proveedor'] ?>" aria-expanded="true" aria-controls="collapseOne">
+                <?php echo $ped['nombre'] ?> - <?php echo $ped['fecha_pedido'] ?>
+                </button>
+            </h2>
+            <div id="collapse<?php echo $ped['idpedidos_proveedor'] ?>" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                <button type="button" onclick="recibir_pedido(<?php echo $ped['idpedidos_proveedor'] ?>)" class="btn btn-outline-success">Recibir</button>
+                <button type="button" onclick="cancelar_pedido(<?php echo $ped['idpedidos_proveedor'] ?>)" class="btn btn-outline-danger">Cancelar</button>
+                <table class="table" id="tabla<?php echo $ped['idpedidos_proveedor'] ?>">
+                    <thead>
+                    <tr>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Cantidad</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Perro</td>
+                        <td>7</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+            </div>
+    <?php } //fin del ciclo
+
+    ?>
+
+</div>
+
+<?php //desconecta la base de datos
+
+    $mysql->desconectar();
+
+?>

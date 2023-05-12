@@ -188,6 +188,73 @@
     
   }
 
+  function pedidos_proveedores() {
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/pedidos_proveedores.php",
+      success:function(d) {
+          
+          $("#Contenido_inventario").html(d);
+      }
+    })
+    
+  }
+
+  function productos_pedidos(id_acordeon) {
+    var tabla = 'tabla' + id_acordeon;
+
+    var datos = {
+      "id_acordeon":id_acordeon
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/productos_pedidos.php",
+      data:datos,
+      success:function(d) {
+        $("#"+tabla).html(d);
+        
+      }
+    })
+  }
+
+  function recibir_pedido(id_pedido) {
+
+    Swal.fire({
+      title: 'Recibir el pedido?',
+      text: "no podras revocar esta opcion",
+      icon: 'warning',
+      showCancelButton: true,
+      //confirmButtonColor: '#d33',
+      cancelButtonColor: 'success',
+      confirmButtonText: 'Recibir'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        var datos = { //capturo los datos
+          "id_pedido":id_pedido
+        };
+    
+        $.ajax({
+          type: "POST",
+          url: "controlador/recibir_pedido.php",
+          data:datos,
+          success:function(d) {
+            
+            Swal.fire(
+               'Recibido!',
+               'Los productos se han agregado al inventario.',
+               'success'
+            );
+            pedidos_proveedores();
+          }
+        })  
+      }
+    })
+
+  }
+
   function seleccionar_producto() {
 
     $.ajax({
