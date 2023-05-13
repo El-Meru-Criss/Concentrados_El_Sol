@@ -10,42 +10,7 @@
     <link rel="stylesheet" href="./personalizados/css/personalizado.css">
     <title>Inventario</title>
 </head>
-<body>
-
-    <!-- navbar bootstrap --------------------------------------- -->
-    <!-- <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled">Disabled</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav> -->
-
+<body onload="tabla_inventario()">
 
       <!-- navbar steven -->
 
@@ -204,7 +169,7 @@
                   <select disabled class="form-select" aria-label="Default select example">
                     <option selected="">Productos</option>
                   </select>
-                  <input disabled type="number" class="form-control" id="basic-url" placeholder="Kl" aria-describedby="basic-addon3 basic-addon4">
+                  <input disabled type="number" class="form-control" id="basic-url" placeholder="Cantidad" aria-describedby="basic-addon3 basic-addon4">
                   <input disabled type="number" class="form-control" id="basic-url" placeholder="Precio" aria-describedby="basic-addon3 basic-addon4">
                 </div>
                 <div id="Renovar_productos"></div>
@@ -250,15 +215,17 @@
               <div class="mb-3">
                 
                 <div class="input-group">
+                  <span class="input-group-text" id="basic-addon1">Nombre:</span>
                   <input type="text" class="form-control" id="producto_nombre" placeholder="Nombre del producto nuevo" aria-describedby="basic-addon3 basic-addon4">
                 </div>
 
               </div>
 
-              <div class="mb-3" style="display: none;">
+              <div class="mb-3">
                 
                 <div class="input-group">
-                  <input type="number" class="form-control" id="producto_duracion" placeholder="Duracion promedio (en meses)" aria-describedby="basic-addon3 basic-addon4">
+                  <span class="input-group-text" id="basic-addon1">Peso U/N (KL):</span>
+                  <input type="number" class="form-control" id="peso_producto" placeholder="Peso del bulto en kilos" aria-describedby="basic-addon3 basic-addon4">
                 </div>
 
               </div>
@@ -350,6 +317,7 @@
               </tr>
             </thead>
             <tbody>
+              
               <tr>
                 <td>
                   <button onclick="eliminar_inventario()" type="button" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
@@ -363,28 +331,8 @@
                   <input type="date" class="form-control-plaintext form-control-sm" id="F_vencimiento">
                 </td>
               </tr>
-              <tr>
-                <td>
-                    <button onclick="eliminar_inventario()" type="button" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                    <button type="button" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-pen"></i></button>
-                </td>
-                <td>Q.idacat</td>
-                <td>80</td>
-                <td>8600</td>
-                <td>07/abril/2023</td>
-                <td>07/diciembre/2023</td>
-              </tr>
-              <tr>
-                <td>
-                  <button onclick="eliminar_inventario()" type="button" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                  <button type="button" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-pen"></i></button>
-              </td>
-                <td>Q.idacat</td>
-                <td>80</td>
-                <td>8600</td>
-                <td>07/abril/2023</td>
-                <td>07/diciembre/2023</td>
-              </tr>
+              
+              
             </tbody>
           </table>
 

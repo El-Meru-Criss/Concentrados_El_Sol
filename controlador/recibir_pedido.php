@@ -22,10 +22,17 @@
         FROM sol.inventario 
         WHERE sol.inventario.proveedor_has_producto_producto_idproducto = '".$prod['proveedor_has_producto_producto_idproducto']."'");
 
+        $peso_producto = $mysql->efectuarConsulta("SELECT sol.producto.peso 
+        FROM sol.producto 
+        WHERE sol.producto.idproducto = '".$prod['proveedor_has_producto_producto_idproducto']."'");
+
+        $peso = mysqli_fetch_array($peso_producto);
+
+
         if (mysqli_num_rows($existencia) > 0) {
 
             $exis = mysqli_fetch_array($existencia);
-            $total = $exis['cantidad'] + $prod['cantidad'];
+            $total = $exis['cantidad'] + ($prod['cantidad'] * $peso['peso']);
 
             $mysql->efectuarConsulta("UPDATE sol.inventario 
             SET sol.inventario.cantidad='".$total."',
@@ -33,6 +40,8 @@
             WHERE sol.inventario.proveedor_has_producto_producto_idproducto = '".$prod['proveedor_has_producto_producto_idproducto']."'");
 
         } else {
+
+            $total = $prod['cantidad'] * $peso['peso'];
 
             $mysql->efectuarConsulta("INSERT INTO sol.inventario
             (sol.inventario.idinventario, 
@@ -42,7 +51,7 @@
              sol.inventario.estado_producto_idestado_producto) 
              VALUES 
              (NULL,
-              '".$prod['cantidad']."',
+              '".$total."',
               CURDATE(),
               '".$prod['proveedor_has_producto_producto_idproducto']."',
               '1')");

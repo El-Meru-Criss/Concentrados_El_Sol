@@ -255,6 +255,19 @@
 
   }
 
+  function tabla_inventario() {
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/tabla_inventario.php",
+      success:function(d) {
+          
+          $("#Contenido_inventario").html(d);
+      }
+    })
+    
+  }
+
   function seleccionar_producto() {
 
     $.ajax({
@@ -271,7 +284,8 @@
   function crear_producto() {
 
     var datos = {
-      "producto_nombre":$("#producto_nombre").val()
+      "producto_nombre":$("#producto_nombre").val(),
+      "peso_producto":$("#peso_producto").val()
     }
 
     $.ajax({
