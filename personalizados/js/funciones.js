@@ -268,6 +268,70 @@
     
   }
 
+  function precioKL_inventario(id_inventario) {
+    var input_id = "precio_kl" + id_inventario;
+    var precio_kl = $("#" + input_id).val();
+
+    
+    var datos = {
+      "id_inventario":id_inventario,
+      "precio_kl":precio_kl
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/precioKL_inventario.php",
+      data:datos,
+      success:function(d) {
+        
+      }
+    })
+   
+  }
+
+  function precioBL_inventario(id_inventario) {
+    var input_id = "precio_bulto" + id_inventario;
+    var precio_bulto = $("#" + input_id).val();
+
+    
+    var datos = {
+      "id_inventario":id_inventario,
+      "precio_bulto":precio_bulto
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/precioBL_inventario.php",
+      data:datos,
+      success:function(d) {
+        
+      }
+    })
+   
+  }
+
+  function F_vencimiento(id_inventario) {
+    var input_id = "F_vencimiento" + id_inventario;
+    var F_vencimiento = $("#" + input_id).val();
+
+    
+
+    var datos = {
+      "id_inventario":id_inventario,
+      "F_vencimiento":F_vencimiento
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/F_vencimiento.php",
+      data:datos,
+      success:function(d) {
+        
+      }
+    })
+   
+  }
+
   function seleccionar_producto() {
 
     $.ajax({

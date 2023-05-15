@@ -51,19 +51,19 @@ while ($prod = mysqli_fetch_array($productos)) { ?>
                 <td><?php echo $prod['cantidad'] ?></td>
                 <td>
                   
-                <input value="<?php echo $prod['precio_publico'] ?>" class="form-control form-control-sm" id="precio_kl" type="number" style="width: 10rem;">
+                <input onchange="precioKL_inventario(<?php echo $prod['idinventario'] ?>)" value="<?php echo $prod['precio_publico'] ?>" class="form-control form-control-sm" id="precio_kl<?php echo $prod['idinventario'] ?>" type="number" style="width: 10rem;">
         
                 </td>
                 <td>
-                <input value="<?php echo $prod['precio_bulto'] ?>" type="number" class="form-control form-control-sm" id="precio_bulto" style="width: 10rem;">
+                <input onchange="precioBL_inventario(<?php echo $prod['idinventario'] ?>)" value="<?php echo $prod['precio_bulto'] ?>" type="number" class="form-control form-control-sm" id="precio_bulto<?php echo $prod['idinventario'] ?>" style="width: 10rem;">
                   
                 </td>
                 <td>
-                <input value="<?php echo $prod['fecha_entrada'] ?>" type="date" class="form-control-plaintext form-control-sm" id="F_vencimiento">
+                <input readonly value="<?php echo $prod['fecha_entrada'] ?>" type="date" class="form-control-plaintext form-control-sm" id="F_entrada">
               
               </td>
                 <td>
-                  <input value="<?php echo $prod['fecha_caducidad'] ?>" type="date" class="form-control-plaintext form-control-sm" id="F_vencimiento">
+                  <input onchange="F_vencimiento(<?php echo $prod['idinventario'] ?>)" value="<?php echo $prod['fecha_caducidad'] ?>" type="date" class="form-control-plaintext form-control-sm" id="F_vencimiento<?php echo $prod['idinventario'] ?>">
                 </td>
             </tr>
 
