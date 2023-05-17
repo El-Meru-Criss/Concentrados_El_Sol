@@ -20,7 +20,7 @@ while ($prov = mysqli_fetch_array($proveedores)) { ?>
         <th><?php echo $prov['nombre']; ?></th>
         <th>
             <button onclick="eliminar_proveedor(<?php echo $prov['idproveedor']; ?>)" type="button" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-            <button onclick="funcion(<?php echo $prov['idproveedor']; ?>)" type="button" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-pen"></i></button>
+            <button data-bs-target="#exampleModalToggle3" data-bs-toggle="modal" onclick="info_proveedor(<?php echo $prov['idproveedor']; ?>)" type="button" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-pen"></i></button>
         </th>
     </tr>
 

@@ -143,6 +143,54 @@
         </div>
       </div>
 
+      <div class="modal fade" id="exampleModalToggle3" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header bg-info align-content-center align-items-center justify-content-center text-center">
+              <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Editar Proveedor</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="editar_proveedores">
+
+              <p>Aqui podras editar informacion de proveedores!</p>
+              
+              <div class="mb-3">
+                
+                <div class="input-group">
+                  <span class="input-group-text" id="basic-addon1">Nombre: </span>
+                  <input type="text" class="form-control" id="Nombre_proveedor" placeholder="Nombre del proveedor" aria-describedby="basic-addon3 basic-addon4">
+                </div>
+
+              </div>
+
+              <div class="mb-3">
+                
+                <div class="input-group">
+                  <span class="input-group-text" id="basic-addon1">Telefono: </span>
+                  <input type="text" class="form-control" id="Proveedor_telefono" placeholder="opcional!" aria-describedby="basic-addon3 basic-addon4">
+                </div>
+
+              </div>
+
+              <div class="mb-3">
+                
+                <div class="input-group">
+                  <span class="input-group-text" id="basic-addon1">Cuenta Bancaria: </span>
+                  <input type="text" class="form-control" id="Proveedor_banco" placeholder="Tambien es opcional! :D" aria-describedby="basic-addon3 basic-addon4">
+                </div>
+
+              </div>
+
+              
+
+            </div>
+            <div class="modal-footer bg-info text-light align-content-center align-items-center justify-content-center text-center">
+              <button class="btn btn-info" onclick="editar_proveedor()" data-bs-target="#administrar_proovedores" data-bs-toggle="modal"> <i class="fa-solid fa-pen-to-square"></i> Editar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <!-- Renovar Inventario -->
       <div class="modal fade" id="Renovar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

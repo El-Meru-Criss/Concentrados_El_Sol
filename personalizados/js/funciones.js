@@ -426,3 +426,41 @@
     
     
   }
+
+  function info_proveedor(idproveedor) {
+    var datos = { //capturo los datos
+      "idproveedor":idproveedor
+    };
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/info_proveedor.php",
+      data:datos,
+      success:function(d) {
+        $("#editar_proveedores").html(d);
+      }
+    }) 
+  }
+
+  function editar_proveedor() {
+    var datos = { //capturo los datos
+      "id_proveedor_edit":$("#id_proveedor_edit").val(),
+      "Nombre_proveedor_editar":$("#Nombre_proveedor_editar").val(),
+      "Proveedor_telefono_edit":$("#Proveedor_telefono_edit").val(),
+      "Proveedor_banco_edit":$("#Proveedor_banco_edit").val()
+    };
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/editar_proveedor.php",
+      data:datos,
+      success:function(d) {
+        Swal.fire(
+          'Editado!',
+          'Has editado con exito este proveedor.',
+          'success'
+        );
+        mostrar_provedores();     
+      }
+    }) 
+  }
