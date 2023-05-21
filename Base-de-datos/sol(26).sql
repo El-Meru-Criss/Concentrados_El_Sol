@@ -29,8 +29,20 @@ CREATE TABLE IF NOT EXISTS `sol`.`clientes` (
   `documento` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`idclientes`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 7
+AUTO_INCREMENT = 11
 DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `sol`.`estado_cartera`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `sol`.`estado_cartera` (
+  `idestado_cartera` INT(11) NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idestado_cartera`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 3
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -53,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `sol`.`vendedores` (
   `nombre` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idvendedores`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 23
+AUTO_INCREMENT = 28
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -88,32 +100,20 @@ CREATE TABLE IF NOT EXISTS `sol`.`ventas` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 9
+AUTO_INCREMENT = 28
 DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `sol`.`estado_cartera`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sol`.`estado_cartera` (
-  `idestado_cartera` INT(11) NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idestado_cartera`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 3
-DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
 -- Table `sol`.`cartera`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sol`.`cartera` (
-  `idcartera` INT(11) NOT NULL,
+  `idcartera` INT(11) NOT NULL AUTO_INCREMENT,
   `clientes_idclientes` INT(11) NOT NULL,
   `ventas_idventas` INT(11) NOT NULL,
   `cantidad_debida` FLOAT NOT NULL,
-  `cantidad_abonada` FLOAT NOT NULL DEFAULT 0,
-  `fecha_creacion` DATE NOT NULL,
+  `cantidad_abonada` FLOAT NOT NULL,
+  `fecha_creacion` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   `fecha_edicion` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   `estado_cartera_idestado_cartera` INT(11) NOT NULL,
   PRIMARY KEY (`idcartera`),
@@ -125,17 +125,18 @@ CREATE TABLE IF NOT EXISTS `sol`.`cartera` (
     REFERENCES `sol`.`clientes` (`idclientes`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_cartera_ventas1`
-    FOREIGN KEY (`ventas_idventas`)
-    REFERENCES `sol`.`ventas` (`idventas`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_cartera_estado_cartera1`
     FOREIGN KEY (`estado_cartera_idestado_cartera`)
     REFERENCES `sol`.`estado_cartera` (`idestado_cartera`)
     ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cartera_ventas1`
+    FOREIGN KEY (`ventas_idventas`)
+    REFERENCES `sol`.`ventas` (`idventas`)
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8mb4;
 
 
@@ -170,9 +171,10 @@ CREATE TABLE IF NOT EXISTS `sol`.`producto` (
   `idproducto` INT(11) NOT NULL AUTO_INCREMENT,
   `nombre_producto` VARCHAR(45) NOT NULL,
   `peso` FLOAT NOT NULL,
-  PRIMARY KEY (`idproducto`))
+  PRIMARY KEY (`idproducto`),
+  UNIQUE INDEX `nombre_producto_UNIQUE` (`nombre_producto` ASC))
 ENGINE = InnoDB
-AUTO_INCREMENT = 7
+AUTO_INCREMENT = 10
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -184,9 +186,10 @@ CREATE TABLE IF NOT EXISTS `sol`.`proveedor` (
   `nombre` VARCHAR(45) NOT NULL,
   `telefono` VARCHAR(45) NOT NULL,
   `cuenta_bancaria` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idproveedor`))
+  PRIMARY KEY (`idproveedor`),
+  UNIQUE INDEX `nombre_UNIQUE` (`nombre` ASC))
 ENGINE = InnoDB
-AUTO_INCREMENT = 6
+AUTO_INCREMENT = 8
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -225,7 +228,8 @@ CREATE TABLE IF NOT EXISTS `sol`.`inventario` (
   `proveedor_has_producto_producto_idproducto` INT(11) NOT NULL,
   `estado_producto_idestado_producto` INT(11) NOT NULL,
   `fecha_caducidad` DATE NULL DEFAULT NULL,
-  `precio_bulto` FLOAT NULL,
+  `precio_bulto` FLOAT NULL DEFAULT NULL,
+  `stock_minimo` FLOAT NULL,
   PRIMARY KEY (`idinventario`),
   INDEX `fk_inventario_proveedor_has_producto1_idx` (`proveedor_has_producto_producto_idproducto` ASC),
   INDEX `fk_inventario_estado_producto1_idx` (`estado_producto_idestado_producto` ASC),
@@ -240,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `sol`.`inventario` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 4
+AUTO_INCREMENT = 7
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -265,7 +269,7 @@ CREATE TABLE IF NOT EXISTS `sol`.`inventario_has_ventas` (
   `cantidad_vendida` FLOAT NOT NULL,
   `estado_domicilio_idestado_domicilio` INT(11) NULL DEFAULT NULL,
   `unidad_medida_idunidad_medida` INT(11) NOT NULL,
-  PRIMARY KEY (`inventario_idinventario`, `ventas_idventas`),
+  PRIMARY KEY (`inventario_idinventario`, `ventas_idventas`, `unidad_medida_idunidad_medida`),
   INDEX `fk_inventario_has_ventas_ventas1_idx` (`ventas_idventas` ASC),
   INDEX `fk_inventario_has_ventas_inventario1_idx` (`inventario_idinventario` ASC),
   INDEX `fk_inventario_has_ventas_estado_domicilio1_idx` (`estado_domicilio_idestado_domicilio` ASC),
@@ -280,14 +284,14 @@ CREATE TABLE IF NOT EXISTS `sol`.`inventario_has_ventas` (
     REFERENCES `sol`.`inventario` (`idinventario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_inventario_has_ventas_ventas1`
-    FOREIGN KEY (`ventas_idventas`)
-    REFERENCES `sol`.`ventas` (`idventas`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_inventario_has_ventas_unidad_medida1`
     FOREIGN KEY (`unidad_medida_idunidad_medida`)
     REFERENCES `sol`.`unidad_medida` (`idunidad_medida`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_inventario_has_ventas_ventas1`
+    FOREIGN KEY (`ventas_idventas`)
+    REFERENCES `sol`.`ventas` (`idventas`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -304,6 +308,7 @@ CREATE TABLE IF NOT EXISTS `sol`.`pedidos_proveedor` (
   `estado_pedido` BINARY(1) NULL DEFAULT NULL,
   PRIMARY KEY (`idpedidos_proveedor`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8;
 
 
