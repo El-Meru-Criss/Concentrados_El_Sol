@@ -12,7 +12,9 @@
     sol.inventario.precio_publico, 
     sol.inventario.precio_bulto, 
     sol.inventario.fecha_entrada, 
-    sol.inventario.fecha_caducidad FROM sol.inventario 
+    sol.inventario.fecha_caducidad,
+    sol.inventario.stock_minimo 
+    FROM sol.inventario 
     INNER JOIN sol.proveedor_has_producto ON sol.proveedor_has_producto.producto_idproducto = sol.inventario.proveedor_has_producto_producto_idproducto
     INNER JOIN sol.producto ON sol.proveedor_has_producto.producto_idproducto = sol.producto.idproducto");
 ?>
@@ -27,10 +29,11 @@
                 <th scope="col">Opciones</th>
                 <th scope="col">Producto</th>
                 <th scope="col">Kg</th>
-                <th scope="col">Precio KL</th>
+                <th scope="col">Precio Kg</th>
                 <th scope="col">Precio Bulto</th>
                 <th scope="col">Ingreso</th>
                 <th scope="col">Vencimiento</th>
+                <th scope="col">Stock Minimo (Kg)</th>
               </tr>
             </thead>
             <tbody>
@@ -64,6 +67,11 @@ while ($prod = mysqli_fetch_array($productos)) { ?>
               </td>
                 <td>
                   <input onchange="F_vencimiento(<?php echo $prod['idinventario'] ?>)" value="<?php echo $prod['fecha_caducidad'] ?>" type="date" class="form-control-plaintext form-control-sm" id="F_vencimiento<?php echo $prod['idinventario'] ?>">
+                </td>
+                <td>
+                  
+                <input onchange="StockMinimo(<?php echo $prod['idinventario'] ?>)" value="<?php echo $prod['stock_minimo'] ?>" class="form-control form-control-sm" id="StockMinimo<?php echo $prod['idinventario'] ?>" type="number" style="width: 10rem;">
+        
                 </td>
             </tr>
 

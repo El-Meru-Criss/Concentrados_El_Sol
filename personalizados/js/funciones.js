@@ -263,6 +263,7 @@
       success:function(d) {
           
           $("#Contenido_inventario").html(d);
+          alertas();
       }
     })
     
@@ -326,7 +327,29 @@
       url: "controlador/F_vencimiento.php",
       data:datos,
       success:function(d) {
-        
+        alertas();
+      }
+    })
+   
+  }
+
+  function StockMinimo(id_inventario) {
+    var input_id = "StockMinimo" + id_inventario;
+    var StockMinimo = $("#" + input_id).val();
+
+    
+
+    var datos = {
+      "id_inventario":id_inventario,
+      "StockMinimo":StockMinimo
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/StockMinimo.php",
+      data:datos,
+      success:function(d) {
+        alertas();
       }
     })
    
@@ -463,4 +486,28 @@
         mostrar_provedores();     
       }
     }) 
+  }
+
+  function alertas() {
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/alertas.php",
+      success:function(d) {
+        $('#Numero_alertas').html(d);
+      }
+    })
+    
+  }
+
+  function MostrarAlertas() {
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/MostrarAlertas.php",
+      success:function(d) {
+        $('#MostrarAlertas').html(d);
+      }
+    })
+    
   }
