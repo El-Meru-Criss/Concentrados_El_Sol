@@ -373,21 +373,34 @@
     var datos = {
       "producto_nombre":$("#producto_nombre").val(),
       "peso_producto":$("#peso_producto").val()
+    };
+
+    var producto = $("#producto_nombre").val();
+    var peso = $("#peso_producto").val();
+
+    if (producto == "" || peso == "") {
+      alert("No se ha especificado el Nombre de producto o Peso :/");
+    } else {
+
+      $.ajax({
+        type: "POST",
+        url: "controlador/crear_producto.php",
+        data:datos,
+        success:function(d) {
+          Swal.fire(
+            'Creado!',
+            'Has creado con exito este producto.',
+            'success'
+          );
+
+          document.getElementById("producto_nombre").value = "";
+          document.getElementById("peso_producto").value = "";
+          
+        }
+      })
+
     }
 
-    $.ajax({
-      type: "POST",
-      url: "controlador/crear_producto.php",
-      data:datos,
-      success:function(d) {
-        Swal.fire(
-          'Creado!',
-          'Has creado con exito este producto.',
-          'success'
-        );
-        
-      }
-    })
   }
 
   function Producto_y_proveedor() {
@@ -398,19 +411,32 @@
       "producto_precio":$("#producto_precio").val(),
     }
 
-    $.ajax({
-      type: "POST",
-      url: "controlador/Producto_y_proveedor.php",
-      data:datos,
-      success:function(d) {
-        Swal.fire(
-          'Creado!',
-          'Has creado con exito este producto.',
-          'success'
-        );
-        
-      }
-    })
+    var producto = $("#seleccionar_producto").val();
+    var proveedor = $("#proveedores_crear_producto").val();
+    var precio = $("#producto_precio").val();
+
+    if (precio == "" || proveedor == "" || producto == "") {
+      alert("El producto, proveedor o precio esta vacio :/")
+    } else {
+      $.ajax({
+        type: "POST",
+        url: "controlador/Producto_y_proveedor.php",
+        data:datos,
+        success:function(d) {
+          Swal.fire(
+            'Creado!',
+            'Has creado con exito este producto.',
+            'success'
+          );
+          document.getElementById("producto_precio").value = "";
+          document.getElementById("proveedores_crear_producto").innerHTML = "";
+          document.getElementById("seleccionar_producto").innerHTML = "";
+          
+        }
+      })
+    }
+
+    
   }
 
   function eliminar_proveedor(idproveedor) {
