@@ -221,7 +221,7 @@
 
               <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Proveedor:</span>
-                <select class="form-select" aria-label="Default select example" id="provedores_renovar">
+                <select onchange="Refrescar_seleccion()" class="form-select" aria-label="Default select example" id="provedores_renovar">
                   <option selected=""> </option>
                 </select>
                 <button type="button" onclick="provedores_renovar()" class="btn btn-outline-primary"><i class="fa-solid fa-rotate-right"></i></button>
@@ -254,7 +254,7 @@
               
               <div class="m-1">
 
-                <button onclick="pedidos_proveedores()" type="button" class="btn btn-outline-light"><i class="fa-solid fa-truck-fast"></i> Ver Pedidos</button>
+                <button data-bs-dismiss="modal" onclick="pedidos_proveedores()" type="button" class="btn btn-outline-light"><i class="fa-solid fa-truck-fast"></i> Ver Pedidos</button>
                 <button type="button" class="btn btn-outline-light"><i class="fa-regular fa-circle-down"></i></button>
                 <button onclick="Realizar_Pedido()" type="button" class="btn btn-success"><i class="fa-solid fa-clipboard-list"></i> Terminar lista</button>
 

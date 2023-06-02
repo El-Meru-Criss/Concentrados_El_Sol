@@ -9,22 +9,37 @@
       "idcasilla":contador
     }
 
-    $.ajax({
-      type: "POST",
-      url: "controlador/Agregar_producto_renovar.php",
-      data:datos,
-      success:function(d) {
-          $("#Renovar_productos").append(d);
-      }
-    })
+    var proveedor = $("#provedores_renovar").val();
+
+    if (proveedor == "") {
+      alert("Debes de elegir un proveedor primero");      
+    } else {
+      $.ajax({
+        type: "POST",
+        url: "controlador/Agregar_producto_renovar.php",
+        data:datos,
+        success:function(d) {
+            $("#Renovar_productos").append(d);
+        }
+      })
+    }
     
+  }
+
+  function Refrescar_seleccion() {
+    $("#Renovar_productos").html("");
+    $("#renovar_valor_total").val("");
   }
 
   function Realizar_Pedido() {
     var Productos = [];
+    var validacion = 0;
   
     $('.productos_renovar').each(function() {
       Productos.push($(this).val());
+      if ($(this).val() != "") {
+        validacion += 1;
+      }
     });
 
     var cantidad = [];
@@ -33,39 +48,51 @@
       cantidad.push($(this).val());
     });
 
-    Swal.fire({
-      title: 'Realizar Pedido?',
-      text: "Podras revocar esta accion despues si deseas!",
-      icon: 'info',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Realizar',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
+    if (validacion == 0) {
+      alert("Se debe seleccionar almenos un producto!");
+    } else {
 
-        var datos = {
-          "Productos":Productos,
-          "cantidad":cantidad,
-          "renovar_valor_total":$("#renovar_valor_total").val(),
-          "provedores_renovar":$("#provedores_renovar").val(),
-        }
-    
-        $.ajax({
-          type: "POST",
-          url: "controlador/Realizar_Pedido.php",
-          data:datos,
-          success:function(d) {
-            Swal.fire(
-              'Realizado!',
-              'Se ha realizado el pedido con exito!',
-              'success'
-            )
+      Swal.fire({
+        title: 'Realizar Pedido?',
+        text: "Podras revocar esta accion despues si deseas!",
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Realizar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+  
+          var datos = {
+            "Productos":Productos,
+            "cantidad":cantidad,
+            "renovar_valor_total":$("#renovar_valor_total").val(),
+            "provedores_renovar":$("#provedores_renovar").val(),
           }
-        })
-      }
-    })
+      
+          $.ajax({
+            type: "POST",
+            url: "controlador/Realizar_Pedido.php",
+            data:datos,
+            success:function(d) {
+              Swal.fire(
+                'Realizado!',
+                'Se ha realizado el pedido con exito!',
+                'success'
+              )
+            }
+          })
+
+          Refrescar_seleccion();
+          $("#provedores_renovar").html("");
+
+        }
+      })
+
+    }
+
+    
     
   }
 
@@ -138,29 +165,7 @@
     
   }
 
-  function crear_proveedor() {
-
-    var datos = {
-      "Nombre_proveedor":$("#Nombre_proveedor").val(),
-      "Proveedor_telefono":$("#Proveedor_telefono").val(),
-      "Proveedor_banco":$("#Proveedor_banco").val()
-    }
-
-    $.ajax({
-      type: "POST",
-      url: "controlador/crear_proveedor.php",
-      data:datos,
-      success:function(d) {
-        mostrar_provedores();
-        Swal.fire(
-          'Creado!',
-          'Has creado con exito este provvedor!.',
-          'success'
-        );
-        
-      }
-    })
-  }
+  
 
   function mostrar_provedores_producto() {
 
@@ -185,6 +190,8 @@
           $("#provedores_renovar").html(d);
       }
     })
+
+    Refrescar_seleccion();
     
   }
 
@@ -499,19 +506,57 @@
       "Proveedor_banco_edit":$("#Proveedor_banco_edit").val()
     };
 
-    $.ajax({
-      type: "POST",
-      url: "controlador/editar_proveedor.php",
-      data:datos,
-      success:function(d) {
-        Swal.fire(
-          'Editado!',
-          'Has editado con exito este proveedor.',
-          'success'
-        );
-        mostrar_provedores();     
-      }
-    }) 
+    var Nombre = $("#Nombre_proveedor_editar").val();
+
+    if (Nombre == "") {
+      alert("Se requiere almenos un nombre");
+    } else {
+      $.ajax({
+        type: "POST",
+        url: "controlador/editar_proveedor.php",
+        data:datos,
+        success:function(d) {
+          Swal.fire(
+            'Editado!',
+            'Has editado con exito este proveedor.',
+            'success'
+          );
+          mostrar_provedores();     
+        }
+      })
+    }
+ 
+  }
+
+  function crear_proveedor() {
+
+    var datos = {
+      "Nombre_proveedor":$("#Nombre_proveedor").val(),
+      "Proveedor_telefono":$("#Proveedor_telefono").val(),
+      "Proveedor_banco":$("#Proveedor_banco").val()
+    }
+
+    var Nombre = $("#Nombre_proveedor").val();
+
+    if (Nombre == "") {
+      alert ("Se requiere un nombre");
+    } else {
+      $.ajax({
+        type: "POST",
+        url: "controlador/crear_proveedor.php",
+        data:datos,
+        success:function(d) {
+          mostrar_provedores();
+          Swal.fire(
+            'Creado!',
+            'Has creado con exito este provvedor!.',
+            'success'
+          );
+          
+        }
+      })
+    }
+
   }
 
   function alertas() {
