@@ -34,7 +34,7 @@
         ?>
     </select>
     <input type="number" onchange="renovar_valor_total()" class="form-control cantidad_renovar" id="basic-url" placeholder="Kl" aria-describedby="basic-addon3 basic-addon4">
-    <input type="number" onchange="renovar_valor_total()" class="form-control precio_renovar" id="precio<?php echo $idcasilla ?>" placeholder="Precio" aria-describedby="basic-addon3 basic-addon4">
+    <input type="number" onchange="renovar_valor_total(); cambiar_precio_compra(<?php echo $idcasilla ?>)" class="form-control precio_renovar" id="precio<?php echo $idcasilla ?>" placeholder="Precio" aria-describedby="basic-addon3 basic-addon4">
 </div>
 
 <?php //desconecta la base de datos

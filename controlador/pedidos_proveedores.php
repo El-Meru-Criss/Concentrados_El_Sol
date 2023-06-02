@@ -22,6 +22,12 @@
     ORDER BY sol.pedidos_proveedor.idpedidos_proveedor DESC");
 ?>
 
+<div class="mt-2 align-content-center align-items-center justify-content-center text-center">
+        
+    <button onclick="tabla_inventario()" type="button" class="btn btn-warning"><i class="fa-solid fa-boxes-stacked"></i> Inventario</button>
+     
+</div>
+
 <div class="accordion p-2" id="accordionExample">
 
     <?php //inicio del ciclo para ir colocando HTML 

@@ -92,8 +92,6 @@
 
     }
 
-    
-    
   }
 
   function renovar_valor_total() {
@@ -120,7 +118,28 @@
     document.getElementById("renovar_valor_total").value = total;
   }
 
-  
+  function cambiar_precio_compra(id_casilla) {
+    var precio_id = "precio" + id_casilla;
+    var producto_id = "producto" + id_casilla;
+    var precio = $("#" + precio_id).val();
+    var producto = $("#" + producto_id).val();
+    //alert(producto + " vale: " + precio);
+
+    var datos = {
+      "precio":precio,
+      "producto":producto,
+      "proveedor":$("#provedores_renovar").val()
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/cambiar_precio_compra.php",
+      data:datos,
+      success:function(d) {
+                
+      }
+    })
+  }
 
   function precio_renovar(id_casilla) {
    var nombre_id = "precio" + id_casilla;
@@ -224,6 +243,42 @@
         
       }
     })
+  }
+
+  function cancelar_pedido(id_pedido) {
+
+    Swal.fire({
+      title: 'Cancelar el pedido?',
+      text: "no podras revocar esta opcion",
+      icon: 'warning',
+      showCancelButton: true,
+      //confirmButtonColor: '#d33',
+      cancelButtonColor: 'success',
+      confirmButtonText: 'No Recibir'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        var datos = { //capturo los datos
+          "id_pedido":id_pedido
+        };
+    
+        $.ajax({
+          type: "POST",
+          url: "controlador/cancelar_pedido.php",
+          data:datos,
+          success:function(d) {
+            
+            Swal.fire(
+               'Cancelado!',
+               'Se ha cancelado el pedido.',
+               'success'
+            );
+            pedidos_proveedores();
+          }
+        })  
+      }
+    })
+
   }
 
   function recibir_pedido(id_pedido) {
