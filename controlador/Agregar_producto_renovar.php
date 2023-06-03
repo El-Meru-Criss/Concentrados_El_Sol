@@ -27,14 +27,14 @@
 
         while ($prod = mysqli_fetch_array($productos)) { ?>
 
-            <option data-precio="<?php echo $prod['precio'] ?>" value="<?php echo $prod['producto_idproducto'] ?>"><?php echo $prod['nombre_producto'] ?></option>            
+            <option value="<?php echo $prod['producto_idproducto'] ?>"><?php echo $prod['nombre_producto'] ?></option>            
 
         <?php } //fin del ciclo
 
         ?>
     </select>
-    <input type="number" onchange="renovar_valor_total()" class="form-control cantidad_renovar" id="basic-url" placeholder="cantidad" aria-describedby="basic-addon3 basic-addon4">
-    <input type="number" onchange="renovar_valor_total(); cambiar_precio_compra(<?php echo $idcasilla ?>)" class="form-control precio_renovar" id="precio<?php echo $idcasilla ?>" placeholder="Precio" aria-describedby="basic-addon3 basic-addon4">
+    <input type="number" onchange="validar_cantidad(<?php echo $idcasilla ?>)" class="form-control cantidad_renovar" id="cantidad<?php echo $idcasilla ?>" placeholder="cantidad" aria-describedby="basic-addon3 basic-addon4">
+    <input type="number" onchange="cambiar_precio_compra(<?php echo $idcasilla ?>)" class="form-control precio_renovar" id="precio<?php echo $idcasilla ?>" placeholder="Precio" aria-describedby="basic-addon3 basic-addon4">
 </div>
 
 <?php //desconecta la base de datos

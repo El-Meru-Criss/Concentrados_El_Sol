@@ -29,16 +29,18 @@
   function Refrescar_seleccion() {
     $("#Renovar_productos").html("");
     $("#renovar_valor_total").val("");
+    contador = 0;
   }
 
   function Realizar_Pedido() {
     var Productos = [];
-    var validacion = 0;
+    var V_produc = 0; //valida cuantos productos hay seleccionados
+    var V_cantidades = 0; //valida cuantas cantidades han sido digitadas
   
     $('.productos_renovar').each(function() {
       Productos.push($(this).val());
       if ($(this).val() != "") {
-        validacion += 1;
+        V_produc += 1; //Cuenta cuantos productos hay realmente
       }
     });
 
@@ -46,11 +48,14 @@
   
     $('.cantidad_renovar').each(function() {
       cantidad.push($(this).val());
+      if ($(this).val() != "") {
+        V_cantidades += 1; //Cuenta cuantas cantidades se digitaron
+      }
     });
 
-    if (validacion == 0) {
+    if (V_produc == 0) { //Alerta si no se han seleccionado productos
       alert("Se debe seleccionar almenos un producto!");
-    } else {
+    } else { if (V_produc == V_cantidades) { //Revisa que las cantidades digitadas son iguales a la cantidad de productos
 
       Swal.fire({
         title: 'Realizar Pedido?',
@@ -89,6 +94,12 @@
 
         }
       })
+      
+    } else { //alerta si hay cantidades vacias
+      alert("Hay cantidades vacias!");
+    }
+
+      
 
     }
 
@@ -139,14 +150,68 @@
                 
       }
     })
+    renovar_valor_total();
+  }
+
+  function validar_cantidad(id_casilla) {
+    var producto_id = "producto" + id_casilla;
+    var cantidad_id = "cantidad" + id_casilla;
+
+    if ( $("#" + producto_id).val() == "") {
+      alert("Selecciona un producto primero");
+      $("#" + cantidad_id).val("");
+    }
+    renovar_valor_total();
+
+  }
+
+  function validar_duplicacion(id_casilla) {
+
+
+    var producto_id = "producto" + id_casilla;
+    
+    var Productos = [];
+  
+    $('.productos_renovar').each(function() {
+      Productos.push($(this).val());
+    });
+    for(let i = 0; i < Productos.length; i++) {
+      if ( $("#" + producto_id).val() == Productos[i] 
+            && i != (id_casilla - 1) 
+            && $("#" + producto_id).val() != "" ) {
+        alert("Ya se ha seleccionado ese producto!");
+        document.getElementById(producto_id).selectedIndex = 0;
+      }
+    }
   }
 
   function precio_renovar(id_casilla) {
+   validar_duplicacion(id_casilla);
    var nombre_id = "precio" + id_casilla;
    var producto_id = "producto" + id_casilla;
+   var cantidad_id = "cantidad" + id_casilla;
    var precio = 0
-   precio = $("#" + producto_id + " option:selected").attr("data-precio");
-   document.getElementById(nombre_id).value = precio;
+   //precio = $("#" + producto_id + " option:selected").attr("data-precio");
+
+    var datos = {
+      "producto_id":$("#" + producto_id).val(),
+      "proveedor":$("#provedores_renovar").val()
+    };
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/precio_renovar.php",
+      data:datos,
+      success:function(d) {
+        var cleanedValue = d.trim().replace(/[\r\n]+/g, '');
+        precio = parseFloat(cleanedValue);
+        $("#" + nombre_id).val(precio);
+        document.getElementById(cantidad_id).value = "";
+        
+      }
+    })
+
+   
   }
 
   function mostrar_provedores() {
@@ -189,6 +254,7 @@
     })
 
     Refrescar_seleccion();
+
     
   }
 
