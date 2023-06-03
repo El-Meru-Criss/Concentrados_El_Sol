@@ -148,28 +148,6 @@
    precio = $("#" + producto_id + " option:selected").attr("data-precio");
    document.getElementById(nombre_id).value = precio;
   }
-  
-
-  function eliminar_inventario() {
-    Swal.fire({
-      title: 'Eliminar del inventario?',
-      text: "No podras revocar esta accion",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Eliminar',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          'Eliminado!',
-          'Se ha eliminado del inventario con exito',
-          'success'
-        )
-      }
-    })
-  }
 
   function mostrar_provedores() {
 

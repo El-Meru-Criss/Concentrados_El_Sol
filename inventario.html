@@ -22,12 +22,10 @@
         <input type="checkbox" id="menu_bar">
         <label for="menu_bar" class="fa fa-bars"></label>
         <nav class="navbar">
-            <a href="#inventario">Inventario</a>
-            <a href="#ventas">Ventas</a>
-            <a href="#deudores">Deudores</a>
-            <a href="#envios">Envios</a>
-            <a href=""></a>
-            <a href=""></a>
+          <a href="inventario.html">Inventario</a>
+          <a href="ventas.html">Ventas</a>
+          <a href="deudores.html">Deudores</a>
+          <a href="envios.html">Domicilios</a>
         </nav>
     </header>
 
@@ -80,7 +78,7 @@
       <div class="modal fade" id="administrar_proovedores" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
-            <div class="modal-header bg-info">
+            <div class="modal-header bg-primary text-light">
               <h1 class="modal-title fs-5" id="exampleModalLabel">Administrar proveedores</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -104,8 +102,8 @@
                 </tbody>
               </table>
             </div>
-            <div class="modal-footer bg-info text-light align-content-center align-items-center justify-content-center text-center">
-                <button type="button" class="btn btn-info" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal"><i class="fa-solid fa-circle-plus"></i> Agregar</button>
+            <div class="modal-footer bg-primary text-light align-content-center align-items-center justify-content-center text-center">
+                <button type="button" class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal"><i class="fa-solid fa-circle-plus"></i> Agregar</button>
             </div>
           </div>
         </div>
@@ -114,7 +112,7 @@
       <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
-            <div class="modal-header bg-info align-content-center align-items-center justify-content-center text-center">
+            <div class="modal-header bg-primary text-light align-content-center align-items-center justify-content-center text-center">
               <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Crear Proveedor</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -152,8 +150,8 @@
               
 
             </div>
-            <div class="modal-footer bg-info text-light align-content-center align-items-center justify-content-center text-center">
-              <button class="btn btn-info" onclick="crear_proveedor()" data-bs-target="#administrar_proovedores" data-bs-toggle="modal"> <i class="fa-solid fa-circle-plus"></i> Crear</button>
+            <div class="modal-footer bg-primary text-light align-content-center align-items-center justify-content-center text-center">
+              <button class="btn btn-primary" onclick="crear_proveedor()" data-bs-target="#administrar_proovedores" data-bs-toggle="modal"> <i class="fa-solid fa-circle-plus"></i> Crear</button>
             </div>
           </div>
         </div>
@@ -162,7 +160,7 @@
       <div class="modal fade" id="exampleModalToggle3" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
-            <div class="modal-header bg-info align-content-center align-items-center justify-content-center text-center">
+            <div class="modal-header bg-primary text-light align-content-center align-items-center justify-content-center text-center">
               <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Editar Proveedor</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -200,8 +198,8 @@
               
 
             </div>
-            <div class="modal-footer bg-info text-light align-content-center align-items-center justify-content-center text-center">
-              <button class="btn btn-info" onclick="editar_proveedor()" data-bs-target="#administrar_proovedores" data-bs-toggle="modal"> <i class="fa-solid fa-pen-to-square"></i> Editar</button>
+            <div class="modal-footer bg-primary text-light align-content-center align-items-center justify-content-center text-center">
+              <button class="btn btn-primary" onclick="editar_proveedor()" data-bs-target="#administrar_proovedores" data-bs-toggle="modal"> <i class="fa-solid fa-pen-to-square"></i> Editar</button>
             </div>
           </div>
         </div>
@@ -212,7 +210,7 @@
       <div class="modal fade" id="Renovar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
-            <div class="modal-header bg-success text-light">
+            <div class="modal-header bg-primary text-light">
               <h1 class="modal-title fs-5" id="exampleModalLabel">Renovar Productos</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -237,7 +235,7 @@
                   <input disabled type="number" class="form-control" id="basic-url" placeholder="Precio" aria-describedby="basic-addon3 basic-addon4">
                 </div>
                 <div id="Renovar_productos"></div>
-                <button type="button" class="btn btn-outline-success mt-1" onclick="Agregar_producto_renovar()"><i class="fa-solid fa-circle-plus"></i> </button>
+                <button type="button" class="btn btn-outline-primary mt-1" onclick="Agregar_producto_renovar()"><i class="fa-solid fa-circle-plus"></i> </button>
               </div>
 
               <div class="mb-3 align-content-center align-items-center justify-content-center text-center">
@@ -250,13 +248,13 @@
               </div>
 
             </div>
-            <div class="modal-footer bg-success text-light align-content-center align-items-center justify-content-center text-center">
+            <div class="modal-footer bg-primary text-light align-content-center align-items-center justify-content-center text-center">
               
               <div class="m-1">
 
                 <button data-bs-dismiss="modal" onclick="pedidos_proveedores()" type="button" class="btn btn-outline-light"><i class="fa-solid fa-truck-fast"></i> Ver Pedidos</button>
-                <button type="button" class="btn btn-outline-light"><i class="fa-regular fa-circle-down"></i></button>
-                <button onclick="Realizar_Pedido()" type="button" class="btn btn-success"><i class="fa-solid fa-clipboard-list"></i> Terminar lista</button>
+                
+                <button onclick="Realizar_Pedido()" type="button" class="btn btn-primary"><i class="fa-solid fa-clipboard-list"></i> Terminar lista</button>
 
               </div>
               

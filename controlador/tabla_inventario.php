@@ -26,7 +26,6 @@
         <table class="table tabla-deudores">
             <thead class="">
               <tr>
-                <th scope="col">Opciones</th>
                 <th scope="col">Producto</th>
                 <th scope="col">Kg</th>
                 <th scope="col">Precio Kg</th>
@@ -46,10 +45,6 @@
 while ($prod = mysqli_fetch_array($productos)) { ?>
     
             <tr>
-                <td>
-                  <button onclick="eliminar_inventario()" type="button" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                  <button type="button" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-pen"></i></button>
-              </td>
                 <td><?php echo $prod['nombre_producto'] ?></td>
                 <td><?php echo $prod['cantidad'] ?></td>
                 <td>
