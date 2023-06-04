@@ -1,4 +1,6 @@
 
+  
+  
   var contador=0;//variable de apoyo para determinar la identidad de cada producto
   function Agregar_producto_renovar() {
 
@@ -11,7 +13,7 @@
 
     var proveedor = $("#provedores_renovar").val();
 
-    if (proveedor == "") {
+    if (proveedor == "" || proveedor == null) {
       alert("Debes de elegir un proveedor primero");      
     } else {
       $.ajax({
@@ -24,6 +26,29 @@
       })
     }
     
+  }
+  
+  function eliminar_Productos_def() {
+    // Obtén el contador actual o ajústalo según tus necesidades
+    var contadorE = contador;
+    
+    if (contadorE >= 1) {
+      // Selecciona y elimina solo el último elemento creado
+      var ultimoElemento = contadorE;
+      var producto = $("#producto" + ultimoElemento).val();
+      var cantidad = $("#cantidad" + ultimoElemento).val();
+      var precio = $("#precio" + ultimoElemento).val();
+      
+      // Verifica si los elementos están vacíos antes de eliminarlos
+      if (producto === "" && cantidad === "" && precio === "") {
+        $("#producto" + ultimoElemento).remove();
+        $("#cantidad" + ultimoElemento).remove();
+        $("#precio" + ultimoElemento).remove();
+        
+        // Disminuye el contador en 1
+        contador -= 1;
+      }
+    }
   }
 
   function Refrescar_seleccion() {
@@ -206,8 +231,10 @@
         var cleanedValue = d.trim().replace(/[\r\n]+/g, '');
         precio = parseFloat(cleanedValue);
         $("#" + nombre_id).val(precio);
-        document.getElementById(cantidad_id).value = "";
-        
+        if ($("#" + producto_id).val() == "") {
+          document.getElementById(cantidad_id).value = "";
+        };
+        renovar_valor_total();
       }
     })
 
@@ -369,6 +396,7 @@
       success:function(d) {
           
           $("#Contenido_inventario").html(d);
+          cambiar_estado_producto();
           alertas();
       }
     })
@@ -417,6 +445,15 @@
    
   }
 
+  function cambiar_estado_producto() {
+    $.ajax({
+      type: "POST",
+      url: "controlador/cambiar_estado_producto.php",
+      success:function(d) {
+      }
+    })
+  }
+
   function F_vencimiento(id_inventario) {
     var input_id = "F_vencimiento" + id_inventario;
     var F_vencimiento = $("#" + input_id).val();
@@ -433,6 +470,7 @@
       url: "controlador/F_vencimiento.php",
       data:datos,
       success:function(d) {
+        cambiar_estado_producto();
         alertas();
       }
     })
