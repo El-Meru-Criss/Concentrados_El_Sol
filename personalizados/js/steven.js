@@ -1,6 +1,6 @@
 
 // Funciones Steven
-function checkenvio(id_producto,id_venta,estado) {
+function checkenvio(unidad_medida_idunidad_medida,id_producto,id_venta,estado) {
 
   Swal.fire({
     title: '¿Verificar domicilio?',
@@ -17,6 +17,7 @@ function checkenvio(id_producto,id_venta,estado) {
 
     if (result.isConfirmed) {
       var datos = {
+            "unidad_medida":unidad_medida_idunidad_medida,
             "id_producto":id_producto,
             "id_venta":id_venta,
             "estado":estado
@@ -69,7 +70,7 @@ function eliminarenvio(id_venta) {
                 'Se ha terminado el domicilio con exito',
                 'success'
               );
-
+              tabla_envios()
               
               
             }

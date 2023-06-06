@@ -94,7 +94,7 @@ while ($deud = mysqli_fetch_array($deudores)) { ?>
                                     <?php } ?>
                                     
                                     <td>
-                                    <input type="checkbox" id="checkenvio<?php echo $contador ?>" onclick="checkenvio(<?php echo $comp['inventario_idinventario'] ?>,<?php echo $comp['ventas_idventas'] ?>,<?php echo $comp['estado_domicilio_idestado_domicilio'] ?> )" 
+                                    <input type="checkbox" id="checkenvio<?php echo $contador ?>" onclick="checkenvio(<?php echo $comp['unidad_medida_idunidad_medida'] ?>,<?php echo $comp['inventario_idinventario'] ?>,<?php echo $comp['ventas_idventas'] ?>,<?php echo $comp['estado_domicilio_idestado_domicilio'] ?> )" 
                                     <?php if ($comp['estado_domicilio_idestado_domicilio'] == 3) { ?>
                                         checked
                                     <?php } ?>

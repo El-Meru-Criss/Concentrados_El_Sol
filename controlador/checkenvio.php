@@ -5,6 +5,7 @@
     $mysql->conectar();
 
    //toma los valores deseados
+   $unidad_medida = $_POST['unidad_medida'];
    $id_venta = $_POST['id_venta'];
    $id_producto = $_POST['id_producto'];
    $estado=$_POST['estado'];
@@ -13,11 +14,11 @@
     if ($estado==1) {
         $mysql->efectuarConsulta("UPDATE sol.inventario_has_ventas 
         SET sol.inventario_has_ventas.estado_domicilio_idestado_domicilio = 3 
-        WHERE sol.inventario_has_ventas.ventas_idventas='".$id_venta."' AND sol.inventario_has_ventas.inventario_idinventario='".$id_producto."'");   
+        WHERE sol.inventario_has_ventas.ventas_idventas='".$id_venta."' AND sol.inventario_has_ventas.inventario_idinventario='".$id_producto."' AND sol.inventario_has_ventas.unidad_medida_idunidad_medida='".$unidad_medida."'");   
     }else {
         $mysql->efectuarConsulta("UPDATE sol.inventario_has_ventas 
         SET sol.inventario_has_ventas.estado_domicilio_idestado_domicilio = 1 
-        WHERE sol.inventario_has_ventas.ventas_idventas='".$id_venta."' AND sol.inventario_has_ventas.inventario_idinventario='".$id_producto."'");   
+        WHERE sol.inventario_has_ventas.ventas_idventas='".$id_venta."' AND sol.inventario_has_ventas.inventario_idinventario='".$id_producto."' AND sol.inventario_has_ventas.unidad_medida_idunidad_medida='".$unidad_medida."'");   
     }
    
    echo $id_venta;

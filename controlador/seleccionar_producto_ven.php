@@ -49,7 +49,7 @@ while ($uni = mysqli_fetch_array($unidad_medida)) { ?>
 
 ?>
 </select>
-    <input type="number" onchange="valor_total()" class="form-control cantidad" id="cantidad<?php echo $idcasilla ?>" placeholder="cantidad" aria-describedby="basic-addon3 basic-addon4" min="0" max="0">
+    <input type="number" onchange="validar_cantidad(<?php echo $idcasilla ?>)" class="form-control cantidad" id="cantidad<?php echo $idcasilla ?>" placeholder="cantidad" aria-describedby="basic-addon3 basic-addon4" min="0" max="0">
     <input type="number" onchange="valor_total()" class="form-control precio" id="precio<?php echo $idcasilla ?>" placeholder="Precio" aria-describedby="basic-addon3 basic-addon4"  disabled=""?>
 </div>
 
