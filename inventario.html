@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="./bootstrap-5.3.0-alpha3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./personalizados/css/personalizado.css">
     <title>Inventario</title>
+    
+    <link rel="icon" type="image/x-icon" href="./logo1_t.png">
 </head>
 <body onload="tabla_inventario()">
 
@@ -22,7 +24,7 @@
         <input type="checkbox" id="menu_bar">
         <label for="menu_bar" class="fa fa-bars"></label>
         <nav class="navbar">
-          <a href="inventario.html">Inventario</a>
+          <a style="color: var(--amarillo);" href="inventario.html">Inventario</a>
           <a href="ventas.html">Ventas</a>
           <a href="deudores.html">Deudores</a>
           <a href="envios.html">Domicilios</a>
@@ -253,9 +255,10 @@
               
               <div class="m-1">
 
-                <button data-bs-dismiss="modal" onclick="pedidos_proveedores()" type="button" class="btn btn-outline-light"><i class="fa-solid fa-truck-fast"></i> Ver Pedidos</button>
+
+                <button onclick="Realizar_Pedido()" type="button" class="btn btn-outline-light"><i class="fa-solid fa-clipboard-list"></i> Terminar lista</button>
+                <button data-bs-dismiss="modal" onclick="pedidos_proveedores()" type="button" class="btn btn-primary"><i class="fa-solid fa-truck-fast"></i> Ver Pedidos</button>
                 
-                <button onclick="Realizar_Pedido()" type="button" class="btn btn-primary"><i class="fa-solid fa-clipboard-list"></i> Terminar lista</button>
 
               </div>
               
@@ -288,7 +291,7 @@
                 
                 <div class="input-group">
                   <span class="input-group-text" id="basic-addon1">Peso U/N (KL):</span>
-                  <input type="number" class="form-control" id="peso_producto" placeholder="Peso del bulto en kilos" aria-describedby="basic-addon3 basic-addon4">
+                  <input min="0" type="number" class="form-control" id="peso_producto" placeholder="Peso del bulto en kilos" aria-describedby="basic-addon3 basic-addon4">
                 </div>
 
               </div>
@@ -323,7 +326,7 @@
                 
                 <div class="input-group">
                   <span class="input-group-text" id="basic-addon1">$</span>
-                  <input type="number" class="form-control" id="producto_precio" placeholder="Precio de compra" aria-describedby="basic-addon3 basic-addon4">
+                  <input min="0" type="number" class="form-control" id="producto_precio" placeholder="Precio de compra" aria-describedby="basic-addon3 basic-addon4">
                 </div>
 
               </div>
@@ -352,7 +355,7 @@
       <div class="m-1 align-content-center align-items-center justify-content-center text-center">
         <div class="btn-group btn-group-lg" role="group" aria-label="Basic mixed styles example">
           <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#crear_productos"><i class="fa-solid fa-circle-plus"></i> Productos</button>
-          <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#Renovar"><i class="fa-sharp fa-solid fa-recycle"></i> Pedidos</button>
+          <button onclick="provedores_renovar()" type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#Renovar"><i class="fa-sharp fa-solid fa-recycle"></i> Pedidos</button>
           <button onclick="mostrar_provedores()" type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#administrar_proovedores"><i class="fa-solid fa-address-card"></i> Proveedores</button>
           <!-- <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#buscar_producto"><i class="fa-solid fa-magnifying-glass"></i> Busquedas</button> -->
           <button onclick="MostrarAlertas()" type="button" class="btn btn-danger position-relative" data-bs-toggle="modal" data-bs-target="#buscar_producto">
