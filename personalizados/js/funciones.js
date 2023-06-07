@@ -512,6 +512,30 @@
     
   }
 
+  function validar_nombre_producto() {
+
+    var datos = {
+      "producto_nombre":$("#producto_nombre").val()
+    };
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/validar_nombre_producto.php",
+      data:datos,
+      success:function(d) {
+
+        if (d == "existe") {
+          alert($("#producto_nombre").val() + " ya existe!, prueba con otro nombre");
+          $("#producto_nombre").val("");
+        }
+        
+        //document.getElementById("producto_nombre").value = "";
+        
+      }
+    })
+    
+  }
+
   function crear_producto() {
 
     var datos = {
