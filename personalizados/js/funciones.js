@@ -299,6 +299,7 @@
   }
 
   function productos_pedidos(id_acordeon) {
+    habilitar_envios(id_acordeon);
     var tabla = 'tabla' + id_acordeon;
 
     var datos = {
@@ -311,7 +312,7 @@
       data:datos,
       success:function(d) {
         $("#"+tabla).html(d);
-        
+        habilitar_envios(id_acordeon);
       }
     })
   }
@@ -383,6 +384,83 @@
             pedidos_proveedores();
           }
         })  
+      }
+    })
+
+  }
+  
+  function habilitar_envios(id_pedido) {
+
+    var cambios = 0;
+    $('.productos_pedido' + id_pedido).each(function() { 
+      
+      var valor = parseFloat($(this).val());
+      if ($(this).val() == "" || valor == 0) {
+        
+      } else {
+        cambios += 1;
+      }
+
+    });
+
+    var id_boton = "boton_recibir" + id_pedido;
+
+    if (cambios == 0) {
+      $("#" + id_boton).html('<button disabled type="button" onclick="recibir_productos(' + id_pedido + ')" class="btn btn-outline-success">Recibir</button>')
+    } else {
+      $("#" + id_boton).html('<button type="button" onclick="recibir_productos(' + id_pedido + ')" class="btn btn-outline-success">Recibir <span class="badge rounded-pill bg-success" id="Recibir_pedido' + id_pedido +'">' + cambios + '</span></button>')
+    }
+
+  }
+
+  function recibir_productos(id_pedido) {
+    var Cantidad = [];
+    var Productos = [];
+
+    $('.productos_pedido' + id_pedido).each(function() { 
+      
+      var valor = parseFloat($(this).val());
+      if ($(this).val() == "" || valor == 0) {
+        
+      } else {
+        Cantidad.push($(this).val());
+        Productos.push($(this).attr("data-producto"));
+      }
+
+    });
+
+    Swal.fire({
+      title: '¿Recibir los productos digitados?',
+      text: "No podras revocar esta accion",
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Realizar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        var datos = {
+          "Productos":Productos,
+          "Cantidad":Cantidad,
+          "id_pedido":id_pedido
+        }
+    
+        $.ajax({
+          type: "POST",
+          url: "controlador/recibir_productos.php",
+          data:datos,
+          success:function(d) {
+            Swal.fire(
+              'Recibidos!',
+              'Se ha ingresado los productos seleccionados al inventario',
+              'success'
+            );
+            productos_pedidos(id_pedido);
+          }
+        })
+
       }
     })
 

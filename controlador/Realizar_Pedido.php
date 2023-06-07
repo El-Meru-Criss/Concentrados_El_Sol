@@ -36,7 +36,8 @@
         VALUES ('".$provedores_renovar."',
         '".$Productos[$i]."',
         '".$id[0]."',
-        '".$cantidad[$i]."')");
+        '".$cantidad[$i]."',
+        NULL)");
 
         
     }

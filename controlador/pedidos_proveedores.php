@@ -42,7 +42,9 @@
             </h2>
             <div id="collapse<?php echo $ped['idpedidos_proveedor'] ?>" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                <button type="button" onclick="recibir_pedido(<?php echo $ped['idpedidos_proveedor'] ?>)" class="btn btn-outline-success">Recibir</button>
+                <div id="boton_recibir<?php echo $ped['idpedidos_proveedor'] ?>" style="width: min-content;display: contents;"> 
+                    <button disabled type="button" onclick="recibir_productos(<?php echo $ped['idpedidos_proveedor'] ?>)" class="btn btn-outline-success">Recibir</button>
+                </div>
                 <button type="button" onclick="cancelar_pedido(<?php echo $ped['idpedidos_proveedor'] ?>)" class="btn btn-outline-danger">Cancelar</button>
                 <table class="table" id="tabla<?php echo $ped['idpedidos_proveedor'] ?>">
                     <thead>
