@@ -388,6 +388,17 @@
     })
 
   }
+
+  function validar_cantidad_recibida(id_pedido,id_casilla) {
+    var max = parseFloat($("#producto"+id_casilla+"-"+id_pedido).attr("max"));
+    var valor = parseFloat($("#producto"+id_casilla+"-"+id_pedido).val());
+
+    if (max < valor) {
+      $("#producto"+id_casilla+"-"+id_pedido).val(max);
+    };
+
+    habilitar_envios(id_pedido);
+  }
   
   function habilitar_envios(id_pedido) {
 
@@ -458,6 +469,9 @@
               'success'
             );
             productos_pedidos(id_pedido);
+            if (d == "refrescar") {
+              pedidos_proveedores();
+            }
           }
         })
 

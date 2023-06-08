@@ -28,7 +28,7 @@
         <tr>
             <th scope="col">Producto</th>
             <th scope="col">Pedido</th>
-            <th scope="col">Recibido</th>
+            <th scope="col">Entregado</th>
             <th scope="col">Recibir</th>
         </tr>
     </thead>
@@ -43,7 +43,7 @@
             <td><?php echo $prod['nombre_producto'] ?></td>
             <td><?php echo $prod['cantidad'] ?></td>
             <td><?php echo $prod['recibidos'] ?></td>
-            <td><input <?php if ($prod['cantidad'] == $prod['recibidos']) { ?>disabled<?php } ?> data-producto="<?php echo $prod['proveedor_has_producto_producto_idproducto'] ?>" min="0" max="<?php echo ($prod['cantidad'] - $prod['recibidos']) ?>" onchange="habilitar_envios(<?php echo $id_acordeon ?>)" value="" class="form-control form-control-sm productos_pedido<?php echo $id_acordeon ?>" id="producto<?php echo $contador ?>-<?php echo $id_acordeon ?>" type="number" style="width: 10rem;"></td>
+            <td><input <?php if ($prod['cantidad'] == $prod['recibidos']) { ?>disabled<?php } ?> data-producto="<?php echo $prod['proveedor_has_producto_producto_idproducto'] ?>" min="0" max="<?php echo ($prod['cantidad'] - $prod['recibidos']) ?>" onchange="validar_cantidad_recibida(<?php echo $id_acordeon ?>,<?php echo $contador ?>)" value="" class="form-control form-control-sm productos_pedido<?php echo $id_acordeon ?>" id="producto<?php echo $contador ?>-<?php echo $id_acordeon ?>" type="number" style="width: 10rem;"></td>
         </tr>
     <?php
     
