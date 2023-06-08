@@ -24,7 +24,7 @@
 ?>
 
 <div class="input-group">
-    <select class="form-select producto" aria-label="Default select example" onchange="precio_renovar(<?php echo $idcasilla ?>)" id="producto<?php echo $idcasilla ?>" >
+    <select class="form-select producto" aria-label="Default select example" onchange="precio_renovar(<?php echo $idcasilla ?>), validar_duplicacion(<?php echo $idcasilla ?>) " id="producto<?php echo $idcasilla ?>" >
     <option selected></option>
 <?php //inicio del ciclo para ir colocando HTML 
 
@@ -35,7 +35,7 @@ while ($prod = mysqli_fetch_array($productos)) { ?>
 
 ?>
 </select>
-<select class="form-select unidad" aria-label="Default select example" onchange="precio_renovar(<?php echo $idcasilla ?>)" id="unidad_medida<?php echo $idcasilla ?>" >
+<select class="form-select unidad" aria-label="Default select example" onchange="precio_renovar(<?php echo $idcasilla ?>),validar_cantidad(<?php echo $idcasilla ?>), validar_duplicacion(<?php echo $idcasilla ?>) " id="unidad_medida<?php echo $idcasilla ?>" >
     <option selected=""> </option>
     <?php //inicio del ciclo para ir colocando HTML 
 

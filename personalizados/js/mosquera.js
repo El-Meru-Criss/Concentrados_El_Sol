@@ -448,8 +448,8 @@ function eliminar_vendedor(idvendedores) {
     if(document.getElementById("valor_total").value == ""){alert("por favor haga click en Agregar y seleciona un producto, una unidad de medida y escribe una cantidad");document.getElementById("agregar").focus();return false;}
     if(document.getElementById("valor_total").value == 0){alert("por favor escribe una cantidad mayor que 0 para el producto que se va a vender");document.getElementById("agregar").focus();return false;}
     if(document.getElementById("cantidad_pagada").value == ""){alert("por favor escriba la cantidad pagada por el cliente");document.getElementById("cantidad_pagada").focus();return false;}
-    if(document.getElementById("seleccionar_venta").value == 1 && document.getElementById("valor_total").value >= document.getElementById("cantidad_pagada").value){alert("por favor seleccione que el tipo de venta es a credito");document.getElementById("seleccionar_venta").focus();return false;}
-    if(document.getElementById("seleccionar_venta").value == 2 && document.getElementById("valor_total").value <= document.getElementById("cantidad_pagada").value){alert("por favor seleccione que el tipo de venta es a contado");document.getElementById("seleccionar_venta").focus();return false;}
+    if(document.getElementById("seleccionar_venta").value == 1 && parseFloat(document.getElementById("valor_total").value) >= parseFloat(document.getElementById("cantidad_pagada").value)){alert("por favor seleccione que el tipo de venta es a credito");document.getElementById("seleccionar_venta").focus();return false;}
+    if(document.getElementById("seleccionar_venta").value == 2 && parseFloat(document.getElementById("valor_total").value) <= parseFloat(document.getElementById("cantidad_pagada").value)){alert("por favor seleccione que el tipo de venta es a contado");document.getElementById("seleccionar_venta").focus();return false;}
     else{
     var producto = [];
   
@@ -599,11 +599,43 @@ function tabla_historial_venta() {
 function validar_cantidad(id_casilla) { 
   var producto_id = "producto" + id_casilla;
   var cantidad_id = "cantidad" + id_casilla;
+  var unidad_medida_id = "unidad_medida" + id_casilla;
 
   if ( $("#" + producto_id).val() == "") {
     alert("Selecciona un producto primero");
     $("#" + cantidad_id).val("");
+    document.getElementById(unidad_medida_id).selectedIndex = 0;
   }
   valor_total();
 
   }
+
+function validar_duplicacion(id_casilla) {
+  var producto_id = "producto" + id_casilla;
+  var unidad_medida_id = "unidad_medida" + id_casilla;
+  
+  var Productos = [];
+  var unidad_medida = [];
+
+  $('.producto').each(function() {
+    Productos.push($(this).val());
+  });
+  $('.unidad').each(function() {
+    unidad_medida.push($(this).val());
+  });
+
+  for (let i = 0; i < Productos.length; i++) {
+    for (let j = 0; j < unidad_medida.length; j++) {
+      if ($("#" + producto_id).val() == Productos[i] &&
+          i != (id_casilla - 1) &&
+          $("#" + producto_id).val() != "" &&
+          $("#" + unidad_medida_id).val() == unidad_medida[j] &&
+          j != (id_casilla - 1) &&
+          $("#" + unidad_medida_id).val() != "") {
+        alert("¡Ya se ha seleccionado ese producto y con esa unidad de medida!");
+        document.getElementById(producto_id).selectedIndex = 0;
+        document.getElementById(unidad_medida_id).selectedIndex = 0;
+      }
+    }
+  }
+}
