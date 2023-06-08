@@ -91,7 +91,7 @@ function abonar(cantidad_abonada,idventas,cantidad_debida) {
     title: 'Abonar a la deuda',
     text: "No podrás revocar esta acción, ¿está seguro?",
     icon: 'warning',
-    html: '<input class="form-control" type="number" id="abono">',
+    html: '<input class="form-control" type="number" id="abono" min="0">',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',

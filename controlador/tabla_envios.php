@@ -50,7 +50,9 @@ while ($deud = mysqli_fetch_array($deudores)) { ?>
                             <tr>
                                 <th>Producto</th>
                                 <th>Cantidad</th>
+                                
                                 <th scope="col">Cantidad enviada</th>
+                                <th>Faltante</th>
                                 <th>Unidad de medida</th>
                                 <th>Precio</th>
                                 <th>¿Enviado?</th>
@@ -84,15 +86,16 @@ while ($deud = mysqli_fetch_array($deudores)) { ?>
                                  AND (sol.inventario_has_ventas.estado_domicilio_idestado_domicilio=1
                                  OR sol.inventario_has_ventas.estado_domicilio_idestado_domicilio=3) 
                                   ");
-
                                   
-                                 while ($comp = mysqli_fetch_array($compra)) { $contador += 1; 
+                                  
+                                 while ($comp = mysqli_fetch_array($compra)) { $contador += 1; $faltante= $comp['cantidad_vendida'] - $comp['cantidad_enviada']; $maxcan= $comp['cantidad_vendida'];
                             ?>
                                 <tr>
                                 
                                     <td><?php echo $comp['nombre_producto'] ?></td>
                                     <td><?php echo $comp['cantidad_vendida'] ?></td>
-                                    <td><input onchange="cantidadEN_envios(<?php echo $comp['inventario_idinventario']?>,<?php echo $comp['ventas_idventas']?>,<?php echo $comp['cantidad_vendida']?>)" value="<?php echo $comp['cantidad_enviada'] ?>" type="number" class="form-control form-control-sm" id="cantidad_enviada<?php echo $comp['inventario_idinventario']?><?php echo $comp['ventas_idventas']?><?php echo $comp['cantidad_vendida']?>" style="width: 10rem;"></td>
+                                    <td><input onchange="cantidadEN_envios(<?php echo $comp['inventario_idinventario']?>,<?php echo $comp['ventas_idventas']?>,<?php echo $comp['cantidad_vendida']?>)" min="0" max="<?php echo $maxcan?>" value="<?php echo $comp['cantidad_enviada'] ?>" type="number" class="form-control form-control-sm" id="cantidad_enviada<?php echo $comp['inventario_idinventario']?><?php echo $comp['ventas_idventas']?><?php echo $comp['cantidad_vendida']?>" style="width: 10rem;"></td>
+                                    <td><?php echo $faltante ?></td>
                                     <td><?php echo $comp['nombre_unidad'] ?></td>
                                     <?php if ($comp['unidad_medida_idunidad_medida'] == 1) { ?>
                                         <td><?php echo $comp['precio_publico'] ?></td>
@@ -122,7 +125,7 @@ while ($deud = mysqli_fetch_array($deudores)) { ?>
                             <td></td>
                             <td></td>
                             <td></td>
-                            
+                            <td></td>
                         </tr>
                         <tr>
                             <button class="btn btn-danger" onclick="eliminarenvio(<?php echo $deud['ventas_idventas'] ?>)">Todo enviado</button>
