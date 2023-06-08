@@ -43,7 +43,7 @@ while ($deud = mysqli_fetch_array($deudores)) { ?>
                             <tr>
                                 <th>Producto</th>
                                 <th>Cantidad</th>
-                                <th>unidad de medida</th>
+                                <th>Unidad de medida</th>
                                 <th>Precio</th>
                                 
                             </tr>
@@ -128,8 +128,15 @@ while ($deud = mysqli_fetch_array($deudores)) { ?>
                                     
                                     
                              while ($abon = mysqli_fetch_array($abona)) { ?>
+                            <?php  
+                                    $abono_t = $abon['cantidad_abonada'];
+                                    $debido_t = $abon['cantidad_debida'];
+                                if($abono_t != $debido_t) {
+                            ?>
                             <button type="button" class="btn btn-success m-1" onclick="abonar(<?php echo $abon['cantidad_abonada'] ?>, <?php echo $abon['idventas'] ?>,<?php echo $abon['cantidad_debida'] ?> )">Abonar</button>
-                            
+                            <?php
+                                } 
+                            ?>
                             
 
                             <?php  

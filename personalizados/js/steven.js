@@ -4,7 +4,7 @@ function checkenvio(unidad_medida_idunidad_medida,id_producto,id_venta,estado) {
 
   Swal.fire({
     title: '¿Verificar domicilio?',
-    text: "No podras revocar esta accion, ¿esta seguro?",
+    text: "No podrás revocar esta acción, ¿está seguro?",
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
@@ -31,7 +31,7 @@ function checkenvio(unidad_medida_idunidad_medida,id_producto,id_venta,estado) {
 
               Swal.fire(
                 'Enviado!',
-                'Se ha realizado el domicilio con exito',
+                'Se ha realizado el domicilio con éxito',
                 'success'
               );
               tabla_envios();
@@ -46,12 +46,12 @@ function checkenvio(unidad_medida_idunidad_medida,id_producto,id_venta,estado) {
 function eliminarenvio(id_venta) {
   Swal.fire({
     title: '¿Terminar domicilio?',
-    text: "No podras revocar esta accion, ¿esta seguro?",
+    text: "No podrás revocar esta acción, ¿está seguro?",
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Eliminar',
+    confirmButtonText: 'Terminar',
     cancelButtonText: 'Cancelar'
   }).then((result) => {
     if (result.isConfirmed) {
@@ -67,7 +67,7 @@ function eliminarenvio(id_venta) {
 
               Swal.fire(
                 'Enviado!',
-                'Se ha terminado el domicilio con exito',
+                'Se ha terminado el domicilio con éxito',
                 'success'
               );
               tabla_envios()
@@ -89,7 +89,7 @@ function abonar(cantidad_abonada,idventas,cantidad_debida) {
 
   Swal.fire({
     title: 'Abonar a la deuda',
-    text: "No podras revocar esta accion, ¿esta seguro?",
+    text: "No podrás revocar esta acción, ¿está seguro?",
     icon: 'warning',
     html: '<input class="form-control" type="number" id="abono">',
     showCancelButton: true,
@@ -120,7 +120,7 @@ function abonar(cantidad_abonada,idventas,cantidad_debida) {
 
           Swal.fire(
             'Abonado!',
-            'Se ha abonado con exito devolver: ' + d,
+            'Se ha abonado con éxito, se debe devolver:' + d,
             'success'
           );
           tabla_deudores()
@@ -137,7 +137,7 @@ function abonar(cantidad_abonada,idventas,cantidad_debida) {
 function eliminardeudor(idventas) {
   Swal.fire({
     title: 'Terminar deuda/deudor',
-    text: "No podras revocar esta accion, ¿esta seguro?",
+    text: "No podrás revocar esta acción, ¿está seguro?",
     icon: 'warning',
     
     showCancelButton: true,
@@ -161,7 +161,7 @@ function eliminardeudor(idventas) {
 
           Swal.fire(
             'Terminado!',
-            'Se ha terminado la deuda con exito',
+            'Se ha terminado la deuda con éxito',
             'success'
           );
           tabla_deudores()
@@ -201,5 +201,28 @@ function tabla_envios() {
     }
   })
   
+}
+
+function cantidadEN_envios(inventario_idinventario,ventas_idventas,cantidad_vendida) {
+  var input_id = "cantidad_enviada" + inventario_idinventario + ventas_idventas + cantidad_vendida;
+  var cantidad_enviada = $("#" + input_id).val();
+ // alert(input_id);
+  
+  var datos = {
+    "inventario_idinventario":inventario_idinventario,
+    "ventas_idventas":ventas_idventas,
+    "cantidad_vendida":cantidad_vendida,
+    "cantidad_enviada":cantidad_enviada
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "controlador/cantidadEN_envios.php",
+    data:datos,
+    success:function(d) {//alert("ID inventario: " + inventario_idinventario + "idventas" + ventas_idventas + "cantidad" + cantidad_vendida + "can env:" + cantidad_enviada)
+      tabla_envios()
+    }
+  })
+ 
 }
 // Fin funciones Steven
