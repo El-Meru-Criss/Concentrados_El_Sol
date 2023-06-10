@@ -40,7 +40,8 @@ FROM sol.inventario
 INNER JOIN sol.proveedor_has_producto 
 ON sol.proveedor_has_producto.producto_idproducto = sol.inventario.proveedor_has_producto_producto_idproducto 
 INNER JOIN sol.producto 
-ON sol.producto.idproducto = sol.proveedor_has_producto.producto_idproducto");
+ON sol.producto.idproducto = sol.proveedor_has_producto.producto_idproducto
+GROUP BY sol.inventario.idinventario");
 
 $Alertas = 0;
 

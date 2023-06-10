@@ -114,8 +114,7 @@
             }
           })
 
-          Refrescar_seleccion();
-          $("#provedores_renovar").html("");
+          provedores_renovar();
 
         }
       })
@@ -710,13 +709,13 @@
         data:datos,
         success:function(d) {
           Swal.fire(
-            'Creado!',
-            'Has creado con exito este producto.',
+            'Asociado!',
+            'Has asociado con exito el producto y su proveedor. Si en un futuro deseas cambiar su precio, dirigete a la seccion "Pedidos"',
             'success'
           );
           document.getElementById("producto_precio").value = "";
-          document.getElementById("proveedores_crear_producto").innerHTML = "";
-          document.getElementById("seleccionar_producto").innerHTML = "";
+          document.getElementById("proveedores_crear_producto").selectedIndex = 0; 
+          document.getElementById("seleccionar_producto").selectedIndex = 0;
           
         }
       })
