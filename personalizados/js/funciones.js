@@ -83,8 +83,8 @@
     } else { if (V_produc == V_cantidades) { //Revisa que las cantidades digitadas son iguales a la cantidad de productos
 
       Swal.fire({
-        title: 'Realizar Pedido?',
-        text: "Podras revocar esta accion despues si deseas!",
+        title: '¿Realizar Pedido?',
+        text: "Podrás revocar esta acción después si deseas!",
         icon: 'info',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -108,7 +108,7 @@
             success:function(d) {
               Swal.fire(
                 'Realizado!',
-                'Se ha realizado el pedido con exito!',
+                'Se ha realizado el pedido con éxito!',
                 'success'
               )
             }
@@ -319,8 +319,8 @@
   function cancelar_pedido(id_pedido) {
 
     Swal.fire({
-      title: 'Cancelar el pedido?',
-      text: "no podras revocar esta opcion",
+      title: '¿Cancelar el pedido?',
+      text: "No podrán revocar esta opción",
       icon: 'warning',
       showCancelButton: true,
       //confirmButtonColor: '#d33',
@@ -441,7 +441,7 @@
 
     Swal.fire({
       title: '¿Recibir los productos digitados?',
-      text: "No podras revocar esta accion",
+      text: "No podrás revocar esta acción",
       icon: 'info',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -627,6 +627,54 @@
     
   }
 
+  function informacion_cantidad_productos() {
+    Swal.fire({
+      title: 'Instrucciones: Contenido',
+      icon: 'info',
+      html:
+        'En el apartado "Contenido" debes digitar la cantidad de producto que contiene el paquete o bulto. <br>' +
+        
+        '<b>Ejemplos de uso:</b> <br>' +
+  
+        '<div class="accordion" id="accordionExample">' +
+          '<div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">'
+            + 'Productos a granel' +
+          '</button></h2>' +
+          '<div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample"><div class="accordion-body">'
+            
+            + 'En el caso de productos en donde su venta es a granel: se digita el peso en kilos del bulto o paquete, <b>ejemplo:</b> Hay un producto llamado ponedora el cual el peso del bulto es 40 kg <br>' +
+            '<div class="input-group mb-1"><span class="input-group-text" id="basic-addon1">Nombre:</span><input readonly type="text" class="form-control" value="Ponedora" aria-describedby="basic-addon3 basic-addon4"></div>' +
+            '<div class="input-group mb-1"><span class="input-group-text" id="basic-addon1">Contenido:</span><input readonly type="number" class="form-control" value="40"><button type="button" class="btn btn-outline-primary"><i class="fa-solid fa-circle-question fa-lg"></i></button></div>' +
+          
+          '</div></div></div>' +
+          '<div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">'
+            + 'Productos empaquetados' +
+            '</button></h2>' +
+          '<div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample"><div class="accordion-body">'
+            
+            +  'En caso de productos que se venden por unidad pero se compran en paquetes: se digita el número de productos que hay en el paquete, <b>ejemplo:</b> Se compra un paquete de agujas que contiene 5 agujas <br>' +
+            '<div class="input-group mb-1"><span class="input-group-text" id="basic-addon1">Nombre:</span><input readonly type="text" class="form-control" value="Aguja" aria-describedby="basic-addon3 basic-addon4"></div>' +
+            '<div class="input-group mb-1"><span class="input-group-text" id="basic-addon1">Contenido:</span><input readonly type="number" class="form-control" value="5"><button type="button" class="btn btn-outline-primary"><i class="fa-solid fa-circle-question fa-lg"></i></button></div>' +
+            
+          '</div></div></div>' +
+          '<div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">'
+             + 'Productos unitarios' +
+            '</button></h2>' +
+          '<div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample"><div class="accordion-body">'
+             
+            + 'En caso de productos que se compran por unidad y se venden por unidad: se digita 1 por ser una compra unitaria, <b>ejemplo:</b> Se compran collares para perros <br>' +
+             '<div class="input-group mb-1"><span class="input-group-text" id="basic-addon1">Nombre:</span><input readonly type="text" class="form-control" value="Collar Perro" aria-describedby="basic-addon3 basic-addon4"></div>' +
+             '<div class="input-group mb-1"><span class="input-group-text" id="basic-addon1">Contenido:</span><input readonly type="number" class="form-control" value="1"><button type="button" class="btn btn-outline-primary"><i class="fa-solid fa-circle-question fa-lg"></i></button></div>' +
+             
+        '</div></div></div></div>',
+      showCloseButton: true,
+      focusConfirm: false,
+      confirmButtonText:
+        '<i class="fa fa-thumbs-up"></i> Entendido!',
+      confirmButtonAriaLabel: 'Thumbs up, great!'
+    })
+  }
+
   function crear_producto() {
 
     var datos = {
@@ -648,7 +696,7 @@
         success:function(d) {
           Swal.fire(
             'Creado!',
-            'Has creado con exito este producto.',
+            'Has creado con éxito este producto.',
             'success'
           );
 
@@ -710,7 +758,7 @@
         success:function(d) {
           Swal.fire(
             'Asociado!',
-            'Has asociado con exito el producto y su proveedor. Si en un futuro deseas cambiar su precio, dirigete a la seccion "Pedidos"',
+            'Has asociado con éxito el producto y su proveedor. Si en un futuro deseas cambiar su precio, dirígete a la sección <button type="button" class="btn btn-dark"><i class="fa-sharp fa-solid fa-recycle"></i> Pedidos</button>',
             'success'
           );
           document.getElementById("producto_precio").value = "";
@@ -727,8 +775,8 @@
   function eliminar_proveedor(idproveedor) {
 
     Swal.fire({
-      title: 'Descartar este Proveedor?',
-      text: "no podras revocar esta opcion",
+      title: '¿Descartar este Proveedor?',
+      text: "no podrán revocar esta opción y no podrás ejecutarla si ya has hecho acciones con este proveedor",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
@@ -748,7 +796,7 @@
           success:function(d) {
             Swal.fire(
               'Eliminado!',
-              'Has eliminado con exito este proveedor.',
+              'Has eliminado con éxito este proveedor.',
               'success'
             );
             mostrar_provedores();
@@ -796,7 +844,7 @@
         success:function(d) {
           Swal.fire(
             'Editado!',
-            'Has editado con exito este proveedor.',
+            'Has editado con éxito este proveedor.',
             'success'
           );
           mostrar_provedores();     
@@ -827,7 +875,7 @@
           mostrar_provedores();
           Swal.fire(
             'Creado!',
-            'Has creado con exito este provvedor!.',
+            'Has creado con éxito este proveedor!.',
             'success'
           );
           

@@ -48,7 +48,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <p>Aqui visualizaras los productos caducados, cerca de caducarse o con poca existencia</p>
+              <p>Aquí visualizamos los productos caducados, cerca de caducar o con poca existencia</p>
               <hr>
               <div class="mb-3" id="MostrarAlertas">
                 
@@ -85,7 +85,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <p>Aqui podras ver, editar y crear provedoores!</p>
+              <p>Aquí podrás ver, editar y crear proveedores!</p>
               <table class="table">
                 <thead>
                   <tr>
@@ -120,7 +120,7 @@
             </div>
             <div class="modal-body">
 
-              <p>Aqui podras crear proveedores!</p>
+              <p>¡Aquí podrás crear proveedores!</p>
               
               <div class="mb-3">
                 
@@ -168,7 +168,7 @@
             </div>
             <div class="modal-body" id="editar_proveedores">
 
-              <p>Aqui podras editar informacion de proveedores!</p>
+              <p>¡Aquí podrás editar información de proveedores!</p>
               
               <div class="mb-3">
                 
@@ -217,7 +217,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <p>Aqui podras renovar los productos agotados por medio de una lista!</p>
+              <p>Aquí podrás renovar los productos por medio de una lista!</p>
 
               <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Proveedor:</span>
@@ -276,7 +276,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <p class="text-center">Aqui podras crear productos nuevos!</p>
+              <p class="text-center">Aquí podrás crear productos nuevos que tus proveedores proporcionen</p>
 
               <div class="mb-3">
                 
@@ -290,8 +290,9 @@
               <div class="mb-3">
                 
                 <div class="input-group">
-                  <span class="input-group-text" id="basic-addon1">Peso U/N (KL):</span>
-                  <input min="0" type="number" class="form-control" id="peso_producto" placeholder="Peso del bulto en kilos" aria-describedby="basic-addon3 basic-addon4">
+                  <span class="input-group-text" id="basic-addon1">Contenido:</span>
+                  <input min="0" type="number" class="form-control" id="peso_producto" placeholder="Cantidad/Peso[kg] del producto" aria-describedby="basic-addon3 basic-addon4">
+                  <button type="button" onclick="informacion_cantidad_productos()" class="btn btn-outline-primary"><i class="fa-solid fa-circle-question fa-lg"></i></button>
                 </div>
 
               </div>
@@ -304,7 +305,7 @@
 
               <hr>
 
-              <p class="text-center">Aqui podras digitar el precio de un producto y su proveedor!</p>
+              <p class="text-center">Aquí podrás digitar el precio de un producto y su proveedor!</p>
 
               <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Producto:</span>
