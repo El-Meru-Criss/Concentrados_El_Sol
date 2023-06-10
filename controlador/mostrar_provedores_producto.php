@@ -11,7 +11,7 @@
     sol.proveedor.nombre 
     FROM sol.proveedor");
 ?>
-
+<option value=""></option>
 <?php //inicio del ciclo para ir colocando HTML 
 
 while ($prov = mysqli_fetch_array($proveedores)) { ?>

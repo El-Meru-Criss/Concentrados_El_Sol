@@ -655,12 +655,38 @@
 
           document.getElementById("producto_nombre").value = "";
           document.getElementById("peso_producto").value = "";
+          seleccionar_producto();
           
         }
       })
 
     }
 
+  }
+
+  function validar_asociacion_producto() {
+
+    var datos = {
+      "seleccionar_producto":$("#seleccionar_producto").val(),
+      "proveedores_crear_producto":$("#proveedores_crear_producto").val()
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/validar_asociacion_producto.php",
+      data:datos,
+      success:function(d) {
+        
+        if (d == "existe") {
+          alert($("#seleccionar_producto option:selected").text() + " ya es proveido por " + $("#proveedores_crear_producto option:selected").text() +"!, Si deseas cambiar el precio de este producto, dirigete a el apartado de 'Pedidos'");
+          $("#producto_nombre").val("");
+        } else {
+          Producto_y_proveedor();
+        }
+
+      }
+    })
+    
   }
 
   function Producto_y_proveedor() {

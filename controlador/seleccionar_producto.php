@@ -10,7 +10,7 @@
     sol.producto.nombre_producto 
     FROM sol.producto");
 ?>
-
+<option value=""></option>
 <?php //inicio del ciclo para ir colocando HTML 
 
 while ($prod = mysqli_fetch_array($productos)) { ?>
