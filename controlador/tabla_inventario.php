@@ -8,6 +8,7 @@
 
     $productos = $mysql->efectuarConsulta("SELECT sol.inventario.idinventario, 
     sol.producto.nombre_producto, 
+    sol.producto.idproducto,
     sol.inventario.cantidad, 
     sol.inventario.precio_publico, 
     sol.inventario.precio_bulto, 
@@ -27,6 +28,7 @@
         <table class="table tabla-deudores">
             <thead class="">
               <tr>
+                <th scope="col">Registro</th>
                 <th scope="col">Producto</th>
                 <th scope="col">Kg</th>
                 <th scope="col">Precio Kg</th>
@@ -46,6 +48,7 @@
 while ($prod = mysqli_fetch_array($productos)) { ?>
     
             <tr>
+                <td><button onclick="historial_ingreso(<?php echo $prod['idproducto'] ?>)" type="button" class="btn btn-outline-primary"><i class="fa-solid fa-book"></i></button></td>
                 <td><?php echo $prod['nombre_producto'] ?></td>
                 <td><?php echo $prod['cantidad'] ?></td>
                 <td>

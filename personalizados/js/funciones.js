@@ -297,6 +297,21 @@
     
   }
 
+  function historial_ingreso(id_producto) {
+    var datos = {
+      "id_producto":id_producto
+    }
+    $.ajax({
+      type: "POST",
+      url: "controlador/historial_ingreso.php",
+      data:datos,
+      success:function(d) {
+          
+          $("#Contenido_inventario").html(d);
+      }
+    })
+  }
+
   function productos_pedidos(id_acordeon) {
     habilitar_envios(id_acordeon);
     var tabla = 'tabla' + id_acordeon;
