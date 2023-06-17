@@ -85,6 +85,7 @@ while ($deud = mysqli_fetch_array($deudores)) { ?>
                                  WHERE sol.inventario_has_ventas.ventas_idventas= '".$deud['ventas_idventas']."'
                                  AND (sol.inventario_has_ventas.estado_domicilio_idestado_domicilio=1
                                  OR sol.inventario_has_ventas.estado_domicilio_idestado_domicilio=3) 
+                                 GROUP BY sol.unidad_medida.idunidad_medida, sol.inventario.idinventario
                                   ");
                                   
                                   
