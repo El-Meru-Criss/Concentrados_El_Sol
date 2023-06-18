@@ -690,6 +690,152 @@
     })
   }
 
+  function mostrar_productos() {
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/mostrar_productos.php",
+      success:function(d) {
+          
+          $("#Contenido_inventario").html(d);
+      }
+    })
+    
+  }
+
+  function Cambiar_nombre_producto(input,id_producto) {
+    
+    if (input.value.trim() == "") {
+      mostrar_productos();  
+    } else {
+      var datos = {
+        "id_producto":id_producto,
+        "nombre":input.value.trim()
+      }
+  
+      $.ajax({
+        type: "POST",
+        url: "controlador/Cambiar_nombre_producto.php",
+        data:datos,
+        success:function(d) {
+          mostrar_productos();
+        }
+      })
+    }
+
+     
+
+  }
+
+  function Cambiar_contenido(input,id_producto) {
+    
+    if (input.value == "" || input.value == 0) {
+      mostrar_productos();
+    } else {
+      var datos = {
+        "id_producto":id_producto,
+        "valor":input.value
+      }
+  
+      $.ajax({
+        type: "POST",
+        url: "controlador/Cambiar_contenido.php",
+        data:datos,
+        success:function(d) {
+          mostrar_productos();
+        }
+      })
+    }
+
+      
+
+  }
+
+  function eliminar_producto(id_producto,validacion) {
+
+    if (validacion > 0) {
+      alert("Debes de quitar todos los proveedores relacionados con este producto antes de eliminarlo!");
+    } else {
+
+      Swal.fire({
+        title: '¿Eliminar este producto?',
+        text: "no podrán revocar esta accion",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: 'success',
+        confirmButtonText: 'eliminar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+  
+          var datos = { //capturo los datos
+            "id_producto":id_producto
+          };
+      
+          $.ajax({
+            type: "POST",
+            url: "controlador/eliminar_producto.php",
+            data:datos,
+            success:function(d) {
+              Swal.fire(
+                'Eliminado!',
+                'Has eliminado con éxito este producto.',
+                'success'
+              );
+              mostrar_productos();
+            }
+          })  
+        }
+      })
+
+    }
+    
+  }
+
+  function desasociar_proveedor(id_producto,id_proveedor) {
+    Swal.fire({
+      title: '¿Quitar este proveedor?',
+      text: "No podras reailizar esta accion si ya has realizado pedidos de este producto con este proveedor. Puedes volverlo a asociar si te arrepientes!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: 'success',
+      confirmButtonText: 'eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        var datos = { //capturo los datos
+          "id_producto":id_producto,
+          "id_proveedor":id_proveedor
+        };
+    
+        $.ajax({
+          type: "POST",
+          url: "controlador/desasociar_proveedor.php",
+          data:datos,
+          success:function(d) {
+
+            if (d == "No") {
+              Swal.fire(
+                'Quitado!',
+                'Has quitado con éxito este proveedor.',
+                'success'
+              );  
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Parece que ya has hecho un pedido a este proveedor'
+              })
+            }
+            
+            mostrar_productos();
+          }
+        })  
+      }
+    })
+  }
+
   function crear_producto() {
 
     var datos = {
