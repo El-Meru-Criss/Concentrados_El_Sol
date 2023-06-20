@@ -525,9 +525,14 @@ function Realizar_domicilio() {
     else{
 
   var producto = [];
+  var V_produc = 0; //valida cuantos productos hay seleccionados
+  var V_cantidades = 0; //valida cuantas cantidades han sido digitadas
 
   $('.producto').each(function() {
     producto.push($(this).val());
+    if ($(this).val() != "") {
+      V_produc += 1; //Cuenta cuantos productos hay realmente
+    };
   });
 
   var unidad = [];
@@ -540,46 +545,58 @@ function Realizar_domicilio() {
 
   $('.cantidad').each(function() {
     cantidad.push($(this).val());
+    if ($(this).val() != "" && $(this).val() != 0) {
+      V_cantidades += 1; //Cuenta cuantas cantidades se digitaron
+    };
   });
 
-  Swal.fire({
-    title: 'Realizar venta?',
-    text: "Podras revocar esta accion despues si deseas!",
-    icon: 'info',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Realizar',
-    cancelButtonText: 'Cancelar'
-  }).then((result) => {
-    if (result.isConfirmed) {
+  if (V_produc == V_cantidades) {
 
-      var datos = {
-        "vendedor":$("#seleccionar_vendedor").val(),
-        "cliente":$("#seleccionar_cliente").val(),
-        "producto":producto,
-        "unidad":unidad,
-        "cantidad":cantidad,
-        "valor_total":$("#valor_total").val(),
-        "cantidad_pagada":$("#cantidad_pagada").val(),
-        "seleccionar_venta":$("#seleccionar_venta").val(),
-      }
+    Swal.fire({
+      title: 'Realizar venta?',
+      text: "Podras revocar esta accion despues si deseas!",
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Realizar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
   
-      $.ajax({
-        type: "POST",
-        url: "controlador/realizar_domicilio.php",
-        data:datos,
-        success:function(d) {
-          Swal.fire(
-            'Realizado!',
-            'Se ha realizado la venta con èxito!',
-            'success'
-          );
-          
+        var datos = {
+          "vendedor":$("#seleccionar_vendedor").val(),
+          "cliente":$("#seleccionar_cliente").val(),
+          "producto":producto,
+          "unidad":unidad,
+          "cantidad":cantidad,
+          "valor_total":$("#valor_total").val(),
+          "cantidad_pagada":$("#cantidad_pagada").val(),
+          "seleccionar_venta":$("#seleccionar_venta").val(),
         }
-      })
-    }
-    })
+    
+        $.ajax({
+          type: "POST",
+          url: "controlador/realizar_domicilio.php",
+          data:datos,
+          success:function(d) {
+            Swal.fire(
+              'Realizado!',
+              'Se ha realizado la venta con èxito!',
+              'success'
+            );
+            
+          }
+        })
+      }
+      })
+    
+  } else {
+    alert("Hay cantidades vacias!")
+  }
+
+  
+
     }
   }
 
