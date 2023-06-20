@@ -73,7 +73,7 @@
   
     $('.cantidad_renovar').each(function() {
       cantidad.push($(this).val());
-      if ($(this).val() != "") {
+      if ($(this).val() != "" && $(this).val() != 0) {
         V_cantidades += 1; //Cuenta cuantas cantidades se digitaron
       }
     });
