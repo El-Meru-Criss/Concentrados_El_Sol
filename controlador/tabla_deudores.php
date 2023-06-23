@@ -62,7 +62,8 @@ while ($deud = mysqli_fetch_array($deudores)) { ?>
                                 INNER JOIN sol.clientes ON sol.ventas.clientes_idclientes = sol.clientes.idclientes
                                 INNER JOIN sol.proveedor_has_producto ON sol.inventario.proveedor_has_producto_producto_idproducto = sol.proveedor_has_producto.producto_idproducto
                                 INNER JOIN sol.producto ON sol.proveedor_has_producto.producto_idproducto = sol.producto.idproducto
-                                WHERE sol.ventas.estado_venta_idestado_venta=2 AND sol.ventas.idventas= '".$deud['idventas']."' ");
+                                WHERE sol.ventas.estado_venta_idestado_venta=2 AND sol.ventas.idventas= '".$deud['idventas']."' 
+                                GROUP BY sol.unidad_medida.idunidad_medida, sol.inventario.idinventario");
                                 while ($comp = mysqli_fetch_array($compra)) {
                             ?>
                                 <tr>
