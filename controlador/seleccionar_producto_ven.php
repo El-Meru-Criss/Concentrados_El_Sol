@@ -17,14 +17,15 @@
     FROM sol.proveedor_has_producto 
     INNER JOIN sol.producto ON sol.producto.idproducto = sol.proveedor_has_producto.producto_idproducto
     INNER JOIN sol.inventario ON sol.inventario.proveedor_has_producto_producto_idproducto =  sol.proveedor_has_producto.producto_idproducto
-    WHERE sol.inventario.cantidad > 0");
+    WHERE sol.inventario.cantidad > 0
+    GROUP BY sol.inventario.idinventario");
 
     
     
 ?>
 
 <div class="input-group">
-    <select class="form-select producto" aria-label="Default select example" onchange="precio_renovar(<?php echo $idcasilla ?>), validar_duplicacion(<?php echo $idcasilla ?>) " id="producto<?php echo $idcasilla ?>" >
+    <select class="form-select producto" aria-label="Default select example" onchange="validar_producto(<?php echo $idcasilla ?>), precio_renovar(<?php echo $idcasilla ?>), validar_duplicacion(<?php echo $idcasilla ?>) " id="producto<?php echo $idcasilla ?>" >
     <option selected></option>
 <?php //inicio del ciclo para ir colocando HTML 
 

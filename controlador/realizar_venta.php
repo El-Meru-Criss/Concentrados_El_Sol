@@ -46,6 +46,7 @@
         '".$id[0]."',
         '".$cantidad[$i]."',
         NULL,
+        NULL,
         '".$unidad[$i]."')");
 
         $mysql->efectuarConsulta("UPDATE sol.inventario 

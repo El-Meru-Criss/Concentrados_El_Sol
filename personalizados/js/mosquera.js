@@ -46,6 +46,7 @@ var contador=0;//variable de apoyo para determinar la identidad de cada producto
         }
       }
     }
+    
 
     function obtenerContadorActual() {
       return contador;
@@ -54,6 +55,9 @@ var contador=0;//variable de apoyo para determinar la identidad de cada producto
     function actualizarContador(contadorE) {
       if(contadorE>0){
         contador = contadorE;
+      }
+      else{
+        contador = 0;
       }
     }
 
@@ -99,7 +103,7 @@ function AgregarVendedor() {
       Swal.fire(
         'Creado!',
         'Has creado con exito el nuevo vendedor.',
-        'success'
+        'Success'
       );
       
     }
@@ -124,12 +128,12 @@ function eliminar_vendedor(idvendedores) {
 
   Swal.fire({
     title: 'Descartar este vendedor?',
-    text: "no podras revocar esta opcion",
-    icon: 'warning',
+    text: "No podras revocar esta opcion",
+    icon: 'Warning',
     showCancelButton: true,
     confirmButtonColor: '#d33',
-    cancelButtonColor: 'success',
-    confirmButtonText: 'descartar'
+    cancelButtonColor: 'Success',
+    confirmButtonText: 'Descartar'
   }).then((result) => {
     if (result.isConfirmed) {
 
@@ -145,7 +149,7 @@ function eliminar_vendedor(idvendedores) {
           Swal.fire(
             'Eliminado!',
             'Has eliminado con exito este vendedor.',
-            'success'
+            'Success'
           );
           mostrar_vendedores();
         }
@@ -177,12 +181,12 @@ function eliminar_vendedor(idvendedores) {
     else{
       Swal.fire({
         title: 'editar este vendedor?',
-        text: "no podras revocar esta opcion",
+        text: "No podras revocar esta opcion",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#d33',
         cancelButtonColor: 'success',
-        confirmButtonText: 'aceptar'
+        confirmButtonText: 'Editar'
       }).then((result) => {
         if (result.isConfirmed) {
     
@@ -238,26 +242,55 @@ function eliminar_vendedor(idvendedores) {
 
   function valor_total() {
     var cantidad = [];
+    var precios = [];
   
     $('.cantidad').each(function() {
       cantidad.push($(this).val());
     });
-
-    var Precios = [];
   
     $('.precio').each(function() {
-      Precios.push($(this).val());
+      precios.push($(this).val());
     });
-
+  
     var total = 0;
   
     for (let i = 0; i < cantidad.length; i++) {
-      total += cantidad[i] * Precios[i];
+      var cantidadValor = parseFloat(cantidad[i]);
+      var precioValor = parseFloat(precios[i]);
+  
+      if (!isNaN(cantidadValor) && !isNaN(precioValor)) {
+        total += cantidadValor * precioValor;
+      }
     }
+  
+    if (!isNaN(total)) {
+      var mensaje2 = 'Total a consignar: ' + total;
+      document.getElementById("valor_total").value = total;
+    }
+  }
 
-    var mensaje2 = 'Total a consignar: ' + total;
-
-    document.getElementById("valor_total").value = total;
+  function valor_devolver() {
+    var total = [];
+    var pagado = [];
+  
+    $('#valor_total').each(function() {
+      total.push($(this).val());
+    });
+  
+    $('#cantidad_pagada').each(function() {
+      pagado.push($(this).val());
+    });
+  
+    var devuelto = pagado - total;
+  
+    if (!isNaN(devuelto) && devuelto > 0) {
+      var mensaje2 = 'Total a consignar: ' + total;
+      document.getElementById("devuelto").value = devuelto;
+    }
+    else
+    {
+      document.getElementById("devuelto").value = 0;
+    }
   }
 
   function precio_renovar(id_casilla) {
@@ -338,8 +371,8 @@ function eliminar_vendedor(idvendedores) {
 
     Swal.fire({
       title: 'Descartar este cliente?',
-      text: "no podras revocar esta opcion",
-      icon: 'warning',
+      text: "No podras revocar esta opcion",
+      icon: 'Warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
       cancelButtonColor: 'success',
@@ -388,24 +421,25 @@ function eliminar_vendedor(idvendedores) {
       if($("#cliente_nombre_edi").val() == "")
       {alert("por favor ingrese un nombre");document.getElementById("cliente_nombre_edi").focus();
       return false;}
-      if($("#cliente_nombre_edi").val() == "")
-      {alert("por favor ingrese un nombre");document.getElementById("cliente_nombre_edi").focus();
-      return false;}
       else{
         Swal.fire({
-          title: 'editar este cliente?',
-          text: "no podras revocar esta opcion",
+          title: 'Editar este cliente?',
+          text: "No podras revocar esta opcion",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#d33',
           cancelButtonColor: 'success',
-          confirmButtonText: 'descartar'
+          confirmButtonText: 'Editar'
         }).then((result) => {
           if (result.isConfirmed) {
       
             var datos = { //capturo los datos
               "idcliente":idcliente,
-              "cliente_nombre":$("#cliente_nombre_edi").val()
+              "cliente_nombre":$("#cliente_nombre_edi").val(),
+              "telefono_cliente":$("#cliente_telefono_edi").val(),
+              "direccion_cliente":$("#cliente_direccion_edi").val(),
+              "email_cliente":$("#email_edi").val(),
+              "documento_cliente":$("#documento_edi").val()
             };
         
             $.ajax({
@@ -448,30 +482,40 @@ function eliminar_vendedor(idvendedores) {
     if(document.getElementById("valor_total").value == ""){alert("por favor haga click en Agregar y seleciona un producto, una unidad de medida y escribe una cantidad");document.getElementById("agregar").focus();return false;}
     if(document.getElementById("valor_total").value == 0){alert("por favor escribe una cantidad mayor que 0 para el producto que se va a vender");document.getElementById("agregar").focus();return false;}
     if(document.getElementById("cantidad_pagada").value == ""){alert("por favor escriba la cantidad pagada por el cliente");document.getElementById("cantidad_pagada").focus();return false;}
-    if(document.getElementById("seleccionar_venta").value == 1 && parseFloat(document.getElementById("valor_total").value) >= parseFloat(document.getElementById("cantidad_pagada").value)){alert("por favor seleccione que el tipo de venta es a credito");document.getElementById("seleccionar_venta").focus();return false;}
+    if(document.getElementById("seleccionar_venta").value == 1 && parseFloat(document.getElementById("valor_total").value) > parseFloat(document.getElementById("cantidad_pagada").value)){alert("por favor seleccione que el tipo de venta es a credito");document.getElementById("seleccionar_venta").focus();return false;}
     if(document.getElementById("seleccionar_venta").value == 2 && parseFloat(document.getElementById("valor_total").value) <= parseFloat(document.getElementById("cantidad_pagada").value)){alert("por favor seleccione que el tipo de venta es a contado");document.getElementById("seleccionar_venta").focus();return false;}
     else{
-    var producto = [];
-  
-    $('.producto').each(function() {
-      producto.push($(this).val());
-    });
-
-    var unidad = [];
-  
-    $('.unidad').each(function() {
-      unidad.push($(this).val());
-    });
-
-    var cantidad = [];
-  
-    $('.cantidad').each(function() {
-      cantidad.push($(this).val());
-    });
+      var producto = [];
+      var V_produc = 0; //valida cuantos productos hay seleccionados
+      var V_cantidades = 0; //valida cuantas cantidades han sido digitadas
+    
+      $('.producto').each(function() {
+        producto.push($(this).val());
+        if ($(this).val() != "") {
+          V_produc += 1; //Cuenta cuantos productos hay realmente
+        };
+      });
+    
+      var unidad = [];
+    
+      $('.unidad').each(function() {
+        unidad.push($(this).val());
+      });
+    
+      var cantidad = [];
+    
+      $('.cantidad').each(function() {
+        cantidad.push($(this).val());
+        if ($(this).val() != "" && $(this).val() != 0) {
+          V_cantidades += 1; //Cuenta cuantas cantidades se digitaron
+        };
+      });
+    
+      if (V_produc == V_cantidades) {
 
     Swal.fire({
       title: 'Realizar venta?',
-      text: "Podrás revocar esta acción después si deseas!",
+      text: "No podrás revocar esta acción!",
       icon: 'info',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -508,17 +552,25 @@ function eliminar_vendedor(idvendedores) {
         location.reload()
       }
     })
+      
+  } else {
+    alert("Hay cantidades vacias!")
+  }
+
+  
+
     }
   }
 
 function Realizar_domicilio() {
 
-  var valor_total = document.getElementById("valor_total").value;
+  
 
   if(document.getElementById("seleccionar_vendedor").value == ""){alert("por favor seleccione un vendedor");document.getElementById("seleccionar_vendedor").focus();return false;}
     if(document.getElementById("seleccionar_cliente").value == ""){alert("por favor seleccione un cliente");document.getElementById("seleccionar_cliente").focus();return false;}
     if(document.getElementById("seleccionar_venta").value == ""){alert("por favor seleccione el tipo de venta");document.getElementById("seleccionar_venta").focus();return false;}
     if(document.getElementById("valor_total").value == ""){alert("por favor agregue click a agregar y seleciona un producto, una unidad de medida y escribe una cantidad");document.getElementById("agregar").focus();return false;}
+    if(document.getElementById("valor_total").value == 0){alert("por favor escribe una cantidad mayor que 0 para el producto que se va a vender");document.getElementById("agregar").focus();return false;}
     if(document.getElementById("cantidad_pagada").value == ""){alert("por favor escriba la cantidad pagada por el cliente");document.getElementById("cantidad_pagada").focus();return false;}
     if(document.getElementById("seleccionar_venta").value == 1 && parseFloat(document.getElementById("valor_total").value) > parseFloat(document.getElementById("cantidad_pagada").value)){alert("por favor seleccione que el tipo de venta es a credito");document.getElementById("seleccionar_venta").focus();return false;}
     if(document.getElementById("seleccionar_venta").value == 2 && parseFloat(document.getElementById("valor_total").value) <= parseFloat(document.getElementById("cantidad_pagada").value)){alert("por favor seleccione que el tipo de venta es a contado");document.getElementById("seleccionar_venta").focus();return false;}
@@ -554,7 +606,7 @@ function Realizar_domicilio() {
 
     Swal.fire({
       title: 'Realizar venta?',
-      text: "Podras revocar esta accion despues si deseas!",
+      text: "No podrás revocar esta acción!",
       icon: 'info',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -595,7 +647,7 @@ function Realizar_domicilio() {
     alert("Hay cantidades vacias!")
   }
 
-  
+  
 
     }
   }
@@ -655,4 +707,20 @@ function validar_duplicacion(id_casilla) {
       }
     }
   }
+}
+
+function validar_producto(id_casilla) {
+  var producto_id = "producto" + id_casilla;
+  var cantidad_id = "cantidad" + id_casilla;
+  var unidad_medida_id = "unidad_medida" + id_casilla;
+
+  // Verificar si el select de producto está vacío
+  var selectProducto = $("#" + producto_id);
+  if (selectProducto.val() === "") {
+    alert("Se ha quitado el producto seleccionado!");
+    $("#" + cantidad_id).val("");
+    document.getElementById(unidad_medida_id).selectedIndex = 0;
+    valor_total();
+  }
+  
 }

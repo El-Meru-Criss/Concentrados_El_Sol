@@ -12,6 +12,7 @@
 ?>
 <div class="input-group">
     <select onchange="precio_renovar(<?php echo $idcasilla ?>)" id="producto<?php echo $idcasilla ?>" class="form-select vendedor" aria-label="Default select example">
+    <option selected></option>
 <?php //inicio del ciclo para ir colocando HTML 
 
 while ($ven = mysqli_fetch_array($vendedores)) { ?>

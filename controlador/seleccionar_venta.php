@@ -8,10 +8,11 @@
 
     $estado_venta = $mysql->efectuarConsulta("SELECT sol.estado_venta.idestado_venta, 
     sol.estado_venta.nombre_estado
-    FROM sol.estado_venta");
+    FROM sol.estado_venta
+    WHERE sol.estado_venta.idestado_venta < 3");
 ?>
 
-
+    <option selected></option>
 <?php //inicio del ciclo para ir colocando HTML 
 
 while ($est = mysqli_fetch_array($estado_venta)) { ?>

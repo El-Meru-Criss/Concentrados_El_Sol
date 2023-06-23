@@ -15,7 +15,7 @@
   <title>Ventas</title>
 </head>
 
-<body>
+<body onload="seleccionar_vendedor(); seleccionar_cliente(); seleccionar_venta();">
 
   <style>
     html {
@@ -349,15 +349,21 @@
             class="fa-solid fa-retweet"></i></button>
       </div><br>
       <div class="input-group">
-        <span class="input-group-text" id="basic-addon1">Total a consignar: </span>
-        <input type="number" class="form-control" id="valor_total" placeholder="valor total"
+        <span class="input-group-text" id="basic-addon1">Total a pagar: </span>
+        <input type="number" onchange="valor_devolver()" class="form-control" id="valor_total" placeholder="valor total"
           aria-describedby="basic-addon3 basic-addon4" value="valor total" disabled="">
       </div><br>
       <div class="input-group">
-        <span class="input-group-text" id="basic-addon1">cantidad pagada: </span>
-        <input type="number" class="form-control" id="cantidad_pagada" placeholder="valor total"
+        <span class="input-group-text cantidad" id="basic-addon1">cantidad pagada: </span>
+        <input type="number" onchange="valor_devolver()" class="form-control" id="cantidad_pagada" placeholder="cantidad pagada"
           aria-describedby="basic-addon3 basic-addon4" value="valor total" min="0">
       </div><br>
+      <div class="input-group">
+        <span class="input-group-text cantidad" id="basic-addon1">cantidad a devolver: </span>
+        <input type="number" class="form-control" id="devuelto" placeholder="cantidad que se tiene que devolver"
+          aria-describedby="basic-addon3 basic-addon4" value="0" min="0" disabled="">
+      </div><br>
+      
       <div>
         <button onclick="Realizar_venta()" type="button" class="btn btn-outline-info btn-sm">realizar venta</button>
         <button onclick="Realizar_domicilio()" type="button" class="btn btn-outline-info btn-sm">agregar

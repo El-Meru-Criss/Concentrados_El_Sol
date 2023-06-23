@@ -52,6 +52,7 @@
         VALUES ('".$producto[$i]."',
         '".$id[0]."',
         '".$cantidad[$i]."',
+        NULL,
         '".$do[0]."',
         '".$unidad[$i]."')");
 

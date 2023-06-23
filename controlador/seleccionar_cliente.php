@@ -13,7 +13,7 @@
 
 <div class="input-group">
 <select class="form-select cliente"  id="seleccionar_cliente" aria-label="Default select example" onchange="cambiarnuevo(this)">
-
+<option selected></option>
 <?php //inicio del ciclo para ir colocando HTML 
 
 while ($cli = mysqli_fetch_array($clientes)) { ?>
