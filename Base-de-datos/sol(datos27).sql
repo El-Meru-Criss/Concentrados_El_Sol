@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 15-05-2023 a las 18:53:00
--- Versión del servidor: 10.4.18-MariaDB
--- Versión de PHP: 8.0.3
+-- Servidor: localhost
+-- Tiempo de generación: 24-06-2023 a las 01:45:17
+-- Versión del servidor: 10.4.16-MariaDB
+-- Versión de PHP: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,8 +32,8 @@ CREATE TABLE `cartera` (
   `clientes_idclientes` int(11) NOT NULL,
   `ventas_idventas` int(11) NOT NULL,
   `cantidad_debida` float NOT NULL,
-  `cantidad_abonada` float NOT NULL DEFAULT 0,
-  `fecha_creacion` date NOT NULL DEFAULT current_timestamp(),
+  `cantidad_abonada` float NOT NULL,
+  `fecha_creacion` datetime NOT NULL DEFAULT current_timestamp(),
   `fecha_edicion` datetime NOT NULL DEFAULT current_timestamp(),
   `estado_cartera_idestado_cartera` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -118,8 +118,8 @@ CREATE TABLE `estado_producto` (
 --
 
 INSERT INTO `estado_producto` (`idestado_producto`, `nombre_estado`) VALUES
-(1, 'Buen estado'),
-(2, 'Vencido');
+(1, 'bueno'),
+(2, 'vencido');
 
 -- --------------------------------------------------------
 
@@ -138,7 +138,8 @@ CREATE TABLE `estado_venta` (
 
 INSERT INTO `estado_venta` (`idestado_venta`, `nombre_estado`) VALUES
 (1, 'Contado'),
-(2, 'Credito');
+(2, 'Credito'),
+(3, 'pagado');
 
 -- --------------------------------------------------------
 
@@ -154,17 +155,9 @@ CREATE TABLE `inventario` (
   `proveedor_has_producto_producto_idproducto` int(11) NOT NULL,
   `estado_producto_idestado_producto` int(11) NOT NULL,
   `fecha_caducidad` date DEFAULT NULL,
-  `precio_bulto` float DEFAULT NULL
+  `precio_bulto` float DEFAULT NULL,
+  `stock_minimo` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `inventario`
---
-
-INSERT INTO `inventario` (`idinventario`, `cantidad`, `fecha_entrada`, `precio_publico`, `proveedor_has_producto_producto_idproducto`, `estado_producto_idestado_producto`, `fecha_caducidad`, `precio_bulto`) VALUES
-(4, 60, '2023-05-15', 4000, 7, 1, '2023-05-31', 45000),
-(5, 8, '2023-05-15', 7000, 8, 1, '2023-05-31', 75000),
-(6, 30, '2023-05-15', 1000, 9, 1, '2023-05-31', 52000);
 
 -- --------------------------------------------------------
 
@@ -176,21 +169,10 @@ CREATE TABLE `inventario_has_ventas` (
   `inventario_idinventario` int(11) NOT NULL,
   `ventas_idventas` int(11) NOT NULL,
   `cantidad_vendida` float NOT NULL,
+  `cantidad_enviada` float DEFAULT NULL,
   `estado_domicilio_idestado_domicilio` int(11) DEFAULT NULL,
   `unidad_medida_idunidad_medida` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `inventario_has_ventas`
---
-
-INSERT INTO `inventario_has_ventas` (`inventario_idinventario`, `ventas_idventas`, `cantidad_vendida`, `estado_domicilio_idestado_domicilio`, `unidad_medida_idunidad_medida`) VALUES
-(4, 10, 10, NULL, 1),
-(4, 11, 10, 1, 1),
-(4, 12, 5, 3, 1),
-(4, 13, 4, 1, 1),
-(5, 12, 3, 1, 1),
-(6, 12, 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -204,14 +186,6 @@ CREATE TABLE `pedidos_proveedor` (
   `cantidad_total` float NOT NULL,
   `estado_pedido` binary(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `pedidos_proveedor`
---
-
-INSERT INTO `pedidos_proveedor` (`idpedidos_proveedor`, `fecha_pedido`, `cantidad_total`, `estado_pedido`) VALUES
-(1, '2023-05-15 09:51:09', 310000, 0x31),
-(2, '2023-05-15 09:52:00', 300000, 0x31);
 
 -- --------------------------------------------------------
 
@@ -230,9 +204,20 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`idproducto`, `nombre_producto`, `peso`) VALUES
-(7, 'Perro', 30),
-(8, 'Gato', 8),
-(9, 'Pajarina', 10);
+(10, 'Broiler', 40),
+(11, 'Ponedora', 40),
+(12, 'Pajarina', 10),
+(13, 'P.I', 40),
+(14, 'Gestacion', 40),
+(18, 'Salvado', 40),
+(20, 'Gato', 8),
+(21, 'Filpo', 30),
+(22, 'Ringo', 30),
+(24, 'Quida.Cat', 8),
+(25, 'Lactancia', 30),
+(26, 'S.E', 110000),
+(27, 'C.L', 40),
+(31, 'Abejina', 5);
 
 -- --------------------------------------------------------
 
@@ -252,8 +237,8 @@ CREATE TABLE `proveedor` (
 --
 
 INSERT INTO `proveedor` (`idproveedor`, `nombre`, `telefono`, `cuenta_bancaria`) VALUES
-(6, 'Contegral', '', ''),
-(7, 'DistriAvez', '', '');
+(8, 'Contegral', '', ''),
+(9, 'DistriAvez', '', '');
 
 -- --------------------------------------------------------
 
@@ -272,9 +257,28 @@ CREATE TABLE `proveedor_has_producto` (
 --
 
 INSERT INTO `proveedor_has_producto` (`proveedor_idproveedor`, `producto_idproducto`, `precio`) VALUES
-(6, 7, 110000),
-(6, 8, 90000),
-(7, 9, 100000);
+(8, 10, 130000),
+(8, 11, 110000),
+(8, 12, 20000),
+(8, 13, 120000),
+(8, 14, 130000),
+(8, 20, 120000),
+(8, 21, 100000),
+(8, 22, 120000),
+(8, 24, 70000),
+(8, 25, 110000),
+(8, 26, 110000),
+(8, 27, 100000),
+(8, 31, 90000),
+(9, 10, 0),
+(9, 11, 100000),
+(9, 12, 70000),
+(9, 13, 0),
+(9, 14, 80000),
+(9, 18, 90000),
+(9, 20, 40000),
+(9, 21, 40000),
+(9, 27, 100000);
 
 -- --------------------------------------------------------
 
@@ -286,17 +290,9 @@ CREATE TABLE `proveedor_has_producto_has_pedidos_proveedor` (
   `proveedor_has_producto_proveedor_idproveedor` int(11) NOT NULL,
   `proveedor_has_producto_producto_idproducto` int(11) NOT NULL,
   `pedidos_proveedor_idpedidos_proveedor` int(11) NOT NULL,
-  `cantidad` int(11) NOT NULL
+  `cantidad` int(11) NOT NULL,
+  `recibidos` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `proveedor_has_producto_has_pedidos_proveedor`
---
-
-INSERT INTO `proveedor_has_producto_has_pedidos_proveedor` (`proveedor_has_producto_proveedor_idproveedor`, `proveedor_has_producto_producto_idproducto`, `pedidos_proveedor_idpedidos_proveedor`, `cantidad`) VALUES
-(6, 7, 1, 2),
-(6, 8, 1, 1),
-(7, 9, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -352,16 +348,6 @@ CREATE TABLE `ventas` (
   `fecha_venta` datetime NOT NULL DEFAULT current_timestamp(),
   `cantidad_pagada` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `ventas`
---
-
-INSERT INTO `ventas` (`idventas`, `precio_total`, `clientes_idclientes`, `vendedores_idvendedores`, `estado_venta_idestado_venta`, `fecha_venta`, `cantidad_pagada`) VALUES
-(10, 40000, 7, 23, 1, '2023-05-15 10:02:44', 40000),
-(11, 40000, 7, 23, 2, '2023-05-15 10:06:10', 20000),
-(12, 93000, 9, 23, 2, '2023-05-15 10:09:07', 10000),
-(13, 16000, 9, 23, 2, '2023-05-15 11:38:15', 0);
 
 --
 -- Índices para tablas volcadas
@@ -434,13 +420,15 @@ ALTER TABLE `pedidos_proveedor`
 -- Indices de la tabla `producto`
 --
 ALTER TABLE `producto`
-  ADD PRIMARY KEY (`idproducto`);
+  ADD PRIMARY KEY (`idproducto`),
+  ADD UNIQUE KEY `nombre_producto_UNIQUE` (`nombre_producto`);
 
 --
 -- Indices de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  ADD PRIMARY KEY (`idproveedor`);
+  ADD PRIMARY KEY (`idproveedor`),
+  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`);
 
 --
 -- Indices de la tabla `proveedor_has_producto`
@@ -484,6 +472,12 @@ ALTER TABLE `ventas`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `cartera`
+--
+ALTER TABLE `cartera`
+  MODIFY `idcartera` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
@@ -505,7 +499,7 @@ ALTER TABLE `estado_domicilio`
 -- AUTO_INCREMENT de la tabla `estado_producto`
 --
 ALTER TABLE `estado_producto`
-  MODIFY `idestado_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idestado_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `estado_venta`
@@ -517,43 +511,43 @@ ALTER TABLE `estado_venta`
 -- AUTO_INCREMENT de la tabla `inventario`
 --
 ALTER TABLE `inventario`
-  MODIFY `idinventario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idinventario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos_proveedor`
 --
 ALTER TABLE `pedidos_proveedor`
-  MODIFY `idpedidos_proveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idpedidos_proveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  MODIFY `idproveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idproveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `unidad_medida`
 --
 ALTER TABLE `unidad_medida`
-  MODIFY `idunidad_medida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idunidad_medida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `vendedores`
 --
 ALTER TABLE `vendedores`
-  MODIFY `idvendedores` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `idvendedores` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `idventas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idventas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- Restricciones para tablas volcadas
