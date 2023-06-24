@@ -20,6 +20,13 @@ var contador=0;//variable de apoyo para determinar la identidad de cada producto
     $(document).ready(function() {
       $("#botonEliminar").click(eliminar_Productos_def);
     });
+
+
+    $(document).on('change', '.producto, .unidad', function() {
+      // Obtener el id_casilla del elemento que disparó el evento
+      var id_casilla = obtenerIdCasilla($(this));
+      validar_duplicacion(id_casilla);
+    });
     
     function eliminar_Productos_def() {
       // Obtén el contador actual o ajústalo según tus necesidades
@@ -682,9 +689,11 @@ function validar_cantidad(id_casilla) {
 function validar_duplicacion(id_casilla) {
   var producto_id = "producto" + id_casilla;
   var unidad_medida_id = "unidad_medida" + id_casilla;
+  var precio_id = "precio" + id_casilla;
   
   var Productos = [];
   var unidad_medida = [];
+
 
   $('.producto').each(function() {
     Productos.push($(this).val());
@@ -694,17 +703,16 @@ function validar_duplicacion(id_casilla) {
   });
 
   for (let i = 0; i < Productos.length; i++) {
-    for (let j = 0; j < unidad_medida.length; j++) {
       if ($("#" + producto_id).val() == Productos[i] &&
           i != (id_casilla - 1) &&
           $("#" + producto_id).val() != "" &&
-          $("#" + unidad_medida_id).val() == unidad_medida[j] &&
-          j != (id_casilla - 1) &&
+          $("#" + unidad_medida_id).val() == unidad_medida[i] &&
+          i != (id_casilla - 1) &&
           $("#" + unidad_medida_id).val() != "") {
         alert("¡Ya se ha seleccionado ese producto y con esa unidad de medida!");
         document.getElementById(producto_id).selectedIndex = 0;
         document.getElementById(unidad_medida_id).selectedIndex = 0;
-      }
+        $("#" + precio_id).val("");
     }
   }
 }
