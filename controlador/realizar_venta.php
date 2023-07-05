@@ -13,7 +13,6 @@
     $unidad = $_POST['unidad'];
     $cantidad_pagada = $_POST['cantidad_pagada'];
     $seleccionar_venta = $_POST['seleccionar_venta'];
-    $cantidad_debida = $valor_total - $cantidad_pagada;
 
 
 
@@ -61,7 +60,7 @@
     {
         $mysql->efectuarConsulta("INSERT INTO sol.cartera 
         VALUES (NULL,'".$cliente."','".$id[0]."',
-        '".$cantidad_debida."', 0, NOW(),NOW(), 1)");
+        '".$valor_total."', '".$cantidad_pagada."', NOW(),NOW(), 1)");
     }
 
     //desconecta la base de datos
