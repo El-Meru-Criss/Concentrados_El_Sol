@@ -1,4 +1,26 @@
-<?php //llama a la base de datos con el modelo
+<?php 
+    function calcularDiferencia($fecha1, $fecha2) {
+        // Crear objetos DateTime con las fechas
+        $date1 = new DateTime($fecha1);
+        $date2 = new DateTime($fecha2);
+    
+        // Obtener los timestamps de las fechas
+        $timestamp1 = $date1->getTimestamp();
+        $timestamp2 = $date2->getTimestamp();
+    
+        // Calcular la diferencia en segundos
+        $diferencia = $timestamp2 - $timestamp1;
+    
+        // Convertir la diferencia en meses y días
+        $meses = floor($diferencia / (30 * 24 * 60 * 60));
+        $dias = floor(($diferencia) / (24 * 60 * 60));
+    
+        return array('meses' => $meses, 'dias' => $dias);
+    }
+
+    $fechaActual = date('Y-m-d');
+
+    //llama a la base de datos con el modelo
     require_once '../modelo/mysql.php';
     $mysql = new MySQL();
 
@@ -28,11 +50,15 @@
 <div class="container-fluid m-4"><input type="text" class="form-control me-2 light-table-filter" id="searchInput" placeholder="Buscar..."></div>
 <?php //inicio del ciclo para ir colocando HTML
 
-while ($deud = mysqli_fetch_array($deudores)) { ?>
+while ($deud = mysqli_fetch_array($deudores)) { 
+    $comparacion = calcularDiferencia($fechaActual, $deud['fecha_venta']);
+    ?>
 
     <div class="accordion-item">
               <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo $deud['idventas'] ?>" aria-expanded="false" aria-controls="collapseOne">
+                <button class="accordion-button collapsed <?php if ($comparacion['dias'] <= -15) {
+        ?> text-white bg-danger <?php
+    }; ?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo $deud['idventas'] ?>" aria-expanded="false" aria-controls="collapseOne">
                   <?php echo $deud['nombre'] ?> - (<?php echo $deud['fecha_venta'] ?>)
                 </button>
               </h2>

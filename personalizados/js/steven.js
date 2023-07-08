@@ -225,4 +225,31 @@ function cantidadEN_envios(inventario_idinventario,ventas_idventas,cantidad_vend
   })
  
 }
+
+function alertas() {
+
+  
+
+  $.ajax({
+    type: "POST",
+    url: "controlador/alert_deudores.php",
+    success:function(d) {
+      $('#Numero_alertas').html(d);
+      alert(d);
+    }
+  })
+  
+}
+
+function MostrarAlertas() {
+
+  $.ajax({
+    type: "POST",
+    url: "controlador/alert_deu_cont.php",
+    success:function(d) {
+      $('#MostrarAlertas').html(d);
+    }
+  })
+  
+}
 // Fin funciones Steven

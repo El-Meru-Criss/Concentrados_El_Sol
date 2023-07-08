@@ -17,7 +17,43 @@
 
     <link rel="icon" type="image/x-icon" href="./logo1_t.png">
 </head>
-<body onload="sesion(); tabla_deudores();" class="cuerpo">
+<body onload="sesion(); tabla_deudores(); alertas();" class="cuerpo">
+    <!-- MODAL ALERTA-->
+    <div class="modal fade" id="buscar_producto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Alertas</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Aquí visualizamos los productos caducados, cerca de caducar o con poca existencia</p>
+              <hr>
+              <div class="mb-3" id="MostrarAlertas">
+                
+                <div class="input-group p-2">
+                  <span class="input-group-text col" id="basic-addon1">Nombre: </span>
+                  <button class="btn btn-danger col">Caducado</button>  
+                </div>
+
+                <div class="input-group p-2">
+                  <span class="input-group-text col" id="basic-addon1">Nombre: </span>
+                  <button class="btn btn-warning col">Caduca en 27 Dias</button>  
+                </div>
+
+                <div class="input-group p-2">
+                  <span class="input-group-text col" id="basic-addon1">Nombre: </span>
+                  <button class="btn btn-secondary col">Poca Existencia</button>  
+                </div>
+
+              </div>
+            </div>
+            <div class="modal-footer align-content-center align-items-center justify-content-center text-center">
+              
+            </div>
+          </div>
+        </div>
+      </div>
     <header>
         <a href="#" class="logo">
             <span>CONCENTRADOS</span>elSol
@@ -37,7 +73,13 @@
     </header>
     <section class="tablas">
         <form class="d-flex" role="search" style="margin: 1rem;">
-            
+            <button onclick="MostrarAlertas()" type="button" class="btn btn-danger position-relative" data-bs-toggle="modal" data-bs-target="#buscar_producto">
+                <i class="fa-solid fa-triangle-exclamation"></i> Alertas
+                <span class="badge rounded-pill bg-dark" id="Numero_alertas">
+                  
+                </span>
+              </button>
+        
         </form>
         <!-- El siguiente div hace que se pueda mostrar la tabla de los deudores gracias a su id -->
         <div class="accordion" id="tabla_deudores"></div>
