@@ -17,7 +17,7 @@
 
     <link rel="icon" type="image/x-icon" href="./logo1_t.png">
 </head>
-<body onload="tabla_envios()">
+<body onload="sesion(); tabla_envios()">
     <header>
         <a href="#" class="logo">
             <span>CONCENTRADOS</span>elSol
@@ -27,9 +27,12 @@
         <label for="menu_bar" class="fa fa-bars"></label>
         <nav class="navbar">
             <a href="inventario.html">Inventario</a>
-            <a href="index.html">Ventas</a>
+            <a href="ventas.html">Ventas</a>
             <a href="deudores.html">Deudores</a>
             <a style="color: var(--amarillo);" href="envios.html">Domicilios</a>
+            <div id="sesion">
+                <button onclick="mostrar_provedores()" type="button" class="btn btn-dark"><i class="fa-solid fa-user"></i> </button>
+            </div>
         </nav>
     </header>
     <section class="tablas">
@@ -43,6 +46,7 @@
     </section>
 
     <!-- Scripts, funcionalidades y JS -->
+    <script src="./personalizados/js/sesion.js"></script>
     <script src="./personalizados/js/steven.js"></script>
     <script src="./sweetalert2-11.7.3/package/dist/sweetalert2.all.min.js"></script>
     <!-- <script src="bootstrap-5.3.0-alpha3-dist/js/bootstrap.min.js"></script> -->
