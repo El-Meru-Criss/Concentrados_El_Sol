@@ -19,7 +19,7 @@ if (empty($_SESSION['usuario']) && empty($_SESSION['acceso'])) {
     $usuario = $_SESSION['usuario'];
 
     ?>
-    <button onclick="cerrar_sesion(<?php echo $usuario->getIdusuarios(); ?>,'<?php echo $usuario->getUsuario(); ?>')" type="button" class="btn btn-dark"><i class="fa-solid fa-user"></i> <?php echo $usuario->getUsuario(); ?></button>
+    <button onclick="cerrar_sesion(<?php echo $usuario->getIdusuarios(); ?>,'<?php echo $usuario->getUsuario(); ?>','<?php echo $usuario->getCC(); ?>','<?php echo $usuario->getContrasena(); ?>','<?php echo $usuario->getRol(); ?>')" type="button" class="btn btn-dark"><i class="fa-solid fa-user"></i> <?php echo $usuario->getUsuario(); ?></button>
     <?php
 }
 

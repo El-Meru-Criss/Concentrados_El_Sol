@@ -15,31 +15,40 @@ function sesion() {
   }
 
   function cerrar_sesion(id,nombre) {
-    Swal.fire({
-      title: nombre,
-      text: "Tu id es: " + id,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#d33',
-      confirmButtonText: 'Salir'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        $.ajax({
-          type: "POST",
-          url: "controlador/cerrar_sesion.php",
-          success:function(d) {
-            window.location.href = './index.html';
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/menu_usuario.php",
+      success:function(d) {
+
+        Swal.fire({
+          html: d,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          confirmButtonText: 'Salir'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              type: "POST",
+              url: "controlador/cerrar_sesion.php",
+              success:function(d) {
+                window.location.href = './index.html';
+              }
+            })
           }
         })
+        
       }
     })
+    
   }
   
   function registro() {
 
     var datos = {
       "usuario":$("#usuario").val(),
-      // "idcasilla":contador
+      "contraseña":$("#contraseña").val()
     }
 
     $.ajax({
