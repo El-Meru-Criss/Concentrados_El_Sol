@@ -1,4 +1,14 @@
+function Botones_Inventario() {
+  
+  $.ajax({
+    type: "POST",
+    url: "controlador/Botones_Inventario.php",
+    success:function(d) {
+        $("#Botones_Inventario").html(d);
+    }
+  })
 
+}
   
   
   
@@ -504,6 +514,7 @@
           
           $("#Contenido_inventario").html(d);
           cambiar_estado_producto();
+          Botones_Inventario();
           alertas();
       }
     })

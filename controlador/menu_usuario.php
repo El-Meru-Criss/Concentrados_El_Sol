@@ -32,6 +32,11 @@ if (empty($_SESSION['usuario']) && empty($_SESSION['acceso'])) {
         <button type="button" class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i></button>
         <button type="button" class="btn btn-outline-dark"><i class="fa-solid fa-eye"></i></button>
     </div>
+
+    <div class="input-group p-1">
+        <span class="input-group-text" id="basic-addon1">Rol:</span>
+        <input disabled="" min="0" type="text" value="<?php if ($usuario->getRol() == 1) {echo "Administrador";} else {echo "Vendedor";} ?>" class="form-control">
+    </div>
   
   
 

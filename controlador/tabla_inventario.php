@@ -1,8 +1,19 @@
-<?php //llama a la base de datos con el modelo
+<?php 
+  //llamo el modelo
+  require '../modelo/usuarios.php';
+  //instancio la clase
+  $user = new Usuario();
+
+  //inicio sesion
+  session_start();
+  
+  //llama a la base de datos con el modelo
     require_once '../modelo/mysql.php';
     $mysql = new MySQL();
 
     $mysql->conectar();
+
+    $usuario = $_SESSION['usuario'];
 
     //realiza la consulta MySQL deseada, y la guarda en una variable
 
@@ -28,7 +39,7 @@
         <table class="table tabla-deudores">
             <thead class="">
               <tr>
-                <th scope="col">Registro</th>
+                <th scope="col">Historial</th>
                 <th scope="col">Producto</th>
                 <th scope="col">Kg</th>
                 <th scope="col">Precio Kg</th>
@@ -48,16 +59,16 @@
 while ($prod = mysqli_fetch_array($productos)) { ?>
     
             <tr>
-                <td><button onclick="historial_ingreso(<?php echo $prod['idproducto'] ?>)" type="button" class="btn btn-outline-primary"><i class="fa-solid fa-book"></i></button></td>
+                <td><button onclick="historial_ingreso(<?php echo $prod['idproducto'] ?>)" <?php if ($usuario->getRol() != 1) {?> disabled<?php } ?> type="button" class="btn btn-outline-primary"><i class="fa-solid fa-book"></i></button></td>
                 <td><?php echo $prod['nombre_producto'] ?></td>
                 <td><?php echo $prod['cantidad'] ?></td>
                 <td>
                   
-                <input onchange="precioKL_inventario(<?php echo $prod['idinventario'] ?>)" value="<?php echo $prod['precio_publico'] ?>" class="form-control form-control-sm" id="precio_kl<?php echo $prod['idinventario'] ?>" type="number" style="width: 10rem;">
+                <input onchange="precioKL_inventario(<?php echo $prod['idinventario'] ?>)" <?php if ($usuario->getRol() != 1) {?> readonly<?php } ?>  value="<?php echo $prod['precio_publico'] ?>" class="form-control <?php if ($usuario->getRol() != 1) {?> form-control-plaintext<?php } ?> form-control-sm" id="precio_kl<?php echo $prod['idinventario'] ?>" type="number" style="width: 10rem;">
         
                 </td>
                 <td>
-                <input onchange="precioBL_inventario(<?php echo $prod['idinventario'] ?>)" value="<?php echo $prod['precio_bulto'] ?>" type="number" class="form-control form-control-sm" id="precio_bulto<?php echo $prod['idinventario'] ?>" style="width: 10rem;">
+                <input onchange="precioBL_inventario(<?php echo $prod['idinventario'] ?>)" <?php if ($usuario->getRol() != 1) {?> readonly<?php } ?>  value="<?php echo $prod['precio_bulto'] ?>" type="number" class="form-control <?php if ($usuario->getRol() != 1) {?> form-control-plaintext<?php } ?> form-control-sm" id="precio_bulto<?php echo $prod['idinventario'] ?>" style="width: 10rem;">
                   
                 </td>
                 <td>
@@ -65,11 +76,11 @@ while ($prod = mysqli_fetch_array($productos)) { ?>
               
               </td>
                 <td>
-                  <input onchange="F_vencimiento(<?php echo $prod['idinventario'] ?>)" value="<?php echo $prod['fecha_caducidad'] ?>" type="date" class="form-control-plaintext form-control-sm" id="F_vencimiento<?php echo $prod['idinventario'] ?>">
+                  <input onchange="F_vencimiento(<?php echo $prod['idinventario'] ?>)"  <?php if ($usuario->getRol() != 1) {?> readonly<?php } ?> value="<?php echo $prod['fecha_caducidad'] ?>" type="date" class="form-control-plaintext form-control-sm" id="F_vencimiento<?php echo $prod['idinventario'] ?>">
                 </td>
                 <td>
                   
-                <input onchange="StockMinimo(<?php echo $prod['idinventario'] ?>)" value="<?php echo $prod['stock_minimo'] ?>" class="form-control form-control-sm" id="StockMinimo<?php echo $prod['idinventario'] ?>" type="number" style="width: 10rem;">
+                <input onchange="StockMinimo(<?php echo $prod['idinventario'] ?>)" <?php if ($usuario->getRol() != 1) {?> readonly<?php } ?>  value="<?php echo $prod['stock_minimo'] ?>" class="form-control <?php if ($usuario->getRol() != 1) {?> form-control-plaintext<?php } ?> form-control-sm" id="StockMinimo<?php echo $prod['idinventario'] ?>" type="number" style="width: 10rem;">
         
                 </td>
             </tr>
