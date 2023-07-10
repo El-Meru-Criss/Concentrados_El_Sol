@@ -235,7 +235,7 @@ function alertas() {
     url: "controlador/alert_deudores.php",
     success:function(d) {
       $('#Numero_alertas').html(d);
-      alert(d);
+      
     }
   })
   
@@ -251,5 +251,22 @@ function MostrarAlertas() {
     }
   })
   
+}
+
+function info_cliente(Nombre,telefono,direccion,correo,documento) {
+
+  
+
+
+  Swal.fire({
+    title: 'Información del cliente',
+    html: 'Nombre: '+Nombre+'<br>'+
+    'Telefono: '+telefono+'<br>'+
+    'Dirección: '+direccion+'<br>'+
+    'Correo: '+correo+'<br>'+
+    'Documento: '+documento+'<br>',
+    
+    cancelButtonText: 'Cerrar'
+  })
 }
 // Fin funciones Steven

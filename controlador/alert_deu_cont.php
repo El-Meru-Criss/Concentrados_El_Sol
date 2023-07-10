@@ -14,7 +14,7 @@ function calcularDiferencia($fecha1, $fecha2) {
 
     // Convertir la diferencia en meses y días
     $meses = floor($diferencia / (30 * 24 * 60 * 60));
-    $dias = floor(($diferencia - ($meses * 30 * 24 * 60 * 60)) / (24 * 60 * 60));
+    $dias = floor(($diferencia) / (24 * 60 * 60));
 
     return array('meses' => $meses, 'dias' => $dias);
 }
@@ -38,50 +38,26 @@ $fechaActual = date('Y-m-d');
 
 //realiza la consulta MySQL deseada, y la guarda en una variable
 
-$producto = $mysql->efectuarConsulta("SELECT sol.inventario.idinventario, 
-sol.producto.nombre_producto, 
-sol.inventario.fecha_entrada, 
-sol.inventario.fecha_caducidad,
-sol.inventario.cantidad,
-sol.inventario.stock_minimo
-FROM sol.inventario 
-INNER JOIN sol.proveedor_has_producto 
-ON sol.proveedor_has_producto.producto_idproducto = sol.inventario.proveedor_has_producto_producto_idproducto 
-INNER JOIN sol.producto 
-ON sol.producto.idproducto = sol.proveedor_has_producto.producto_idproducto
-GROUP BY sol.inventario.idinventario");
+$producto = $mysql->efectuarConsulta("SELECT sol.clientes.nombre,sol.ventas.fecha_venta,
+sol.ventas.idventas
+FROM sol.inventario_has_ventas
+INNER JOIN sol.unidad_medida ON sol.inventario_has_ventas.unidad_medida_idunidad_medida = sol.unidad_medida.idunidad_medida
+INNER JOIN sol.inventario ON sol.inventario_has_ventas.inventario_idinventario = sol.inventario.idinventario
+INNER JOIN sol.ventas ON sol.inventario_has_ventas.ventas_idventas = sol.ventas.idventas
+INNER JOIN sol.clientes ON sol.ventas.clientes_idclientes = sol.clientes.idclientes
+INNER JOIN sol.proveedor_has_producto ON sol.inventario.proveedor_has_producto_producto_idproducto = sol.proveedor_has_producto.producto_idproducto
+INNER JOIN sol.producto ON sol.proveedor_has_producto.producto_idproducto = sol.producto.idproducto
+WHERE sol.ventas.estado_venta_idestado_venta=2 GROUP BY sol.ventas.idventas");
 
 while ($Productos = mysqli_fetch_array($producto)) {
-    $comparacion = calcularDiferencia($fechaActual, $Productos['fecha_caducidad']);
+    $comparacion = calcularDiferencia($fechaActual, $Productos['fecha_venta']);
     
-    if ($comparacion['meses'] < 0) {
+    if ($comparacion['dias'] <= -15) {
         ?> 
         
         <div class="input-group p-2">
-            <span class="input-group-text col" id="basic-addon1"><?php echo $Productos['nombre_producto'] ?>: </span>
-            <button class="btn btn-danger col">Caducado</button>  
-        </div>
-        
-        <?php
-    }
-
-    if ($comparacion['meses'] == 0 && $Productos['fecha_caducidad'] != '') {
-        ?> 
-        
-        <div class="input-group p-2">
-            <span class="input-group-text col" id="basic-addon1"><?php echo $Productos['nombre_producto'] ?>: </span>
-            <button class="btn btn-warning col">Caduca en <?php echo $comparacion['dias'] ?> Dias</button>  
-        </div>
-        
-        <?php
-    }
-
-    if ($Productos['cantidad'] <= $Productos['stock_minimo'] && $Productos['stock_minimo'] != '') {
-        ?> 
-        
-        <div class="input-group p-2">
-            <span class="input-group-text col" id="basic-addon1"><?php echo $Productos['nombre_producto'] ?>: </span>
-            <button class="btn btn-secondary col">Poca Existencia (<?php echo $Productos['cantidad'] ?>)</button>
+            <span class="input-group-text col" id="basic-addon1"><?php echo $Productos['nombre'] ?>: </span>
+            <button class="btn btn-danger col">plaso excedido por: <?php echo $comparacion['dias'] * -1 - 15 ?> dias</button>  
         </div>
         
         <?php

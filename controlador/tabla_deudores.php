@@ -28,17 +28,19 @@
 
     //realiza la consulta MySQL deseada, y la guarda en una variable
 
-    $deudores = $mysql->efectuarConsulta("SELECT sol.clientes.nombre, sol.clientes.idclientes, sol.producto.nombre_producto,
+    $deudores = $mysql->efectuarConsulta("SELECT sol.clientes.nombre,sol.clientes.telefono,sol.clientes.direccion,sol.clientes.correo,sol.clientes.documento,sol.clientes.idclientes, sol.producto.nombre_producto,
 	sol.inventario.precio_publico, sol.inventario_has_ventas.cantidad_vendida, sol.producto.nombre_producto, sol.ventas.fecha_venta,
     sol.inventario_has_ventas.unidad_medida_idunidad_medida,
     sol.inventario.precio_bulto,
     sol.unidad_medida.nombre AS nombre_unidad,
-    sol.ventas.idventas
+    sol.ventas.idventas,
+    sol.vendedores.nombre AS vendedor
     FROM sol.inventario_has_ventas
     INNER JOIN sol.unidad_medida ON sol.inventario_has_ventas.unidad_medida_idunidad_medida = sol.unidad_medida.idunidad_medida
     INNER JOIN sol.inventario ON sol.inventario_has_ventas.inventario_idinventario = sol.inventario.idinventario
     INNER JOIN sol.ventas ON sol.inventario_has_ventas.ventas_idventas = sol.ventas.idventas
     INNER JOIN sol.clientes ON sol.ventas.clientes_idclientes = sol.clientes.idclientes
+    INNER JOIN sol.vendedores ON sol.ventas.vendedores_idvendedores = sol.vendedores.idvendedores
     INNER JOIN sol.proveedor_has_producto ON sol.inventario.proveedor_has_producto_producto_idproducto = sol.proveedor_has_producto.producto_idproducto
     INNER JOIN sol.producto ON sol.proveedor_has_producto.producto_idproducto = sol.producto.idproducto
     WHERE sol.ventas.estado_venta_idestado_venta=2 GROUP BY sol.ventas.idventas");
@@ -71,6 +73,7 @@ while ($deud = mysqli_fetch_array($deudores)) {
                                 <th>Cantidad</th>
                                 <th>Unidad de medida</th>
                                 <th>Precio</th>
+                                <th>Vendedor</th>
                                 
                             </tr>
                         </thead>
@@ -80,12 +83,14 @@ while ($deud = mysqli_fetch_array($deudores)) {
                                 $compra = $mysql->efectuarConsulta("SELECT sol.clientes.idclientes, sol.producto.nombre_producto,
                                 sol.inventario.precio_publico, sol.inventario_has_ventas.cantidad_vendida, sol.ventas.fecha_venta,
                                 sol.inventario_has_ventas.unidad_medida_idunidad_medida,
-                                sol.unidad_medida.nombre AS nombre_unidad,sol.inventario.precio_bulto
+                                sol.unidad_medida.nombre AS nombre_unidad,sol.inventario.precio_bulto,
+                                sol.vendedores.nombre AS vendedor
                                 FROM sol.inventario_has_ventas
                                 INNER JOIN sol.unidad_medida ON sol.inventario_has_ventas.unidad_medida_idunidad_medida = sol.unidad_medida.idunidad_medida
                                 INNER JOIN sol.inventario ON sol.inventario_has_ventas.inventario_idinventario = sol.inventario.idinventario
                                 INNER JOIN sol.ventas ON sol.inventario_has_ventas.ventas_idventas = sol.ventas.idventas
                                 INNER JOIN sol.clientes ON sol.ventas.clientes_idclientes = sol.clientes.idclientes
+                                INNER JOIN sol.vendedores ON sol.ventas.vendedores_idvendedores = sol.vendedores.idvendedores
                                 INNER JOIN sol.proveedor_has_producto ON sol.inventario.proveedor_has_producto_producto_idproducto = sol.proveedor_has_producto.producto_idproducto
                                 INNER JOIN sol.producto ON sol.proveedor_has_producto.producto_idproducto = sol.producto.idproducto
                                 WHERE sol.ventas.estado_venta_idestado_venta=2 AND sol.ventas.idventas= '".$deud['idventas']."' 
@@ -102,6 +107,7 @@ while ($deud = mysqli_fetch_array($deudores)) {
                                     <?php } if ($comp['unidad_medida_idunidad_medida'] == 2) { ?>
                                         <td><?php echo $comp['precio_bulto'] ?></td>
                                     <?php } ?>
+                                    <td><?php echo $comp['vendedor'] ?></td>
                                     
 
                                 </tr>
@@ -136,7 +142,7 @@ while ($deud = mysqli_fetch_array($deudores)) {
                             while ($abon = mysqli_fetch_array($total)) { ?>
                             <td><?php echo $abon['abonado'] ?></td>
                             <?php } ?>
-                            
+                            <td></td>
                             
 
 
@@ -176,7 +182,7 @@ while ($deud = mysqli_fetch_array($deudores)) {
                                 } 
                             ?>
 
-
+                            <button type="button" onclick="info_cliente('<?php echo $deud['nombre'] ?>','<?php echo $deud['telefono'] ?>','<?php echo $deud['direccion'] ?>','<?php echo $deud['correo'] ?>','<?php echo $deud['documento'] ?>')" class="btn btn-primary">Información</button>
 
                             <?php } 
                                
