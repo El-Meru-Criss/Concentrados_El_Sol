@@ -10,14 +10,13 @@
     sol.producto.nombre_producto,
     sol.producto.peso 
     FROM sol.producto
-    WHERE sol.producto.Estado_Producto IS NULL 
-    OR sol.producto.Estado_Producto = 1");
+    WHERE sol.producto.Estado_Producto = 0");
 ?>
 
 <div class="m-2 align-content-center align-items-center justify-content-center text-center">
         
     <button onclick="tabla_inventario()" type="button" class="btn btn-warning"><i class="fa-solid fa-boxes-stacked"></i> Inventario</button>
-    <button onclick="mostrar_productos_deshabilitados()" type="button" class="btn btn-secondary"><i class="fa-solid fa-box-archive"></i> Deshabilitados</button>
+    <button onclick="mostrar_productos()" type="button" class="btn btn-success"><i class="fa-solid fa-box-archive"></i> Habilitados</button>
 </div>
 
 <div class="row row-cols-2 row-cols-md-3 g-4">
@@ -71,7 +70,7 @@
               </div>
               <div class="card-footer">
                 <div class="input-group p-2">
-                  <button onclick="eliminar_producto(<?php echo $pro['idproducto'] ?>,<?php echo $num_proveedores ?>)" type="button" class="btn btn-outline-secondary col"><i class="fa-solid fa-trash"></i> Deshabilitar</button>
+                  <button onclick="habilitar_producto(<?php echo $pro['idproducto'] ?>,<?php echo $num_proveedores ?>)" type="button" class="btn btn-outline-success col"><i class="fa-solid fa-trash"></i> Habilitar</button>
                 </div>
               </div>
             </div>

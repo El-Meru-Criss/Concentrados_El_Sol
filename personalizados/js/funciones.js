@@ -715,6 +715,19 @@ function Botones_Inventario() {
     
   }
 
+  function mostrar_productos_deshabilitados() {
+
+    $.ajax({
+      type: "POST",
+      url: "controlador/mostrar_productos_deshabilitados.php",
+      success:function(d) {
+          
+          $("#Contenido_inventario").html(d);
+      }
+    })
+    
+  }
+
   function Cambiar_nombre_producto(input,id_producto) {
     
     if (input.value.trim() == "") {
@@ -770,13 +783,13 @@ function Botones_Inventario() {
     } else {
 
       Swal.fire({
-        title: '¿Eliminar este producto?',
-        text: "no podrán revocar esta accion",
+        title: '¿Deshabilitar este producto?',
+        text: "El producto no se mostrara en el inventario. Podras revocar esta accion despues",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: 'success',
-        confirmButtonText: 'eliminar'
+        confirmButtonColor: '#5C636A',
+        cancelButtonColor: '#6459DD',
+        confirmButtonText: 'Deshabilitar'
       }).then((result) => {
         if (result.isConfirmed) {
   
@@ -790,11 +803,52 @@ function Botones_Inventario() {
             data:datos,
             success:function(d) {
               Swal.fire(
-                'Eliminado!',
-                'Has eliminado con éxito este producto.',
+                'Deshabilitado!',
+                'Has deshabilitado con éxito este producto.',
                 'success'
               );
               mostrar_productos();
+            }
+          })  
+        }
+      })
+
+    }
+    
+  }
+
+  function habilitar_producto(id_producto,validacion) {
+
+    if (validacion > 0) {
+      alert("Debes de quitar todos los proveedores relacionados con este producto antes de eliminarlo!");
+    } else {
+
+      Swal.fire({
+        title: 'Habilitar este producto?',
+        text: "podrás revocar esta accion despues!",
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonColor: 'success',
+        confirmButtonColor: '#157347',
+        confirmButtonText: 'habilitar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+  
+          var datos = { //capturo los datos
+            "id_producto":id_producto
+          };
+      
+          $.ajax({
+            type: "POST",
+            url: "controlador/habilitar_producto.php",
+            data:datos,
+            success:function(d) {
+              Swal.fire(
+                'Habilitado!',
+                'Has habilitado con éxito este producto.',
+                'success'
+              );
+              mostrar_productos_deshabilitados();
             }
           })  
         }

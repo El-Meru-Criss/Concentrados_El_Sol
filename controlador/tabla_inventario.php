@@ -29,6 +29,8 @@
     FROM sol.inventario 
     INNER JOIN sol.proveedor_has_producto ON sol.proveedor_has_producto.producto_idproducto = sol.inventario.proveedor_has_producto_producto_idproducto
     INNER JOIN sol.producto ON sol.proveedor_has_producto.producto_idproducto = sol.producto.idproducto
+    WHERE sol.producto.Estado_Producto IS NULL 
+    OR sol.producto.Estado_Producto = 1
     GROUP BY sol.inventario.idinventario");
 ?>
 
