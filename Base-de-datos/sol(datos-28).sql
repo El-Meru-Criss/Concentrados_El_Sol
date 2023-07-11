@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 24-06-2023 a las 01:45:17
+-- Tiempo de generación: 11-07-2023 a las 01:52:00
 -- Versión del servidor: 10.4.16-MariaDB
 -- Versión de PHP: 7.4.12
 
@@ -50,7 +50,7 @@ CREATE TABLE `clientes` (
   `telefono` varchar(45) DEFAULT NULL,
   `direccion` varchar(100) DEFAULT NULL,
   `correo` varchar(100) DEFAULT NULL,
-  `documento` varchar(45) DEFAULT NULL
+  `documento` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -60,7 +60,7 @@ CREATE TABLE `clientes` (
 INSERT INTO `clientes` (`idclientes`, `nombre`, `telefono`, `direccion`, `correo`, `documento`) VALUES
 (7, 'Casual', '', '', '', ''),
 (8, 'Jaider', '3102536985', 'carrera 2# 4-56', 'lacra@gmail.com', ''),
-(9, 'ARTUR', '3152536985', 'carrera 2# 4-8', 'ARTUR@gmail.com', ''),
+(9, 'ARTUR', '3152536985', 'carrera 2# 4-8', 'ARTUR@gmail.com', '10007'),
 (10, 'Monica', '3132536980', 'calle 2# 4-8', 'mon@gmail.com', '');
 
 -- --------------------------------------------------------
@@ -144,6 +144,19 @@ INSERT INTO `estado_venta` (`idestado_venta`, `nombre_estado`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `historial_abonos`
+--
+
+CREATE TABLE `historial_abonos` (
+  `idhistorial_abonos` int(11) NOT NULL,
+  `cartera_idcartera` int(11) NOT NULL,
+  `cantidad_abonada` float NOT NULL,
+  `fecha_abono` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `inventario`
 --
 
@@ -187,6 +200,15 @@ CREATE TABLE `pedidos_proveedor` (
   `estado_pedido` binary(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `pedidos_proveedor`
+--
+
+INSERT INTO `pedidos_proveedor` (`idpedidos_proveedor`, `fecha_pedido`, `cantidad_total`, `estado_pedido`) VALUES
+(30, '2023-06-23 18:57:30', 780000, 0x31),
+(31, '2023-07-08 14:29:03', 8000, 0x31),
+(32, '2023-07-08 14:36:03', 200000, 0x31);
+
 -- --------------------------------------------------------
 
 --
@@ -196,28 +218,18 @@ CREATE TABLE `pedidos_proveedor` (
 CREATE TABLE `producto` (
   `idproducto` int(11) NOT NULL,
   `nombre_producto` varchar(45) NOT NULL,
-  `peso` float NOT NULL
+  `peso` float NOT NULL,
+  `Estado_Producto` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `producto` (`idproducto`, `nombre_producto`, `peso`) VALUES
-(10, 'Broiler', 40),
-(11, 'Ponedora', 40),
-(12, 'Pajarina', 10),
-(13, 'P.I', 40),
-(14, 'Gestacion', 40),
-(18, 'Salvado', 40),
-(20, 'Gato', 8),
-(21, 'Filpo', 30),
-(22, 'Ringo', 30),
-(24, 'Quida.Cat', 8),
-(25, 'Lactancia', 30),
-(26, 'S.E', 110000),
-(27, 'C.L', 40),
-(31, 'Abejina', 5);
+INSERT INTO `producto` (`idproducto`, `nombre_producto`, `peso`, `Estado_Producto`) VALUES
+(12, 'Pajarina', 10, 0),
+(18, 'Salvado', 40, 1),
+(32, 'COLLAR', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -238,7 +250,7 @@ CREATE TABLE `proveedor` (
 
 INSERT INTO `proveedor` (`idproveedor`, `nombre`, `telefono`, `cuenta_bancaria`) VALUES
 (8, 'Contegral', '', ''),
-(9, 'DistriAvez', '', '');
+(9, 'DistriAvez', '314', '1006784001');
 
 -- --------------------------------------------------------
 
@@ -249,36 +261,18 @@ INSERT INTO `proveedor` (`idproveedor`, `nombre`, `telefono`, `cuenta_bancaria`)
 CREATE TABLE `proveedor_has_producto` (
   `proveedor_idproveedor` int(11) NOT NULL,
   `producto_idproducto` int(11) NOT NULL,
-  `precio` float NOT NULL
+  `precio` float NOT NULL,
+  `estado` binary(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `proveedor_has_producto`
 --
 
-INSERT INTO `proveedor_has_producto` (`proveedor_idproveedor`, `producto_idproducto`, `precio`) VALUES
-(8, 10, 130000),
-(8, 11, 110000),
-(8, 12, 20000),
-(8, 13, 120000),
-(8, 14, 130000),
-(8, 20, 120000),
-(8, 21, 100000),
-(8, 22, 120000),
-(8, 24, 70000),
-(8, 25, 110000),
-(8, 26, 110000),
-(8, 27, 100000),
-(8, 31, 90000),
-(9, 10, 0),
-(9, 11, 100000),
-(9, 12, 70000),
-(9, 13, 0),
-(9, 14, 80000),
-(9, 18, 90000),
-(9, 20, 40000),
-(9, 21, 40000),
-(9, 27, 100000);
+INSERT INTO `proveedor_has_producto` (`proveedor_idproveedor`, `producto_idproducto`, `precio`, `estado`) VALUES
+(8, 32, 2000, NULL),
+(9, 12, 70000, NULL),
+(9, 18, 90000, NULL);
 
 -- --------------------------------------------------------
 
@@ -321,17 +315,20 @@ INSERT INTO `unidad_medida` (`idunidad_medida`, `nombre`) VALUES
 
 CREATE TABLE `vendedores` (
   `idvendedores` int(11) NOT NULL,
-  `nombre` varchar(45) NOT NULL
+  `nombre` varchar(45) NOT NULL,
+  `CC` varchar(100) NOT NULL,
+  `contraseña` varchar(250) NOT NULL,
+  `rol` binary(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `vendedores`
 --
 
-INSERT INTO `vendedores` (`idvendedores`, `nombre`) VALUES
-(23, 'steven'),
-(24, 'Brayan'),
-(25, 'cris');
+INSERT INTO `vendedores` (`idvendedores`, `nombre`, `CC`, `contraseña`, `rol`) VALUES
+(23, 'steven', '1004', 'steven', 0x30),
+(24, 'Brayan', '1006', 'mosquera', NULL),
+(25, 'cris', '1006287604', '12345', 0x31);
 
 -- --------------------------------------------------------
 
@@ -391,6 +388,13 @@ ALTER TABLE `estado_producto`
 --
 ALTER TABLE `estado_venta`
   ADD PRIMARY KEY (`idestado_venta`);
+
+--
+-- Indices de la tabla `historial_abonos`
+--
+ALTER TABLE `historial_abonos`
+  ADD PRIMARY KEY (`idhistorial_abonos`),
+  ADD KEY `fk_historial_abonos_cartera1_idx` (`cartera_idcartera`);
 
 --
 -- Indices de la tabla `inventario`
@@ -475,7 +479,7 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT de la tabla `cartera`
 --
 ALTER TABLE `cartera`
-  MODIFY `idcartera` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idcartera` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
@@ -511,19 +515,19 @@ ALTER TABLE `estado_venta`
 -- AUTO_INCREMENT de la tabla `inventario`
 --
 ALTER TABLE `inventario`
-  MODIFY `idinventario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `idinventario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos_proveedor`
 --
 ALTER TABLE `pedidos_proveedor`
-  MODIFY `idpedidos_proveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `idpedidos_proveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `idproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
@@ -547,7 +551,7 @@ ALTER TABLE `vendedores`
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `idventas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `idventas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- Restricciones para tablas volcadas
@@ -560,6 +564,12 @@ ALTER TABLE `cartera`
   ADD CONSTRAINT `fk_cartera_clientes` FOREIGN KEY (`clientes_idclientes`) REFERENCES `clientes` (`idclientes`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_cartera_estado_cartera1` FOREIGN KEY (`estado_cartera_idestado_cartera`) REFERENCES `estado_cartera` (`idestado_cartera`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_cartera_ventas1` FOREIGN KEY (`ventas_idventas`) REFERENCES `ventas` (`idventas`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `historial_abonos`
+--
+ALTER TABLE `historial_abonos`
+  ADD CONSTRAINT `fk_historial_abonos_cartera1` FOREIGN KEY (`cartera_idcartera`) REFERENCES `cartera` (`idcartera`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `inventario`
