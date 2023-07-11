@@ -11,6 +11,10 @@
     sol.inventario_has_ventas.inventario_idinventario,
     sol.estado_domicilio.nombre_estado,
     sol.clientes.nombre,
+    sol.clientes.telefono,
+    sol.clientes.direccion,
+    sol.clientes.correo,
+    sol.clientes.documento,
     sol.inventario_has_ventas.cantidad_vendida,
     sol.inventario.precio_publico,
     sol.ventas.fecha_venta,
@@ -41,7 +45,7 @@ while ($deud = mysqli_fetch_array($deudores)) { ?>
     <div class="accordion-item">
               <h2 class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo $deud['ventas_idventas'] ?>" aria-expanded="false" aria-controls="collapseOne">
-                  <?php echo $deud['nombre'] ?> - (<?php echo $deud['fecha_venta'] ?>)
+                <?php echo $deud['documento'] ?> - <?php echo $deud['nombre'] ?> - (<?php echo $deud['fecha_venta'] ?>)
               </h2>
               <div id="collapse<?php echo $deud['ventas_idventas'] ?>" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="table-responsive">
@@ -130,6 +134,8 @@ while ($deud = mysqli_fetch_array($deudores)) { ?>
                         </tr>
                         <tr>
                             <button class="btn btn-danger" onclick="eliminarenvio(<?php echo $deud['ventas_idventas'] ?>)">Todo enviado</button>
+                            <button type="button" onclick="info_cliente('<?php echo $deud['nombre'] ?>','<?php echo $deud['telefono'] ?>','<?php echo $deud['direccion'] ?>','<?php echo $deud['correo'] ?>','<?php echo $deud['documento'] ?>')" class="btn btn-primary">Información</button>
+
                         </tr>
                         </tfoot>
                     </table>                

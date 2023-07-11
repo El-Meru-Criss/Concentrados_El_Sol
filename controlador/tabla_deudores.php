@@ -61,7 +61,7 @@ while ($deud = mysqli_fetch_array($deudores)) {
                 <button class="accordion-button collapsed <?php if ($comparacion['dias'] <= -15) {
         ?> text-white bg-danger <?php
     }; ?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo $deud['idventas'] ?>" aria-expanded="false" aria-controls="collapseOne">
-                  <?php echo $deud['nombre'] ?> - (<?php echo $deud['fecha_venta'] ?>)
+                 <?php echo $deud['documento'] ?> - <?php echo $deud['nombre'] ?> - (<?php echo $deud['fecha_venta'] ?>)
                 </button>
               </h2>
               <div id="collapse<?php echo $deud['idventas'] ?>" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -142,7 +142,10 @@ while ($deud = mysqli_fetch_array($deudores)) {
                             while ($abon = mysqli_fetch_array($total)) { ?>
                             <td><?php echo $abon['abonado'] ?></td>
                             <?php } ?>
-                            <td></td>
+
+                            <td>
+                                <button type="button" class="btn btn-light" onclick="historial_abono(<?php echo $deud['idventas'] ?>)">Historial</button>
+                            </td>
                             
 
 

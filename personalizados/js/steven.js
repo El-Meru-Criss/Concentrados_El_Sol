@@ -269,4 +269,25 @@ function info_cliente(Nombre,telefono,direccion,correo,documento) {
     cancelButtonText: 'Cerrar'
   })
 }
+
+function historial_abono(idventas) {
+
+  var datos = {
+    "idventas":idventas
+  }
+  $.ajax({
+    type: "POST",
+    url: "controlador/historial_abono.php",
+    data:datos,
+    success:function(d) {
+        
+      Swal.fire({
+        html: d,
+        icon: 'warning'
+      })
+    }
+  })
+  
+}
+
 // Fin funciones Steven

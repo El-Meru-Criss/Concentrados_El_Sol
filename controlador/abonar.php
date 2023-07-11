@@ -30,8 +30,28 @@ if ($total_abono>=$total_deuda) {
         SET sol.cartera.cantidad_abonada = '".$total_abono."'
         WHERE sol.cartera.ventas_idventas = '".$idventas."' "); 
 }
-   
-   
+$abonos = $mysql->efectuarConsulta("SELECT sol.cartera.idcartera    
+    FROM sol.cartera
+    WHERE sol.cartera.ventas_idventas = '".$idventas."' ");
+
+while ($abo = mysqli_fetch_array($abonos)) { 
+
+    if ($total_abono>=$total_deuda) {
+        $excedente = $total_deuda - $cantidad;
+        $mysql->efectuarConsulta("INSERT INTO sol.historial_abonos 
+        VALUES (NULL,
+        '".$abo['idcartera'] ."',
+        '".$excedente."',
+        NOW())");
+    } else {
+        $mysql->efectuarConsulta("INSERT INTO sol.historial_abonos 
+        VALUES (NULL,
+        '".$abo['idcartera'] ."',
+        '".$abono."',
+        NOW())");
+    }
+     
+}  
     //desconecta la base de datos
 
     $mysql->desconectar();
