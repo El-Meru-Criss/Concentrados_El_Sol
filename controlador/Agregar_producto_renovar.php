@@ -16,7 +16,8 @@
     FROM sol.proveedor_has_producto 
     INNER JOIN sol.producto 
     ON sol.producto.idproducto = sol.proveedor_has_producto.producto_idproducto 
-    WHERE sol.proveedor_has_producto.proveedor_idproveedor = ".$provedores_renovar."");
+    WHERE sol.proveedor_has_producto.proveedor_idproveedor = ".$provedores_renovar."
+    AND sol.proveedor_has_producto.estado = 1");
 ?>
 
 <div class="input-group">

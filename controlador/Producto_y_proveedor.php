@@ -14,7 +14,14 @@
     $mysql->efectuarConsulta("INSERT INTO sol.proveedor_has_producto 
     VALUES ('".$proveedores_crear_producto."',
     '".$seleccionar_producto."',
-    '".$producto_precio."')");
+    '".$producto_precio."',
+    1)");
+
+    $mysql->efectuarConsulta("UPDATE sol.proveedor_has_producto 
+    SET sol.proveedor_has_producto.estado=1,
+    sol.proveedor_has_producto.precio='".$producto_precio."'
+    WHERE sol.proveedor_has_producto.proveedor_idproveedor = '".$proveedores_crear_producto."' 
+    AND sol.proveedor_has_producto.producto_idproducto = '".$seleccionar_producto."'");
 
 
 

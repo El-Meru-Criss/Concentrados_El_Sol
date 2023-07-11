@@ -49,7 +49,8 @@
                     FROM sol.proveedor_has_producto 
                     INNER JOIN sol.proveedor 
                     ON sol.proveedor.idproveedor = sol.proveedor_has_producto.proveedor_idproveedor
-                    WHERE sol.proveedor_has_producto.producto_idproducto = '".$pro['idproducto']."'");
+                    WHERE sol.proveedor_has_producto.producto_idproducto = '".$pro['idproducto']."'
+                    AND (sol.proveedor_has_producto.estado = 1 OR sol.proveedor_has_producto.estado IS NULL)");
 
                     $num_proveedores = 0;
 

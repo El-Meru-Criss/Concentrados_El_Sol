@@ -12,7 +12,7 @@
 
     $mysql->efectuarConsulta("INSERT INTO sol.producto 
     VALUES (NULL,
-    '".$producto_nombre."','".$peso_producto."')");
+    '".$producto_nombre."','".$peso_producto."',1)");
 
     //desconecta la base de datos
 

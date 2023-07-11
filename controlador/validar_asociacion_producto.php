@@ -14,7 +14,8 @@
     sol.proveedor_has_producto.producto_idproducto 
     FROM sol.proveedor_has_producto 
     WHERE sol.proveedor_has_producto.proveedor_idproveedor = '".$proveedores_crear_producto."' 
-    AND sol.proveedor_has_producto.producto_idproducto = '".$seleccionar_producto."'");
+    AND sol.proveedor_has_producto.producto_idproducto = '".$seleccionar_producto."'
+    AND sol.proveedor_has_producto.estado = 1");
 
     if (mysqli_num_rows($existencia) > 0) { //el producto existe
         echo "existe";

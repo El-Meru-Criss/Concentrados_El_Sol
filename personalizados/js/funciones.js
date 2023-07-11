@@ -861,7 +861,7 @@ function Botones_Inventario() {
   function desasociar_proveedor(id_producto,id_proveedor) {
     Swal.fire({
       title: '¿Quitar este proveedor?',
-      text: "No podras reailizar esta accion si ya has realizado pedidos de este producto con este proveedor. Puedes volverlo a asociar si te arrepientes!",
+      html: 'Puedes volverlo a asociar en <button type="button" class="btn btn-warning"><i class="fa-solid fa-circle-plus"></i> Productos</button> si te arrepientes!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
