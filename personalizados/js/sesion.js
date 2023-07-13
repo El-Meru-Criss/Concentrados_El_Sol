@@ -68,7 +68,7 @@ function sesion() {
             }).then((result) => {
               /* Read more about handling dismissals below */
               if (result.dismiss === Swal.DismissReason.timer) {
-                window.location.href = './inventario.html';
+                window.location.href = './ventas.html';
               }
             })
             
