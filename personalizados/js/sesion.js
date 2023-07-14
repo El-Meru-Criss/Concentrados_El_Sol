@@ -59,15 +59,27 @@ function sesion() {
   
           if (d == "Si") {
 
+            let timerInterval
             Swal.fire({
               icon: 'success',
               title: 'Identificado!',
-              text: 'Se permitira el ingreso en breves!',
-              showConfirmButton: false,
-              timer: 1500
+              html: 'Se permitira el ingreso en <b></b> Milisegundos! No haga click fuera del cuadro de dialogo.',
+              timer: 1500,
+              timerProgressBar: true,
+              didOpen: () => {
+                Swal.showLoading()
+                const b = Swal.getHtmlContainer().querySelector('b')
+                timerInterval = setInterval(() => {
+                  b.textContent = Swal.getTimerLeft()
+                }, 100)
+              },
+              willClose: () => {
+                clearInterval(timerInterval)
+              }
             }).then((result) => {
               /* Read more about handling dismissals below */
               if (result.dismiss === Swal.DismissReason.timer) {
+                console.log('I was closed by the timer');
                 window.location.href = './ventas.html';
               }
             })
