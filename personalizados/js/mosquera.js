@@ -1,5 +1,17 @@
 var contador=0;//variable de apoyo para determinar la identidad de cada producto
 
+function Botones_Ventas() {
+  
+  $.ajax({
+    type: "POST",
+    url: "controlador/Botones_ventas.php",
+    success:function(d) {
+        $("#Botones_Ventas").html(d);
+    }
+  })
+
+}
+
   function agregar_Productos_def() { //funcion del criss -----------------------------------
     //Lo mismo de arriba, pero mas simplificado
     contador += 1;
@@ -97,9 +109,13 @@ var contador=0;//variable de apoyo para determinar la identidad de cada producto
 
 function AgregarVendedor() {
   if(document.getElementById("vendedor_nombre").value == ""){alert("por favor ingrese un nombre");document.getElementById("vendedor_nombre").focus();return false;}
+  if(document.getElementById("vendedor_documento").value == ""){alert("por favor ingrese el numero de documeto");document.getElementById("vendedor_documento").focus();return false;}
+  if(document.getElementById("vendedor_contraseña").value == ""){alert("por favor ingrese una contraseña");document.getElementById("vendedor_contraseña").focus();return false;}
   else{
   var datos = {
-    "vendedor_nombre":$("#vendedor_nombre").val()
+    "vendedor_nombre":$("#vendedor_nombre").val(),
+    "vendedor_documento":$("#vendedor_documento").val(),
+    "vendedor_contraseña":$("#vendedor_contraseña").val()
   }
 
   $.ajax({
@@ -336,6 +352,7 @@ function eliminar_vendedor(idvendedores) {
 
   function AgregarCliente() {
     if(document.getElementById("cliente_nombre").value == ""){alert("por favor ingrese un nombre");document.getElementById("cliente_nombre").focus();return false;}
+    if(document.getElementById("documento").value == ""){parseFloat(alert("por favor escriba el numero de documento del vendedor"));document.getElementById("cliente_nombre").focus();return false;}
     else{
     var datos = {
       "cliente_nombre":$("#cliente_nombre").val(),

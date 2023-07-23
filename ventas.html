@@ -17,7 +17,7 @@
   <link rel="icon" type="image/x-icon" href="./logo1_t.png">
 </head>
 
-<body onload="sesion(); seleccionar_vendedor(); seleccionar_cliente(); seleccionar_venta();">
+<body onload="sesion(); seleccionar_vendedor(); seleccionar_cliente(); seleccionar_venta(); Botones_Ventas();">
 
   <style>
     html {
@@ -149,7 +149,13 @@
         <div class="modal-body">
           <p>nombre</p>
           <input type="text" class="form-control" id="vendedor_nombre" placeholder="Nombre del nuevo vendedor"
-            aria-describedby="basic-addon3 basic-addon4">
+          aria-describedby="basic-addon3 basic-addon4"> <br>
+          <p>documeto</p>
+          <input type="text" class="form-control" id="vendedor_documento" placeholder="Nombre del nuevo vendedor"
+          aria-describedby="basic-addon3 basic-addon4"> <br>
+          <p>contraseña</p>
+          <input type="password" class="form-control" id="vendedor_contraseña" placeholder="Nombre del nuevo vendedor"
+          aria-describedby="basic-addon3 basic-addon4">
         </div>
         <form>
           <div
@@ -251,7 +257,7 @@
           <p class="lh-1">numero de documento</p>
           <div>
             <input type="number" class="form-control" id="documento"
-              placeholder="numero de documento del cliente (opcional)" aria-describedby="basic-addon3 basic-addon4">
+              placeholder="numero de documento del cliente" aria-describedby="basic-addon3 basic-addon4">
           </div>
         </div>
         <form>
@@ -285,7 +291,7 @@
 
   <div class="tablas">
     <!-- Botones -->
-    <div class="botones_criss align-content-center align-items-center justify-content-center text-center">
+    <div id="Botones_Ventas" class="botones_criss align-content-center align-items-center justify-content-center text-center">
       <div class="btn-group btn-group-lg" role="group" aria-label="Basic mixed styles example">
         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
             class="fa-solid fa-book"></i> <a href="historial_ventas.html"
