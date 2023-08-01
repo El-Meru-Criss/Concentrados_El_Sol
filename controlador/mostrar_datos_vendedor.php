@@ -10,7 +10,9 @@
 
     $nombre = $mysql->efectuarConsulta("SELECT 
     sol.vendedores.idvendedores, 
-    sol.vendedores.nombre 
+    sol.vendedores.nombre,
+    sol.vendedores.CC,
+    sol.vendedores.contraseña
     FROM sol.vendedores
     WHERE sol.vendedores.idvendedores = '".$idvendedores."'");
 ?>
@@ -21,6 +23,19 @@
 while ($nom = mysqli_fetch_array($nombre)) { ?>
 <input type="text" class="form-control" id="vendedor_nombre_edi" placeholder="Nombre del nuevo vendedor"
  aria-describedby="basic-addon3 basic-addon4" value="<?php echo$nom["nombre"]; ?>"><br>
+
+
+ <p>documento</p>
+
+<input type="text" class="form-control" id="vendedor_cc_edi" placeholder="Nombre del nuevo vendedor"
+ aria-describedby="basic-addon3 basic-addon4" value="<?php echo$nom["CC"]; ?>"><br>
+
+
+
+<p>contraseña</p>
+
+<input type="password" class="form-control" id="vendedor_contraseña_edi" placeholder="Nombre del nuevo vendedor"
+ aria-describedby="basic-addon3 basic-addon4" value="<?php echo$nom["contraseña"]; ?>"><br>
 
 <?php } //fin del ciclo
 

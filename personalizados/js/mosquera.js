@@ -128,7 +128,8 @@ function AgregarVendedor() {
         'Has creado con exito el nuevo vendedor.',
         'Success'
       );
-      
+      // Redirigir a la misma página desde cero
+      window.location.href = window.location.origin + window.location.pathname;
     }
     })
   }
@@ -201,6 +202,12 @@ function eliminar_vendedor(idvendedores) {
     if($("#vendedor_nombre_edi").val() == "")
     {alert("por favor ingrese un nombre");document.getElementById("vendedor_nombre_edi").focus();
     return false;}
+    if($("#vendedor_cc_edi").val() == "")
+    {alert("por favor ingrese un numero de documento");document.getElementById("vendedor_cc_edi").focus();
+    return false;}
+    if($("#vendedor_contraseña_edi").val() == "")
+    {alert("por favor ingrese una contraseña");document.getElementById("vendedor_contraseña_edi").focus();
+    return false;}
     else{
       Swal.fire({
         title: 'editar este vendedor?',
@@ -215,7 +222,9 @@ function eliminar_vendedor(idvendedores) {
     
           var datos = { //capturo los datos
             "idvendedores":idvendedores,
-            "vendedor_nombre":$("#vendedor_nombre_edi").val()
+            "vendedor_nombre":$("#vendedor_nombre_edi").val(),
+            "vendedor_cc":$("#vendedor_cc_edi").val(),
+            "vendedor_contraseña":$("#vendedor_contraseña_edi").val()
           };
       
           $.ajax({
@@ -228,10 +237,10 @@ function eliminar_vendedor(idvendedores) {
                 'Has editado con exito este vendedor.',
                 'success'
               );
-              mostrar_vendedores();
+              // Redirigir a la misma página desde cero
+              window.location.href = window.location.origin + window.location.pathname;
             }
           }) 
-          location.reload() 
         }
       })
     }
@@ -372,7 +381,8 @@ function eliminar_vendedor(idvendedores) {
           'Has creado con exito el nuevo cliente.',
           'success'
         );
-        
+        // Redirigir a la misma página desde cero
+        window.location.href = window.location.origin + window.location.pathname;
       }
       })
     }
@@ -445,6 +455,9 @@ function eliminar_vendedor(idvendedores) {
       if($("#cliente_nombre_edi").val() == "")
       {alert("por favor ingrese un nombre");document.getElementById("cliente_nombre_edi").focus();
       return false;}
+      if($("#documento_edi").val() == "")
+      {alert("por favor ingrese un de documento");document.getElementById("documento_edi").focus();
+      return false;}
       else{
         Swal.fire({
           title: 'Editar este cliente?',
@@ -476,10 +489,10 @@ function eliminar_vendedor(idvendedores) {
                   'Has editado con exito este cliente.',
                   'success'
                 );
-                mostrar_clientes();
+                // Redirigir a la misma página desde cero
+                window.location.href = window.location.origin + window.location.pathname;
               }
             }) 
-            location.reload() 
           }
         })
       }
@@ -571,9 +584,10 @@ function eliminar_vendedor(idvendedores) {
               'success',
               
             );
+            // Redirigir a la misma página desde cero
+            window.location.href = window.location.origin + window.location.pathname;
           }
         })
-        location.reload()
       }
     })
       
@@ -661,7 +675,8 @@ function Realizar_domicilio() {
               'Se ha realizado la venta con èxito!',
               'success'
             );
-            
+            // Redirigir a la misma página desde cero
+            window.location.href = window.location.origin + window.location.pathname;
           }
         })
       }

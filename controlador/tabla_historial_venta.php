@@ -11,6 +11,8 @@
     sol.inventario_has_ventas.unidad_medida_idunidad_medida,
     sol.inventario.precio_bulto,
     sol.unidad_medida.nombre AS nombre_unidad,
+    sol.vendedores.nombre as nombre_vendedores,
+    sol.clientes.documento,
     sol.ventas.idventas
     FROM sol.inventario_has_ventas
     INNER JOIN sol.unidad_medida ON sol.inventario_has_ventas.unidad_medida_idunidad_medida = sol.unidad_medida.idunidad_medida
@@ -19,6 +21,7 @@
     INNER JOIN sol.clientes ON sol.ventas.clientes_idclientes = sol.clientes.idclientes
     INNER JOIN sol.proveedor_has_producto ON sol.inventario.proveedor_has_producto_producto_idproducto = sol.proveedor_has_producto.producto_idproducto
     INNER JOIN sol.producto ON sol.proveedor_has_producto.producto_idproducto = sol.producto.idproducto
+    INNER JOIN sol.vendedores ON sol.ventas.vendedores_idvendedores = sol.vendedores.idvendedores
     GROUP BY sol.ventas.idventas");
 ?>
 
@@ -38,10 +41,12 @@ while ($deud = mysqli_fetch_array($deudores)) {?>
     <div class="accordion-item" id="searchResults">
               <h2 class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo $deud['idventas'] ?>" aria-expanded="false" aria-controls="collapseOne">
-                  <?php echo $deud['nombre'] ?> - <?php echo $deud['fecha_venta'] ?>
+                  <?php echo $deud['nombre'] ?> - <?php echo $deud['fecha_venta'] ?> - cc: <?php echo $deud['documento'] ?>
                 </button>
               </h2>
               <div id="collapse<?php echo $deud['idventas'] ?>" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+              <br>  
+              <h4>vendido por: <?php echo $deud['nombre_vendedores'] ?> </h4>
                 <div class="table-responsive">
                     <table class="tabla-deudores">
                         <thead>
@@ -92,17 +97,18 @@ while ($deud = mysqli_fetch_array($deudores)) {?>
                             <td>Total</td>
                             <?php
 
-                            $total = $mysql->efectuarConsulta("SELECT  sol.ventas.precio_total
+                            $total = $mysql->efectuarConsulta("SELECT  sol.ventas.precio_total, 
+                            sol.estado_venta.nombre_estado
                             FROM sol.ventas
+                            INNER JOIN sol.estado_venta ON sol.ventas.estado_venta_idestado_venta = sol.estado_venta.idestado_venta
                             WHERE sol.ventas.idventas= '".$deud['idventas']."'  GROUP BY sol.ventas.idventas");
 
 
                             while ($tot = mysqli_fetch_array($total)) { ?>
                             <td><?php echo $tot['precio_total'] ?></td>
+                            <td>tipo de venta</td>
+                            <td><?php echo $tot['nombre_estado'] ?></td>
                             <?php } ?>
-
-                            <td></td>
-                            <td></td>
                             <td></td>
 
                         </tr>
