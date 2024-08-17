@@ -7,12 +7,14 @@
 
     //toma los valores deseados
     $vendedor_nombre = $_POST['vendedor_nombre'];
+$vendedor_documento = $_POST['vendedor_documento'];
+$vendedor_contraseña = $_POST['vendedor_contraseña'];
 
     //realiza la consulta MySQL deseada, y la guarda en una variable
 
     $mysql->efectuarConsulta("INSERT INTO sol.vendedores 
     VALUES (NULL,
-    '".$vendedor_nombre."')");
+    '".$vendedor_nombre."', '".$vendedor_documento."', '".$vendedor_contraseña."', 0)");
 
     //desconecta la base de datos
 
